@@ -138,8 +138,8 @@ class _OrderItemState extends State<OrderItem> {
 
               // Menu kategori harga
               Visibility(
-                visible: !widget.orderProduct.isCustomProduct &&
-                    !widget.orderProduct.isProductPakage,
+                visible: !widget.orderProduct.isCustomProduct ||
+                    widget.orderProduct.isProductPakage,
                 maintainState: true,
                 maintainAnimation: true,
                 maintainSize: false,
