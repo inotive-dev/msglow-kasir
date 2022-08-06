@@ -46,15 +46,14 @@ class Product with _$Product {
       ),
     );
 
-    final _secondCategory = productPrices?.firstOrNull;
+    final _secondCategory = productPrices?.firstWhereOrNull(
+        (element) => element.statusCustomerId == customer?.statusCustomerId);
     _costCategories.add(
       CostCategory(
         id: 1,
         name: 'Status Pelanggan',
         code: 'status_pelanggan',
-        amount: _secondCategory?.statusCustomerId == customer?.id
-            ? _secondCategory?.price ?? standardPrice
-            : standardPrice,
+        amount: _secondCategory?.price ?? standardPrice,
       ),
     );
 

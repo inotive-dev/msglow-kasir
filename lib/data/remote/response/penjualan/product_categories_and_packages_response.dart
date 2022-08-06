@@ -154,6 +154,8 @@ class ProductPackage {
   final String updatedAt;
   final int rPackageProductCount;
   final List<ProductPackageItem> rPackageProduct;
+  final List<PackagePrice> packagePrices;
+  final List<PackagePriceQuantity> packagePriceQuantities;
 
   ProductPackage({
     this.id = 0,
@@ -164,6 +166,8 @@ class ProductPackage {
     this.updatedAt = "",
     this.rPackageProductCount = 0,
     this.rPackageProduct = const [],
+    this.packagePrices = const [],
+    this.packagePriceQuantities = const [],
   });
 
   factory ProductPackage.fromJson(Map<String, dynamic>? json) => ProductPackage(
@@ -177,6 +181,12 @@ class ProductPackage {
         rPackageProduct: asList(json, 'r_package_product')
             .map((e) => ProductPackageItem.fromJson(e))
             .toList(),
+        packagePrices: asList(json, 'package_prices')
+            .map((e) => PackagePrice.fromJson(e))
+            .toList(),
+        packagePriceQuantities: asList(json, 'package_price_quantities')
+            .map((e) => PackagePriceQuantity.fromJson(e))
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -188,6 +198,9 @@ class ProductPackage {
         'updated_at': updatedAt,
         'r_package_product_count': rPackageProductCount,
         'r_package_product': rPackageProduct.map((e) => e.toJson()),
+        'package_prices': packagePrices.map((e) => e.toJson()),
+        'package_price_quantities':
+            packagePriceQuantities.map((e) => e.toJson()),
       };
 }
 
@@ -233,5 +246,78 @@ class ProductPackageItem {
         'created_at': createdAt,
         'updated_at': updatedAt,
         'r_product': rProduct.toJson(),
+      };
+}
+
+class PackagePrice {
+  PackagePrice({
+    required this.id,
+    required this.packageId,
+    required this.statusCustomerId,
+    required this.price,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final int id;
+  final int packageId;
+  final int statusCustomerId;
+  final String price;
+  final String createdAt;
+  final String updatedAt;
+
+  factory PackagePrice.fromJson(Map<String, dynamic> json) => PackagePrice(
+        id: asInt(json, 'id'),
+        packageId: asInt(json, 'package_id'),
+        statusCustomerId: asInt(json, 'status_customer_id'),
+        price: asString(json, 'price'),
+        createdAt: asString(json, 'created_at'),
+        updatedAt: asString(json, 'updated_at'),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "package_id": packageId,
+        "status_customer_id": statusCustomerId,
+        "price": price,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+      };
+}
+
+class PackagePriceQuantity {
+  PackagePriceQuantity({
+    required this.id,
+    required this.packageId,
+    required this.quantity,
+    required this.price,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final int id;
+  final int packageId;
+  final String quantity;
+  final String price;
+  final String createdAt;
+  final String updatedAt;
+
+  factory PackagePriceQuantity.fromJson(Map<String, dynamic> json) =>
+      PackagePriceQuantity(
+        id: asInt(json, 'id'),
+        packageId: asInt(json, 'package_id'),
+        quantity: asString(json, 'quantity'),
+        price: asString(json, 'price'),
+        createdAt: asString(json, 'created_at'),
+        updatedAt: asString(json, 'updated_at'),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "package_id": packageId,
+        "quantity": quantity,
+        "price": price,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }

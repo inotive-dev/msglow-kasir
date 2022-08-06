@@ -116,8 +116,7 @@ class ApiService {
       'discount': params.discount,
       'order_products': _orderProducts
           .where((element) => !element.isProductPakage)
-          .map((e) =>
-      {
+          .map((e) => {
                 'product_id': e.product.id ?? 0,
                 'amount': e.quantity,
                 'cost_category': e.costCategory?.code ?? '1',
@@ -135,10 +134,10 @@ class ApiService {
           .toList(),
       'order_packages': _orderProducts
           .where((element) => element.isProductPakage)
-          .map((e) =>
-      {
+          .map((e) => {
                 "package_id": e.product.id,
-                "price": e.product.getStandardPriceInInt(),
+                "price":
+                    e.costCategory?.amount ?? e.product.getStandardPriceInInt(),
                 "quantity": e.quantity,
                 "note": e.note,
               })
