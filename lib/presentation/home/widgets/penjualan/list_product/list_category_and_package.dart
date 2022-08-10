@@ -100,11 +100,24 @@ class ListCategoryAndPackage extends GetView<ListProductSectionController> {
                 description: "",
                 name: package.name,
                 thumbnail: package.image,
-                productPriceQuantities: [
-                  ProductPrice(
-                      quantity: package.rPackageProductCount.toStringAsFixed(0),
-                      price: package.price.toStringAsFixed(0))
-                ],
+                // productPriceQuantities: [
+                //   ProductPrice(
+                //       quantity: package.rPackageProductCount.toStringAsFixed(0),
+                //       price: package.price.toStringAsFixed(0))
+                // ],
+                productPrices: package.packagePrices
+                    .map((e) => ProductPrice(
+                          quantity: "1",
+                          price: e.price,
+                          statusCustomerId: e.statusCustomerId,
+                        ))
+                    .toList(),
+                productPriceQuantities: package.packagePriceQuantities
+                    .map((e) => ProductPrice(
+                          quantity: e.quantity,
+                          price: e.price,
+                        ))
+                    .toList(),
                 id: package.id,
                 isProductPackage: true,
               );
