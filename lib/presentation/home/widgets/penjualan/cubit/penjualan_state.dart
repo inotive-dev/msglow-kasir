@@ -45,15 +45,17 @@ class PenjualanState with _$PenjualanState {
                   note: e.note,
                 ))
             .toList(),
-        orderPackages: orderItems
-            .map((e) => PrintOrderData(
-                  quantity: e.quantity,
-                  costPerItem: e.product.getStandardPriceInInt(),
-                  total: e.product.getStandardPriceInInt() * e.quantity,
-                  name: e.product.name ?? '-',
-                  note: e.note,
-                ))
-            .toList(),
+        orderPackages: [],
+        // fixing duplicate products
+        // orderItems
+        //     .map((e) => PrintOrderData(
+        //           quantity: e.quantity,
+        //           costPerItem: e.product.getStandardPriceInInt(),
+        //           total: e.product.getStandardPriceInInt() * e.quantity,
+        //           name: e.product.name ?? '-',
+        //           note: e.note,
+        //         ))
+        //     .toList(),
         subtotal: subTotal,
         discount: discount,
         total: total,
