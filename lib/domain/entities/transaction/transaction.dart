@@ -14,3 +14,11 @@ class Transaction with _$Transaction {
     required String? message,
   }) = _Transaction;
 }
+
+@freezed
+class ShippingStatusCategory with _$ShippingStatusCategory {
+  const factory ShippingStatusCategory({
+    required int id,
+    required String name,
+  }) = _ShippingStatusCategory;
+}

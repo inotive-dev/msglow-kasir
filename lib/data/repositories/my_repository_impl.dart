@@ -33,6 +33,7 @@ import '../../domain/usecases/refund_order_usecase.dart';
 import '../../domain/usecases/send_closing_mail_usecase.dart';
 import '../../domain/usecases/submit_order_usecase.dart';
 import '../../domain/usecases/update_order_print_status_usecase.dart';
+import '../../domain/usecases/update_pre_order_status_usecase.dart';
 import '../../domain/usecases/update_profile_usecase.dart';
 import '../local/local_data_source.dart';
 import '../remote/remote_data_source.dart';
@@ -69,17 +70,13 @@ class MyRepositoryImpl implements MyRepository {
       );
     }
 
-    await Future.wait([
-      _localDataSource.saveToken(_data.token),
-      _localDataSource.saveUser(_data.user?.toEntity())
-    ]);
+    await Future.wait([_localDataSource.saveToken(_data.token), _localDataSource.saveUser(_data.user?.toEntity())]);
 
     return Right(_data.toDomain());
   }
 
   @override
-  Future<Either<Failure, dynamic>> doLogout(
-      DoLogoutUseCaseParams params) async {
+  Future<Either<Failure, dynamic>> doLogout(DoLogoutUseCaseParams params) async {
     await Future.wait(
       [
         _localDataSource.deleteUser(),
@@ -92,12 +89,9 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, LoginStatus>> checkLoginStatus(
-      CheckLoginStatusUseCaseParams params) async {
+  Future<Either<Failure, LoginStatus>> checkLoginStatus(CheckLoginStatusUseCaseParams params) async {
     return Right(
-      _localDataSource.getToken() == null
-          ? LoginStatus.notLoggedIn
-          : LoginStatus.loggedIn,
+      _localDataSource.getToken() == null ? LoginStatus.notLoggedIn : LoginStatus.loggedIn,
     );
   }
 
@@ -107,8 +101,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, Login>> updateProfile(
-      UpdateProfileUseCaseParams params) async {
+  Future<Either<Failure, Login>> updateProfile(UpdateProfileUseCaseParams params) async {
     final _data = await _remoteDataSource.updateProfile(params);
 
     if (_data.status == 'ERR') {
@@ -123,8 +116,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, ProductList>> fetchProductList(
-      FetchProductListUseCaseParams params) async {
+  Future<Either<Failure, ProductList>> fetchProductList(FetchProductListUseCaseParams params) async {
     final _data = await _remoteDataSource.fetchProductList(params);
 
     if (_data.status == 'ERR') {
@@ -137,8 +129,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, SubmitOrderResponse>> submitOrder(
-      SubmitOrderUseCaseParams params) async {
+  Future<Either<Failure, SubmitOrderResponse>> submitOrder(SubmitOrderUseCaseParams params) async {
     final _data = await _remoteDataSource.submitOrder(params);
 
     if (_data.status == 'ERR') {
@@ -151,8 +142,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, Customer>> fetchCustomers(
-      FetchCustomersUseCaseParams params) async {
+  Future<Either<Failure, Customer>> fetchCustomers(FetchCustomersUseCaseParams params) async {
     final _data = await _remoteDataSource.fetchCustomers(params);
 
     if (_data.status == Constants.statusError) {
@@ -165,8 +155,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, Transaction>> fetchTransactions(
-      FetchTransactionsUseCaseParams params) async {
+  Future<Either<Failure, Transaction>> fetchTransactions(FetchTransactionsUseCaseParams params) async {
     final _data = await _remoteDataSource.fetchTransactions(params);
 
     if (_data.status == Constants.statusError) {
@@ -193,8 +182,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, BaseDomain>> refundOrder(
-      RefundOrderUseCaseParams params) async {
+  Future<Either<Failure, BaseDomain>> refundOrder(RefundOrderUseCaseParams params) async {
     final _data = await _remoteDataSource.refundOrder(RefundOrderRequest(
       orderId: params.orderId,
       notes: params.refundNote,
@@ -210,22 +198,19 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, CustomerElementResponse>> addCustomer(
-      AddCustomerUseCaseParams params) async {
+  Future<Either<Failure, CustomerElementResponse>> addCustomer(AddCustomerUseCaseParams params) async {
     final _data = await _remoteDataSource.addCustomer(params.toRequest());
     return Right(_data);
   }
 
   @override
-  Future<Either<Failure, StatusCustomerListResponse>> fetchStatusCustomerList(
-      NoParam params) async {
+  Future<Either<Failure, StatusCustomerListResponse>> fetchStatusCustomerList(NoParam params) async {
     final _data = await _remoteDataSource.fetchStatusCustomerList(params);
     return Right(_data);
   }
 
   @override
-  Future<Either<Failure, ClosingResponse>> closing(
-      ClosingUseCaseParams params) async {
+  Future<Either<Failure, ClosingResponse>> closing(ClosingUseCaseParams params) async {
     final _userId = _localDataSource.getUser()?.id;
 
     final _date = DateUtil.dateTimeToFormattedDate(
@@ -260,10 +245,8 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, BaseResponse>> addPengeluaranBaru(
-      AddPengeluaranBaruUseCaseParams params) async {
-    final _data =
-        await _remoteDataSource.addPengeluaranBaru(AddPengeluaranBaruRequest(
+  Future<Either<Failure, BaseResponse>> addPengeluaranBaru(AddPengeluaranBaruUseCaseParams params) async {
+    final _data = await _remoteDataSource.addPengeluaranBaru(AddPengeluaranBaruRequest(
       inputTanggal: params.inputTanggal,
       keterangan: params.keterangan,
       quantity: params.quantity,
@@ -286,11 +269,9 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, BaseResponse>> sendClosingMail(
-      SendClosingMailUseCaseParams params) async {
+  Future<Either<Failure, BaseResponse>> sendClosingMail(SendClosingMailUseCaseParams params) async {
     await _localDataSource.saveClosingMail(params.email);
-    final _data =
-        await _remoteDataSource.sendClosingMail(params.toRequest(), params);
+    final _data = await _remoteDataSource.sendClosingMail(params.toRequest(), params);
 
     if (_data.status == Constants.statusError) {
       return Left(
@@ -307,8 +288,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, OutcomesResponse>> fetchOutcomes(
-      FetchOutcomesUseCaseParams params) async {
+  Future<Either<Failure, OutcomesResponse>> fetchOutcomes(FetchOutcomesUseCaseParams params) async {
     final _data = await _remoteDataSource.fetchOutcomes(params);
 
     if (_data.status == Constants.statusError) {
@@ -321,8 +301,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, BaseResponse>> addInOutcome(
-      AddInOutcomeUseCaseParams params) async {
+  Future<Either<Failure, BaseResponse>> addInOutcome(AddInOutcomeUseCaseParams params) async {
     final _data = await _remoteDataSource.addInOutcome(AddOutcomeRequest(
       outcome: params.outcome,
       date: params.date,
@@ -341,8 +320,7 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<ProductCategoriesAndPackagesResponse>
-      getProductCategoriesAndPackages() {
+  Future<ProductCategoriesAndPackagesResponse> getProductCategoriesAndPackages() {
     return _remoteDataSource.getProductCategoriesAndPackagesResponse();
   }
 
@@ -353,8 +331,7 @@ class MyRepositoryImpl implements MyRepository {
 
   @override
   Future<Either<Failure, List<BankAccount>>> fetchBankAccountList() async {
-    BankAccountListResponse response =
-        await _remoteDataSource.getListBankAccount();
+    BankAccountListResponse response = await _remoteDataSource.getListBankAccount();
     if (response.isSuccess) {
       return Right(response.bankAccounts);
     } else {
@@ -363,10 +340,8 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, IncomeResponse>> getIncomeList(
-      {required FetchIncomeListUseCaseParams params}) async {
-    IncomeResponse response =
-        await _remoteDataSource.getIncomeList(date: params);
+  Future<Either<Failure, IncomeResponse>> getIncomeList({required FetchIncomeListUseCaseParams params}) async {
+    IncomeResponse response = await _remoteDataSource.getIncomeList(date: params);
     if (response.isSuccess) {
       return Right(response);
     } else {
@@ -375,9 +350,21 @@ class MyRepositoryImpl implements MyRepository {
   }
 
   @override
-  Future<Either<Failure, BaseDomain>> updateOrderPrintStatus(
-      UpdateOrderPrintStatusUsecaseParams params) async {
+  Future<Either<Failure, BaseDomain>> updateOrderPrintStatus(UpdateOrderPrintStatusUsecaseParams params) async {
     final _data = await _remoteDataSource.updateOrderPrintStatus(params);
+
+    if (_data.status == 'ERR') {
+      return Left(
+        Failure.defaultError(_data.message ?? Strings.msgErrorGeneral),
+      );
+    }
+
+    return Right(_data.toDomain());
+  }
+
+  @override
+  Future<Either<Failure, BaseDomain>> updatePreOrderStatus(UpdatePreOrderStatusUseCaseParams params) async {
+    final _data = await _remoteDataSource.updatePreOrderStatus(params);
 
     if (_data.status == 'ERR') {
       return Left(

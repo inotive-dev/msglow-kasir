@@ -19,6 +19,7 @@ import '../../../domain/usecases/fetch_transactions_usecase.dart';
 import '../../../domain/usecases/send_closing_mail_usecase.dart';
 import '../../../domain/usecases/submit_order_usecase.dart';
 import '../../../domain/usecases/update_order_print_status_usecase.dart';
+import '../../../domain/usecases/update_pre_order_status_usecase.dart';
 import '../../../domain/usecases/update_profile_usecase.dart';
 import '../request/input_pengeluaran/add_pengeluaran_baru_request.dart';
 import '../request/penjualan/add_customer_request.dart';
@@ -255,5 +256,9 @@ class ApiService {
 
   Future<Response> updateOrderPrintStatus(UpdateOrderPrintStatusUsecaseParams params) {
     return _dio.post(Endpoint.updateOrderPrintStatus, data: {"order_id": params.orderId});
+  }
+
+  Future<Response> updatePreOrderStatus(UpdatePreOrderStatusUseCaseParams params) async {
+    return await _dio.post("${Endpoint.changePreOrderStatus}/${params.productId}");
   }
 }
