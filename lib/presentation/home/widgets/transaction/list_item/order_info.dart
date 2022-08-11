@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/strings.dart';
 import '../../../../../core/style/color_palettes.dart';
 import '../../../../../core/style/sizes.dart';
+import '../../../../../core/utils/get_util.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../core/widgets/my_text.dart';
 import '../../../../../domain/entities/transaction/order.dart';
+import 'pre_order_dialog.dart';
 
 class OrderInfo extends StatelessWidget {
   final Order order;
@@ -90,8 +92,7 @@ class OrderInfo extends StatelessWidget {
                     color: ColorPalettes.grey75,
                   ),
                   MyText(
-                    text:
-                        '${order.orderCustoms?.map((e) => e.product).join(', ')}',
+                    text: '${order.orderCustoms?.map((e) => e.product).join(', ')}',
                     fontSize: Sizes.sp24,
                     fontWeight: FontWeight.w500,
                     color: ColorPalettes.grey75,
@@ -144,18 +145,60 @@ class OrderInfo extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: ColorPalettes.grey75,
                 ),
-                MyText(
-                  text:
-                      '${order.orderProducts?.map((e) => e.product?.name).join(', ')}',
-                  fontSize: Sizes.sp24,
-                  fontWeight: FontWeight.w500,
-                  color: ColorPalettes.grey75,
-                  textAlign: TextAlign.end,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: MyText(
+                        text: '${order.orderProducts?.map((e) => e.product?.name).join(', ')}',
+                        fontSize: Sizes.sp24,
+                        fontWeight: FontWeight.w500,
+                        color: ColorPalettes.grey75,
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    Visibility(
+                      visible: order.orderProducts!.isNotEmpty && order.orderProducts![0].isPreOrder == true,
+                      child: Row(
+                        children: [
+                          SizedBox(width: Sizes.width12),
+                          SizedBox(
+                            height: Sizes.height31,
+                            width: Sizes.width40,
+                            child: TextButton(
+                              onPressed: () => _onPressPreOrderLabel(),
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                                backgroundColor: MaterialStateProperty.all(ColorPalettes.purple),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(Sizes.radius8),
+                                  ),
+                                ),
+                              ),
+                              child: MyText(
+                                text: order.orderProducts![0].isPreOrder == true ? "PO" : "",
+                                fontSize: Sizes.sp16,
+                                fontWeight: FontWeight.w500,
+                                color: ColorPalettes.grey75,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
                 MyText(
-                  text:
-                  'Catatan',
+                  text: 'Catatan',
                   fontSize: Sizes.sp18,
+                  fontWeight: FontWeight.w500,
+                  color: ColorPalettes.grey75,
+                ),
+                MyText(
+                  text: order.orderProducts!.isNotEmpty ? order.orderProducts![0].note ?? '-' : '-',
+                  fontSize: Sizes.sp20,
                   fontWeight: FontWeight.w500,
                   color: ColorPalettes.grey75,
                 ),
@@ -176,12 +219,6 @@ class OrderInfo extends StatelessWidget {
                 MyText(
                   text: '${order.totalQuantity}',
                   fontSize: Sizes.sp24,
-                  fontWeight: FontWeight.w500,
-                  color: ColorPalettes.grey75,
-                ),
-                MyText(
-                  text: order.orderProducts!.isNotEmpty ? order.orderProducts![0].note ?? '-' : '-',
-                  fontSize: Sizes.sp18,
                   fontWeight: FontWeight.w500,
                   color: ColorPalettes.grey75,
                 ),
@@ -211,8 +248,19 @@ class OrderInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Text(Strings.namaPackage),
-                Text(
-                    "${order.orderPackages?.map((e) => e.package.name).join(",")}"),
+                Text("${order.orderPackages?.map((e) => e.package.name).join(",")}"),
+                MyText(
+                  text: 'Catatan',
+                  fontSize: Sizes.sp18,
+                  fontWeight: FontWeight.w500,
+                  color: ColorPalettes.grey75,
+                ),
+                MyText(
+                  text: order.orderPackages!.isNotEmpty ? order.orderPackages![0].note ?? '-' : '-',
+                  fontSize: Sizes.sp20,
+                  fontWeight: FontWeight.w500,
+                  color: ColorPalettes.grey75,
+                ),
               ],
             )),
             Expanded(
@@ -220,15 +268,20 @@ class OrderInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Text(Strings.labelQuantity),
-                Text(order.orderPackages
-                        ?.fold<int>(0, (v, element) => v + (element.quantity))
-                        .toString() ??
-                    ""),
+                Text(order.orderPackages?.fold<int>(0, (v, element) => v + (element.quantity)).toString() ?? ""),
               ],
             )),
           ],
         )
       ],
     );
+  }
+
+  _onPressPreOrderLabel() {
+    GetUtil.showDialog(PreOrderDialog(
+      message: "Status Pengiriman",
+      btnPositiveText: "OK",
+      onPressPositive: () {},
+    ));
   }
 }

@@ -26,6 +26,7 @@ class TransactionOrderProductResponse with _$TransactionOrderProductResponse {
     required String? note,
     @JsonKey(name: 'created_at') required DateTime? createdAt,
     @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+    @JsonKey(name: 'is_pre_order') required int? isPreOrder,
     required ProductResponse? product,
   }) = _TransactionOrderProductResponse;
 
@@ -45,6 +46,7 @@ class TransactionOrderProductResponse with _$TransactionOrderProductResponse {
         note: note,
         createdAt: createdAt,
         updatedAt: updatedAt,
+        isPreOrder: isPreOrder == 1,
         product: product?.toDomain(),
       );
 }

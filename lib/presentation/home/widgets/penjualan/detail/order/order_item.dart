@@ -38,8 +38,7 @@ class _OrderItemState extends State<OrderItem> {
 
   @override
   void initState() {
-    _quantityController =
-        TextEditingController(text: widget.orderProduct.quantity.toString());
+    _quantityController = TextEditingController(text: widget.orderProduct.quantity.toString());
     _noteController = TextEditingController(text: widget.orderProduct.note);
     _quantityFocusNode = FocusNode();
     _noteFocusNode = FocusNode();
@@ -57,41 +56,75 @@ class _OrderItemState extends State<OrderItem> {
   @override
   Widget build(BuildContext context) {
     final _standardPrice = widget.orderProduct.product.getStandardPriceInInt();
-    final _productPrice = int.parse(widget.orderProduct.costCategory?.amount ??
-        widget.orderProduct.product.standardPrice);
+    final _productPrice =
+        int.parse(widget.orderProduct.costCategory?.amount ?? widget.orderProduct.product.standardPrice);
     final _shouldVisiblePreviousPrice =
-        (widget.orderProduct.costCategory?.id ?? 0) > 0 &&
-            _productPrice != _standardPrice;
+        (widget.orderProduct.costCategory?.id ?? 0) > 0 && _productPrice != _standardPrice;
 
     _quantityController
       ?..text = widget.orderProduct.quantity.toString()
-      ..selection = TextSelection.collapsed(
-          offset: widget.orderProduct.quantity.toString().length);
+      ..selection = TextSelection.collapsed(offset: widget.orderProduct.quantity.toString().length);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Product image
-        Material(
-          borderRadius: BorderRadius.circular(Sizes.radius8),
-          elevation: Sizes.radius4,
-          color: ColorPalettes.bgGrey3,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(Sizes.radius8),
-            child: Builder(builder: (context) {
-              if (widget.orderProduct.isCustomProduct) {
-                return Image.asset(
-                  ImageAsset.imgCustomOrder,
-                  width: Sizes.height78,
-                  height: Sizes.height78,
-                );
-              }
-              return MyCachedNetworkImage(
-                imageUrl: widget.orderProduct.product.thumbnail,
-                width: Sizes.height78,
-                height: Sizes.height78,
-              );
-            }),
-          ),
+        Column(
+          children: [
+            Material(
+              borderRadius: BorderRadius.circular(Sizes.radius8),
+              elevation: Sizes.radius4,
+              color: ColorPalettes.bgGrey3,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(Sizes.radius8),
+                child: Builder(builder: (context) {
+                  if (widget.orderProduct.isCustomProduct) {
+                    return Image.asset(
+                      ImageAsset.imgCustomOrder,
+                      width: Sizes.height78,
+                      height: Sizes.height78,
+                    );
+                  }
+                  return MyCachedNetworkImage(
+                    imageUrl: widget.orderProduct.product.thumbnail,
+                    width: Sizes.height78,
+                    height: Sizes.height78,
+                  );
+                }),
+              ),
+            ),
+            SizedBox(
+              height: Sizes.height19,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: Sizes.height18,
+                  width: Sizes.width18,
+                  child: Transform.scale(
+                    scale: 0.5,
+                    child: Checkbox(
+                      activeColor: ColorPalettes.bgGoldMenuItem,
+                      tristate: false,
+                      value: widget.orderProduct.isPreOrder,
+                      splashRadius: Sizes.width18,
+                      onChanged: (value) {
+                        GetUtil.context.read<PenjualanCubit>().updatePreOrder(widget.orderProduct, value ?? false);
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: Sizes.width4,
+                ),
+                MyText(
+                  text: 'Pre-order',
+                  fontSize: Sizes.sp11,
+                  fontWeight: FontWeight.w500,
+                  textType: TextType.bodyText1,
+                ),
+              ],
+            )
+          ],
         ),
         SizedBox(
           width: Sizes.width37,
@@ -138,8 +171,7 @@ class _OrderItemState extends State<OrderItem> {
 
               // Menu kategori harga
               Visibility(
-                visible: !widget.orderProduct.isCustomProduct ||
-                    widget.orderProduct.isProductPakage,
+                visible: !widget.orderProduct.isCustomProduct || widget.orderProduct.isProductPakage,
                 maintainState: true,
                 maintainAnimation: true,
                 maintainSize: false,
@@ -163,9 +195,7 @@ class _OrderItemState extends State<OrderItem> {
                     isDense: true,
                   ),
                   onChanged: (val) {
-                    GetUtil.context
-                        .read<PenjualanCubit>()
-                        .updateOrderNote(widget.orderProduct, val);
+                    GetUtil.context.read<PenjualanCubit>().updateOrderNote(widget.orderProduct, val);
                   },
                   maxLines: 2,
                   style: const TextStyle(fontSize: 10),
@@ -243,16 +273,12 @@ class _OrderItemState extends State<OrderItem> {
 
   _onTapAdd() {
     _quantityFocusNode?.unfocus();
-    GetUtil.context
-        .read<PenjualanCubit>()
-        .addOrderQuantity(widget.orderProduct);
+    GetUtil.context.read<PenjualanCubit>().addOrderQuantity(widget.orderProduct);
   }
 
   _onTapRemove() {
     _quantityFocusNode?.unfocus();
-    GetUtil.context
-        .read<PenjualanCubit>()
-        .reduceOrderQuantity(widget.orderProduct);
+    GetUtil.context.read<PenjualanCubit>().reduceOrderQuantity(widget.orderProduct);
   }
 
   _onChangeQuantity(String value) {
@@ -261,9 +287,9 @@ class _OrderItemState extends State<OrderItem> {
       'change-quantity',
       Duration(milliseconds: _debounceDurationInMs),
       () {
-        GetUtil.context.read<PenjualanCubit>().addOrderQuantity(
-            widget.orderProduct,
-            newQuantity: int.parse(value.isEmpty ? '1' : value));
+        GetUtil.context
+            .read<PenjualanCubit>()
+            .addOrderQuantity(widget.orderProduct, newQuantity: int.parse(value.isEmpty ? '1' : value));
       },
     );
   }

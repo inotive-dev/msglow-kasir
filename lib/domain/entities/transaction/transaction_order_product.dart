@@ -20,5 +20,6 @@ class TransactionOrderProduct with _$TransactionOrderProduct {
     required DateTime? createdAt,
     required DateTime? updatedAt,
     required Product? product,
+    required bool? isPreOrder,
   }) = _TransactionOrderProduct;
 }

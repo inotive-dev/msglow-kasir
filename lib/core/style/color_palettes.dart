@@ -49,6 +49,9 @@ class ColorPalettes {
   static Color blackShadow = Colors.black.withOpacity(0.25);
   static Color shadowCard = const Color(0xff2B2B2B).withOpacity(0.25);
 
+  static Color purple = const Color(0XFFE5CAFF);
+  static Color purple2 = const Color(0XFF9327FF);
+
   static const primarySwatch = MaterialColor(
     _primaryValue,
     <int, Color>{

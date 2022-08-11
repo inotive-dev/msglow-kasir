@@ -36,6 +36,7 @@ class _$TransactionOrderProductResponseTearOff {
       required String? note,
       @JsonKey(name: 'created_at') required DateTime? createdAt,
       @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+      @JsonKey(name: 'is_pre_order') required int? isPreOrder,
       required ProductResponse? product}) {
     return _TransactionOrderProductResponse(
       id: id,
@@ -50,6 +51,7 @@ class _$TransactionOrderProductResponseTearOff {
       note: note,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      isPreOrder: isPreOrder,
       product: product,
     );
   }
@@ -84,6 +86,8 @@ mixin _$TransactionOrderProductResponse {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_pre_order')
+  int? get isPreOrder => throw _privateConstructorUsedError;
   ProductResponse? get product => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -111,6 +115,7 @@ abstract class $TransactionOrderProductResponseCopyWith<$Res> {
       String? note,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'is_pre_order') int? isPreOrder,
       ProductResponse? product});
 
   $ProductResponseCopyWith<$Res>? get product;
@@ -139,6 +144,7 @@ class _$TransactionOrderProductResponseCopyWithImpl<$Res>
     Object? note = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? isPreOrder = freezed,
     Object? product = freezed,
   }) {
     return _then(_value.copyWith(
@@ -190,6 +196,10 @@ class _$TransactionOrderProductResponseCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
       product: product == freezed
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -230,6 +240,7 @@ abstract class _$TransactionOrderProductResponseCopyWith<$Res>
       String? note,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'is_pre_order') int? isPreOrder,
       ProductResponse? product});
 
   @override
@@ -263,6 +274,7 @@ class __$TransactionOrderProductResponseCopyWithImpl<$Res>
     Object? note = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? isPreOrder = freezed,
     Object? product = freezed,
   }) {
     return _then(_TransactionOrderProductResponse(
@@ -314,6 +326,10 @@ class __$TransactionOrderProductResponseCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
       product: product == freezed
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -339,6 +355,7 @@ class _$_TransactionOrderProductResponse
       required this.note,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt,
+      @JsonKey(name: 'is_pre_order') required this.isPreOrder,
       required this.product})
       : super._();
 
@@ -378,11 +395,14 @@ class _$_TransactionOrderProductResponse
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
   @override
+  @JsonKey(name: 'is_pre_order')
+  final int? isPreOrder;
+  @override
   final ProductResponse? product;
 
   @override
   String toString() {
-    return 'TransactionOrderProductResponse(id: $id, orderId: $orderId, orderExpeditionId: $orderExpeditionId, productId: $productId, amount: $amount, costCategory: $costCategory, costPerItem: $costPerItem, total: $total, status: $status, note: $note, createdAt: $createdAt, updatedAt: $updatedAt, product: $product)';
+    return 'TransactionOrderProductResponse(id: $id, orderId: $orderId, orderExpeditionId: $orderExpeditionId, productId: $productId, amount: $amount, costCategory: $costCategory, costPerItem: $costPerItem, total: $total, status: $status, note: $note, createdAt: $createdAt, updatedAt: $updatedAt, isPreOrder: $isPreOrder, product: $product)';
   }
 
   @override
@@ -405,6 +425,8 @@ class _$_TransactionOrderProductResponse
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality()
+                .equals(other.isPreOrder, isPreOrder) &&
             const DeepCollectionEquality().equals(other.product, product));
   }
 
@@ -423,6 +445,7 @@ class _$_TransactionOrderProductResponse
       const DeepCollectionEquality().hash(note),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(isPreOrder),
       const DeepCollectionEquality().hash(product));
 
   @JsonKey(ignore: true)
@@ -452,6 +475,7 @@ abstract class _TransactionOrderProductResponse
       required String? note,
       @JsonKey(name: 'created_at') required DateTime? createdAt,
       @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+      @JsonKey(name: 'is_pre_order') required int? isPreOrder,
       required ProductResponse? product}) = _$_TransactionOrderProductResponse;
   const _TransactionOrderProductResponse._() : super._();
 
@@ -489,6 +513,9 @@ abstract class _TransactionOrderProductResponse
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
+  @override
+  @JsonKey(name: 'is_pre_order')
+  int? get isPreOrder;
   @override
   ProductResponse? get product;
   @override

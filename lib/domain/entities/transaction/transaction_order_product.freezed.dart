@@ -31,7 +31,8 @@ class _$TransactionOrderProductTearOff {
       required String? note,
       required DateTime? createdAt,
       required DateTime? updatedAt,
-      required Product? product}) {
+      required Product? product,
+      required bool? isPreOrder}) {
     return _TransactionOrderProduct(
       id: id,
       orderId: orderId,
@@ -46,6 +47,7 @@ class _$TransactionOrderProductTearOff {
       createdAt: createdAt,
       updatedAt: updatedAt,
       product: product,
+      isPreOrder: isPreOrder,
     );
   }
 }
@@ -68,6 +70,7 @@ mixin _$TransactionOrderProduct {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   Product? get product => throw _privateConstructorUsedError;
+  bool? get isPreOrder => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TransactionOrderProductCopyWith<TransactionOrderProduct> get copyWith =>
@@ -92,7 +95,8 @@ abstract class $TransactionOrderProductCopyWith<$Res> {
       String? note,
       DateTime? createdAt,
       DateTime? updatedAt,
-      Product? product});
+      Product? product,
+      bool? isPreOrder});
 
   $ProductCopyWith<$Res>? get product;
 }
@@ -121,6 +125,7 @@ class _$TransactionOrderProductCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? product = freezed,
+    Object? isPreOrder = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -175,6 +180,10 @@ class _$TransactionOrderProductCopyWithImpl<$Res>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -210,7 +219,8 @@ abstract class _$TransactionOrderProductCopyWith<$Res>
       String? note,
       DateTime? createdAt,
       DateTime? updatedAt,
-      Product? product});
+      Product? product,
+      bool? isPreOrder});
 
   @override
   $ProductCopyWith<$Res>? get product;
@@ -243,6 +253,7 @@ class __$TransactionOrderProductCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? product = freezed,
+    Object? isPreOrder = freezed,
   }) {
     return _then(_TransactionOrderProduct(
       id: id == freezed
@@ -297,6 +308,10 @@ class __$TransactionOrderProductCopyWithImpl<$Res>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -317,7 +332,8 @@ class _$_TransactionOrderProduct implements _TransactionOrderProduct {
       required this.note,
       required this.createdAt,
       required this.updatedAt,
-      required this.product});
+      required this.product,
+      required this.isPreOrder});
 
   @override
   final int? id;
@@ -345,10 +361,12 @@ class _$_TransactionOrderProduct implements _TransactionOrderProduct {
   final DateTime? updatedAt;
   @override
   final Product? product;
+  @override
+  final bool? isPreOrder;
 
   @override
   String toString() {
-    return 'TransactionOrderProduct(id: $id, orderId: $orderId, orderExpeditionId: $orderExpeditionId, productId: $productId, amount: $amount, costCategory: $costCategory, costPerItem: $costPerItem, total: $total, status: $status, note: $note, createdAt: $createdAt, updatedAt: $updatedAt, product: $product)';
+    return 'TransactionOrderProduct(id: $id, orderId: $orderId, orderExpeditionId: $orderExpeditionId, productId: $productId, amount: $amount, costCategory: $costCategory, costPerItem: $costPerItem, total: $total, status: $status, note: $note, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, isPreOrder: $isPreOrder)';
   }
 
   @override
@@ -371,7 +389,9 @@ class _$_TransactionOrderProduct implements _TransactionOrderProduct {
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
-            const DeepCollectionEquality().equals(other.product, product));
+            const DeepCollectionEquality().equals(other.product, product) &&
+            const DeepCollectionEquality()
+                .equals(other.isPreOrder, isPreOrder));
   }
 
   @override
@@ -389,7 +409,8 @@ class _$_TransactionOrderProduct implements _TransactionOrderProduct {
       const DeepCollectionEquality().hash(note),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
-      const DeepCollectionEquality().hash(product));
+      const DeepCollectionEquality().hash(product),
+      const DeepCollectionEquality().hash(isPreOrder));
 
   @JsonKey(ignore: true)
   @override
@@ -412,7 +433,8 @@ abstract class _TransactionOrderProduct implements TransactionOrderProduct {
       required String? note,
       required DateTime? createdAt,
       required DateTime? updatedAt,
-      required Product? product}) = _$_TransactionOrderProduct;
+      required Product? product,
+      required bool? isPreOrder}) = _$_TransactionOrderProduct;
 
   @override
   int? get id;
@@ -440,6 +462,8 @@ abstract class _TransactionOrderProduct implements TransactionOrderProduct {
   DateTime? get updatedAt;
   @override
   Product? get product;
+  @override
+  bool? get isPreOrder;
   @override
   @JsonKey(ignore: true)
   _$TransactionOrderProductCopyWith<_TransactionOrderProduct> get copyWith =>
