@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../core/constants/constants.dart';
 import '../../../../core/style/color_palettes.dart';
 import '../../../../core/style/sizes.dart';
 import '../../../../core/utils/get_util.dart';
@@ -28,7 +29,7 @@ class ProfileAvatar extends StatelessWidget {
             (ProfileCubit value) {
               if (value.state.pickedImageFile == null) {
                 return MyCachedNetworkImage(
-                  imageUrl: value.state.user.avatar,
+                  imageUrl: value.state.user.avatar ?? Constants.placeholderAvatarUrl,
                   width: Sizes.height203,
                   height: Sizes.height203,
                   fit: BoxFit.cover,
