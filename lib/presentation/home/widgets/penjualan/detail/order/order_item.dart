@@ -14,6 +14,7 @@ import '../../../../../../core/widgets/my_cached_network_image.dart';
 import '../../../../../../core/widgets/my_text.dart';
 import '../../../../../../domain/entities/penjualan/order_product.dart';
 import '../../cubit/penjualan_cubit.dart';
+import 'pre_order_checkbox.dart';
 import 'price_category_dropdown.dart';
 
 class OrderItem extends StatefulWidget {
@@ -92,38 +93,14 @@ class _OrderItemState extends State<OrderItem> {
                 }),
               ),
             ),
-            SizedBox(
-              height: Sizes.height19,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  height: Sizes.height18,
-                  width: Sizes.width18,
-                  child: Transform.scale(
-                    scale: 0.5,
-                    child: Checkbox(
-                      activeColor: ColorPalettes.bgGoldMenuItem,
-                      tristate: false,
-                      value: widget.orderProduct.isPreOrder,
-                      splashRadius: Sizes.width18,
-                      onChanged: (value) {
-                        GetUtil.context.read<PenjualanCubit>().updatePreOrder(widget.orderProduct, value ?? false);
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: Sizes.width4,
-                ),
-                MyText(
-                  text: 'Pre-order',
-                  fontSize: Sizes.sp11,
-                  fontWeight: FontWeight.w500,
-                  textType: TextType.bodyText1,
-                ),
-              ],
-            )
+            !widget.orderProduct.isProductPakage
+                ? PreOrderCheckbox(
+                    value: widget.orderProduct.isPreOrder,
+                    onChanged: (value) {
+                      GetUtil.context.read<PenjualanCubit>().updatePreOrder(widget.orderProduct, value ?? false);
+                    },
+                  )
+                : const SizedBox.shrink()
           ],
         ),
         SizedBox(
