@@ -26,9 +26,7 @@ class PrintPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        child: args.printData != null
-            ? _buildPrintDataPreview()
-            : _buildClosingResponsePreview(args.closingResponse));
+        child: args.printData != null ? _buildPrintDataPreview() : _buildClosingResponsePreview(args.closingResponse));
   }
 
   Widget _buildPrintDataPreview() {
@@ -50,8 +48,7 @@ class PrintPreview extends StatelessWidget {
           height: Sizes.height180,
         ),
         const MyText(
-          text:
-              'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+          text: 'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
           textAlign: TextAlign.center,
         ),
         SizedBox(height: verticalSpace),
@@ -82,9 +79,7 @@ class PrintPreview extends StatelessWidget {
                         padding: EdgeInsets.only(right: 8.0),
                         child: MyText(text: "Pelanggan"),
                       ),
-                      MyText(
-                          text:
-                              ': ${args.printData?.customer?.fullName ?? Strings.nonMember}')
+                      MyText(text: ': ${args.printData?.customer?.fullName ?? Strings.nonMember}')
                     ],
                   ),
                   TableRow(
@@ -120,7 +115,9 @@ class PrintPreview extends StatelessWidget {
               child: Column(
             children: [
               MyText(text: orderData.name, alignment: Alignment.centerLeft),
-              orderData.note != null ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft) : const SizedBox.shrink(),
+              orderData.note != null && orderData.note != ''
+                  ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
+                  : const SizedBox.shrink(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -134,18 +131,21 @@ class PrintPreview extends StatelessWidget {
         for (PrintOrderData orderData in args.printData!.orderPackages)
           ArgsContainer(
               child: Column(
+            children: [
+              MyText(text: orderData.name, alignment: Alignment.centerLeft),
+              orderData.note != null && orderData.note != ''
+                  ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
+                  : const SizedBox.shrink(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(text: orderData.name, alignment: Alignment.centerLeft),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MyText(text: "${orderData.quantity}X"),
-                      MyText(text: orderData.costPerItemInIdr),
-                    ],
-                  ),
-                  SizedBox(height: verticalSpace),
+                  MyText(text: "${orderData.quantity}X"),
+                  MyText(text: orderData.costPerItemInIdr),
                 ],
-              )),
+              ),
+              SizedBox(height: verticalSpace),
+            ],
+          )),
         SizedBox(height: verticalSpace),
         const MyDashedHorizontalSeparator(),
         SizedBox(height: verticalSpace),
@@ -176,9 +176,7 @@ class PrintPreview extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const MyText(text: "Total", fontWeight: FontWeight.bold),
-                MyText(
-                    text: "${args.printData?.totalIdr}",
-                    fontWeight: FontWeight.bold),
+                MyText(text: "${args.printData?.totalIdr}", fontWeight: FontWeight.bold),
               ],
             ),
             Row(
@@ -213,8 +211,7 @@ class PrintPreview extends StatelessWidget {
         SizedBox(height: verticalSpace),
         const ArgsContainer(
           child: MyText(
-            text:
-                "Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian, terima kasih :)",
+            text: "Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian, terima kasih :)",
           ),
         ),
         SizedBox(height: verticalSpace),
@@ -264,8 +261,7 @@ class PrintPreview extends StatelessWidget {
           height: Sizes.height180,
         ),
         const MyText(
-          text:
-              'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+          text: 'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
           textAlign: TextAlign.center,
         ),
         SizedBox(height: verticalSpace),
@@ -342,9 +338,7 @@ class PrintPreview extends StatelessWidget {
             ArgsContainer(
               child: Column(
                 children: [
-                  MyText(
-                      text: transactionDetail.namaBarang ?? "-",
-                      alignment: Alignment.centerLeft),
+                  MyText(text: transactionDetail.namaBarang ?? "-", alignment: Alignment.centerLeft),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -366,9 +360,7 @@ class PrintPreview extends StatelessWidget {
               const MyText(text: "Total"),
               MyText(
                   text: formatToIdr(_transactionDetails?.fold<double>(
-                      0.0,
-                      (double previousValue, element) =>
-                          previousValue + (element.total?.toDouble() ?? 0.0)))),
+                      0.0, (double previousValue, element) => previousValue + (element.total?.toDouble() ?? 0.0)))),
             ],
           ),
         ),
@@ -377,20 +369,18 @@ class PrintPreview extends StatelessWidget {
         SizedBox(height: verticalSpace),
         ArgsContainer(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                MyText(text: "Item", fontWeight: FontWeight.bold),
-                MyText(text: "Total", fontWeight: FontWeight.bold),
-              ],
-            )),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            MyText(text: "Item", fontWeight: FontWeight.bold),
+            MyText(text: "Total", fontWeight: FontWeight.bold),
+          ],
+        )),
         if (_refundedItems != null)
           for (RefundedItem refundedItem in _refundedItems)
             ArgsContainer(
               child: Column(
                 children: [
-                  MyText(
-                      text: refundedItem.namaBarang ?? "-",
-                      alignment: Alignment.centerLeft),
+                  MyText(text: refundedItem.namaBarang ?? "-", alignment: Alignment.centerLeft),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -412,9 +402,7 @@ class PrintPreview extends StatelessWidget {
               const MyText(text: "Total"),
               MyText(
                   text: formatToIdr(_refundedItems?.fold<double>(
-                      0.0,
-                          (double previousValue, element) =>
-                      previousValue + (element.total?.toDouble() ?? 0.0)))),
+                      0.0, (double previousValue, element) => previousValue + (element.total?.toDouble() ?? 0.0)))),
             ],
           ),
         ),
@@ -455,9 +443,7 @@ class PrintPreview extends StatelessWidget {
               MyText(
                 text: formatToIdr(
                   (_outcomeDetail ?? []).fold<double>(
-                      0.0,
-                      (double previousValue, element) =>
-                          previousValue + (element.amount?.toDouble() ?? 0.0)),
+                      0.0, (double previousValue, element) => previousValue + (element.amount?.toDouble() ?? 0.0)),
                 ),
               ),
             ],
@@ -697,7 +683,7 @@ class PrintPreview extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               MyText(text: "INCOME"),
+              MyText(text: "INCOME"),
               _cashManagementDetail!.incomeCashManagementDetail!.isEmpty ? MyText(text: formatToIdr(0)) : Container()
             ],
           ),
@@ -790,9 +776,7 @@ class ArgsContainer extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return ConstrainedBox(
-            constraints: BoxConstraints(
-                maxWidth: constraints.maxWidth - 100,
-                minWidth: constraints.maxWidth - 100),
+            constraints: BoxConstraints(maxWidth: constraints.maxWidth - 100, minWidth: constraints.maxWidth - 100),
             child: child,
           );
         },
