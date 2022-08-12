@@ -16,34 +16,27 @@ class PreOrderCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: Sizes.height19),
-      child: Row(
-        children: [
-          SizedBox(
-            height: Sizes.height18,
-            width: Sizes.width18,
-            child: Transform.scale(
-              scale: 0.5,
-              child: Checkbox(
-                activeColor: ColorPalettes.bgGoldMenuItem,
-                tristate: false,
-                value: value,
-                splashRadius: Sizes.width18,
-                onChanged: onChanged,
-              ),
+    return InkWell(
+      onTap: () => onChanged(!value),
+      child: Container(
+        margin: EdgeInsets.only(top: Sizes.height15),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          children: [
+            Icon(
+              value ? Icons.check_box : Icons.check_box_outline_blank,
+              size: Sizes.height20,
+              color: value ? ColorPalettes.bgGoldMenuItem : Colors.grey,
             ),
-          ),
-          SizedBox(
-            width: Sizes.width4,
-          ),
-          MyText(
-            text: 'Pre-order',
-            fontSize: Sizes.sp11,
-            fontWeight: FontWeight.w500,
-            textType: TextType.bodyText1,
-          ),
-        ],
+            SizedBox(width: Sizes.width5),
+            MyText(
+              text: 'Pre-order',
+              fontSize: Sizes.sp13,
+              fontWeight: FontWeight.w500,
+              textType: TextType.bodyText1,
+            ),
+          ],
+        ),
       ),
     );
   }
