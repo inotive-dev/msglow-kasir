@@ -46,6 +46,7 @@ class PenjualanState with _$PenjualanState {
                 ))
             .toList(),
         orderPackages: [],
+        orderCustom: [],
         // fixing duplicate products
         // orderItems
         //     .map((e) => PrintOrderData(

@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/utils/date_util.dart';
 import '../../../core/utils/utils.dart';
-import '../../../data/remote/response/transaction/order_package.dart';
 import '../login/user.dart';
 import '../penjualan/customer/customer_element.dart';
 import 'print_order_data.dart';
@@ -17,6 +16,7 @@ class PrintData with _$PrintData {
     required CustomerElement? customer,
     required List<PrintOrderData> orderData,
     required List<PrintOrderData> orderPackages,
+    required List<PrintOrderData> orderCustom,
     required int subtotal,
     required int discount,
     required int total,

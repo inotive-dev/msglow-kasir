@@ -112,40 +112,61 @@ class PrintPreview extends StatelessWidget {
         SizedBox(height: verticalSpace),
         for (PrintOrderData orderData in args.printData!.orderData)
           ArgsContainer(
-              child: Column(
-            children: [
-              MyText(text: orderData.name, alignment: Alignment.centerLeft),
-              orderData.note != null && orderData.note != ''
-                  ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
-                  : const SizedBox.shrink(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(text: "${orderData.quantity}X"),
-                  MyText(text: orderData.costPerItemInIdr),
-                ],
-              ),
-              SizedBox(height: verticalSpace),
-            ],
-          )),
+            child: Column(
+              children: [
+                MyText(text: orderData.name, alignment: Alignment.centerLeft),
+                orderData.note != null && orderData.note != ''
+                    ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
+                    : const SizedBox.shrink(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: orderData.costPerItemInIdr),
+                  ],
+                ),
+                SizedBox(height: verticalSpace),
+              ],
+            ),
+          ),
         for (PrintOrderData orderData in args.printData!.orderPackages)
           ArgsContainer(
-              child: Column(
-            children: [
-              MyText(text: orderData.name, alignment: Alignment.centerLeft),
-              orderData.note != null && orderData.note != ''
-                  ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
-                  : const SizedBox.shrink(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(text: "${orderData.quantity}X"),
-                  MyText(text: orderData.costPerItemInIdr),
-                ],
-              ),
-              SizedBox(height: verticalSpace),
-            ],
-          )),
+            child: Column(
+              children: [
+                MyText(text: orderData.name, alignment: Alignment.centerLeft),
+                orderData.note != null && orderData.note != ''
+                    ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
+                    : const SizedBox.shrink(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: orderData.costPerItemInIdr),
+                  ],
+                ),
+                SizedBox(height: verticalSpace),
+              ],
+            ),
+          ),
+        for (PrintOrderData orderData in args.printData!.orderCustom)
+          ArgsContainer(
+            child: Column(
+              children: [
+                MyText(text: orderData.name, alignment: Alignment.centerLeft),
+                orderData.note != null && orderData.note != ''
+                    ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
+                    : const SizedBox.shrink(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: orderData.costPerItemInIdr),
+                  ],
+                ),
+                SizedBox(height: verticalSpace),
+              ],
+            ),
+          ),
         SizedBox(height: verticalSpace),
         const MyDashedHorizontalSeparator(),
         SizedBox(height: verticalSpace),

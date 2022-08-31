@@ -22,6 +22,7 @@ class _$PrintDataTearOff {
       {required CustomerElement? customer,
       required List<PrintOrderData> orderData,
       required List<PrintOrderData> orderPackages,
+      required List<PrintOrderData> orderCustom,
       required int subtotal,
       required int discount,
       required int total,
@@ -34,6 +35,7 @@ class _$PrintDataTearOff {
       customer: customer,
       orderData: orderData,
       orderPackages: orderPackages,
+      orderCustom: orderCustom,
       subtotal: subtotal,
       discount: discount,
       total: total,
@@ -54,6 +56,7 @@ mixin _$PrintData {
   CustomerElement? get customer => throw _privateConstructorUsedError;
   List<PrintOrderData> get orderData => throw _privateConstructorUsedError;
   List<PrintOrderData> get orderPackages => throw _privateConstructorUsedError;
+  List<PrintOrderData> get orderCustom => throw _privateConstructorUsedError;
   int get subtotal => throw _privateConstructorUsedError;
   int get discount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -76,6 +79,7 @@ abstract class $PrintDataCopyWith<$Res> {
       {CustomerElement? customer,
       List<PrintOrderData> orderData,
       List<PrintOrderData> orderPackages,
+      List<PrintOrderData> orderCustom,
       int subtotal,
       int discount,
       int total,
@@ -102,6 +106,7 @@ class _$PrintDataCopyWithImpl<$Res> implements $PrintDataCopyWith<$Res> {
     Object? customer = freezed,
     Object? orderData = freezed,
     Object? orderPackages = freezed,
+    Object? orderCustom = freezed,
     Object? subtotal = freezed,
     Object? discount = freezed,
     Object? total = freezed,
@@ -123,6 +128,10 @@ class _$PrintDataCopyWithImpl<$Res> implements $PrintDataCopyWith<$Res> {
       orderPackages: orderPackages == freezed
           ? _value.orderPackages
           : orderPackages // ignore: cast_nullable_to_non_nullable
+              as List<PrintOrderData>,
+      orderCustom: orderCustom == freezed
+          ? _value.orderCustom
+          : orderCustom // ignore: cast_nullable_to_non_nullable
               as List<PrintOrderData>,
       subtotal: subtotal == freezed
           ? _value.subtotal
@@ -192,6 +201,7 @@ abstract class _$PrintDataCopyWith<$Res> implements $PrintDataCopyWith<$Res> {
       {CustomerElement? customer,
       List<PrintOrderData> orderData,
       List<PrintOrderData> orderPackages,
+      List<PrintOrderData> orderCustom,
       int subtotal,
       int discount,
       int total,
@@ -221,6 +231,7 @@ class __$PrintDataCopyWithImpl<$Res> extends _$PrintDataCopyWithImpl<$Res>
     Object? customer = freezed,
     Object? orderData = freezed,
     Object? orderPackages = freezed,
+    Object? orderCustom = freezed,
     Object? subtotal = freezed,
     Object? discount = freezed,
     Object? total = freezed,
@@ -242,6 +253,10 @@ class __$PrintDataCopyWithImpl<$Res> extends _$PrintDataCopyWithImpl<$Res>
       orderPackages: orderPackages == freezed
           ? _value.orderPackages
           : orderPackages // ignore: cast_nullable_to_non_nullable
+              as List<PrintOrderData>,
+      orderCustom: orderCustom == freezed
+          ? _value.orderCustom
+          : orderCustom // ignore: cast_nullable_to_non_nullable
               as List<PrintOrderData>,
       subtotal: subtotal == freezed
           ? _value.subtotal
@@ -286,6 +301,7 @@ class _$_PrintData extends _PrintData {
       {required this.customer,
       required this.orderData,
       required this.orderPackages,
+      required this.orderCustom,
       required this.subtotal,
       required this.discount,
       required this.total,
@@ -302,6 +318,8 @@ class _$_PrintData extends _PrintData {
   final List<PrintOrderData> orderData;
   @override
   final List<PrintOrderData> orderPackages;
+  @override
+  final List<PrintOrderData> orderCustom;
   @override
   final int subtotal;
   @override
@@ -321,7 +339,7 @@ class _$_PrintData extends _PrintData {
 
   @override
   String toString() {
-    return 'PrintData(customer: $customer, orderData: $orderData, orderPackages: $orderPackages, subtotal: $subtotal, discount: $discount, total: $total, paymentMethod: $paymentMethod, cashAmount: $cashAmount, orderDate: $orderDate, isPrinted: $isPrinted, cashierData: $cashierData)';
+    return 'PrintData(customer: $customer, orderData: $orderData, orderPackages: $orderPackages, orderCustom: $orderCustom, subtotal: $subtotal, discount: $discount, total: $total, paymentMethod: $paymentMethod, cashAmount: $cashAmount, orderDate: $orderDate, isPrinted: $isPrinted, cashierData: $cashierData)';
   }
 
   @override
@@ -333,6 +351,8 @@ class _$_PrintData extends _PrintData {
             const DeepCollectionEquality().equals(other.orderData, orderData) &&
             const DeepCollectionEquality()
                 .equals(other.orderPackages, orderPackages) &&
+            const DeepCollectionEquality()
+                .equals(other.orderCustom, orderCustom) &&
             const DeepCollectionEquality().equals(other.subtotal, subtotal) &&
             const DeepCollectionEquality().equals(other.discount, discount) &&
             const DeepCollectionEquality().equals(other.total, total) &&
@@ -352,6 +372,7 @@ class _$_PrintData extends _PrintData {
       const DeepCollectionEquality().hash(customer),
       const DeepCollectionEquality().hash(orderData),
       const DeepCollectionEquality().hash(orderPackages),
+      const DeepCollectionEquality().hash(orderCustom),
       const DeepCollectionEquality().hash(subtotal),
       const DeepCollectionEquality().hash(discount),
       const DeepCollectionEquality().hash(total),
@@ -372,6 +393,7 @@ abstract class _PrintData extends PrintData {
       {required CustomerElement? customer,
       required List<PrintOrderData> orderData,
       required List<PrintOrderData> orderPackages,
+      required List<PrintOrderData> orderCustom,
       required int subtotal,
       required int discount,
       required int total,
@@ -388,6 +410,8 @@ abstract class _PrintData extends PrintData {
   List<PrintOrderData> get orderData;
   @override
   List<PrintOrderData> get orderPackages;
+  @override
+  List<PrintOrderData> get orderCustom;
   @override
   int get subtotal;
   @override

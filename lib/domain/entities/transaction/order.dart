@@ -97,20 +97,37 @@ class Order with _$Order {
   PrintData toPrintData() => PrintData(
         customer: customer,
         orderData: orderProducts
-                ?.map((e) => PrintOrderData(
+                ?.map(
+                  (e) => PrintOrderData(
                     quantity: e.amount ?? 0,
                     costPerItem: e.costPerItem ?? 0,
                     total: e.total ?? 0,
                     name: e.product?.name ?? '-',
-                    note: e.note))
+                    note: e.note,
+                  ),
+                )
                 .toList() ??
             List.empty(),
         orderPackages: orderPackages
-                ?.map((e) => PrintOrderData(
+                ?.map(
+                  (e) => PrintOrderData(
                     quantity: e.quantity,
                     costPerItem: e.price.toInt(),
                     total: e.price.toInt() * e.quantity,
-                    name: e.package.name ?? '-'))
+                    name: e.package.name ?? '-',
+                  ),
+                )
+                .toList() ??
+            List.empty(),
+        orderCustom: orderCustoms
+                ?.map(
+                  (e) => PrintOrderData(
+                    quantity: int.parse(e.quantity ?? '0'),
+                    costPerItem: int.parse(e.price ?? '0'),
+                    total: int.parse(e.price ?? '0') * int.parse(e.quantity ?? '0'),
+                    name: e.product ?? '-',
+                  ),
+                )
                 .toList() ??
             List.empty(),
         subtotal: int.parse(productCost ?? '0'),
