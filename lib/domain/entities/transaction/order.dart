@@ -98,20 +98,21 @@ class Order with _$Order {
         customer: customer,
         orderData: orderProducts
                 ?.map((e) => PrintOrderData(
-                      quantity: e.amount ?? 0,
-                      costPerItem: e.costPerItem ?? 0,
-                      total: e.total ?? 0,
-                      name: e.product?.name ?? '-',
-                      note: e.note
-                    ))
+                    quantity: e.amount ?? 0,
+                    costPerItem: e.costPerItem ?? 0,
+                    total: e.total ?? 0,
+                    name: e.product?.name ?? '-',
+                    note: e.note))
                 .toList() ??
             List.empty(),
-        orderPackages: orderPackages?.map((e) => PrintOrderData(
-            quantity: e.quantity,
-            costPerItem: e.price.toInt(),
-            total: e.price.toInt() * e.quantity,
-            name: e.package.name ?? '-'))
-      .toList() ?? List.empty(),
+        orderPackages: orderPackages
+                ?.map((e) => PrintOrderData(
+                    quantity: e.quantity,
+                    costPerItem: e.price.toInt(),
+                    total: e.price.toInt() * e.quantity,
+                    name: e.package.name ?? '-'))
+                .toList() ??
+            List.empty(),
         subtotal: int.parse(productCost ?? '0'),
         discount: int.parse(discount ?? '0'),
         total: totalPayment,
@@ -119,6 +120,7 @@ class Order with _$Order {
         cashAmount: int.parse(cashAmount ?? '0'),
         orderDate: date ?? DateTime.now(),
         isPrinted: isPrinted ?? false,
+        cashierData: user,
       );
 
   bool get isOrderCustomExist {
