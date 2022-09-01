@@ -40,7 +40,9 @@ class _OrderItemState extends State<OrderItem> {
   @override
   void initState() {
     _quantityController = TextEditingController(text: widget.orderProduct.quantity.toString());
-    _noteController = TextEditingController(text: widget.orderProduct.note);
+    _noteController = widget.orderProduct.isCustomProduct
+        ? TextEditingController(text: widget.orderProduct.product.description)
+        : TextEditingController(text: widget.orderProduct.note);
     _quantityFocusNode = FocusNode();
     _noteFocusNode = FocusNode();
     super.initState();
@@ -50,6 +52,7 @@ class _OrderItemState extends State<OrderItem> {
   void dispose() {
     _quantityController?.dispose();
     _quantityFocusNode?.dispose();
+    _noteController?.dispose();
     _noteFocusNode?.dispose();
     super.dispose();
   }
@@ -65,6 +68,7 @@ class _OrderItemState extends State<OrderItem> {
     _quantityController
       ?..text = widget.orderProduct.quantity.toString()
       ..selection = TextSelection.collapsed(offset: widget.orderProduct.quantity.toString().length);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

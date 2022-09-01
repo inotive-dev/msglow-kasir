@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../domain/entities/login/user.dart';
+import '../../../../domain/entities/login/user_role.dart';
 import '../../hive/hive_type_id.dart';
+import 'user_role_entity.dart';
 
 part 'user_entity.g.dart';
 
@@ -17,6 +19,7 @@ class UserEntity extends Equatable {
     required this.avatar,
     required this.createdAt,
     required this.updatedAt,
+    required this.userRole,
   });
 
   @HiveField(0)
@@ -35,6 +38,8 @@ class UserEntity extends Equatable {
   final DateTime? createdAt;
   @HiveField(7)
   final DateTime? updatedAt;
+  @HiveField(8)
+  final UserRoleEntity? userRole;
 
   @override
   List<Object?> get props {
@@ -47,6 +52,7 @@ class UserEntity extends Equatable {
       avatar,
       createdAt,
       updatedAt,
+      userRole,
     ];
   }
 
@@ -59,5 +65,6 @@ class UserEntity extends Equatable {
         avatar: avatar,
         createdAt: createdAt,
         updatedAt: updatedAt,
+        userRole: userRole?.toDomain(),
       );
 }

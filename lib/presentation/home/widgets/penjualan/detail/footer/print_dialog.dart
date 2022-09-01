@@ -14,8 +14,7 @@ import 'print_args.dart';
 import 'print_confirmation.dart';
 import 'print_content.dart';
 
-const bool _kDisablePrinterDetection =
-    bool.fromEnvironment('DISABLE_PRINT_DETECTION', defaultValue: false);
+const bool _kDisablePrinterDetection = bool.fromEnvironment('DISABLE_PRINT_DETECTION', defaultValue: false);
 
 class PrintDialog extends StatelessWidget {
   final PrintArgs args;
@@ -30,8 +29,7 @@ class PrintDialog extends StatelessWidget {
     context.read<PrinterCubit>().checkConnectionToPrinter();
 
     return BlocListener<PrinterCubit, PrinterState>(
-      listenWhen: (previous, current) =>
-          previous.printResult != current.printResult,
+      listenWhen: (previous, current) => previous.printResult != current.printResult,
       listener: (context, state) {
         state.printResult.maybeWhen(
           success: (data) {
@@ -72,35 +70,38 @@ class PrintDialog extends StatelessWidget {
               borderRadius: BorderRadius.circular(Sizes.radius10),
             ),
             child: BlocBuilder<PrinterCubit, PrinterState>(
-              buildWhen: (previous, current) =>
-                  previous.isPrinterConnected != current.isPrinterConnected,
+              buildWhen: (previous, current) => previous.isPrinterConnected != current.isPrinterConnected,
               builder: (context, state) {
-                if (_kDisablePrinterDetection) {
-                  return PrintConfirmation(
-                    args: args,
-                  );
-                }
-
-                return state.isPrinterConnected.maybeWhen(
-                  success: (isPrinterConnected) {
-                    if (isPrinterConnected) {
-                      return PrintConfirmation(
-                        args: args,
-                      );
-                    }
-                    return SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Sizes.height16,
-                      ),
-                      child: PrintContent(
-                        args: args,
-                      ),
-                    );
-                  },
-                  orElse: () {
-                    return const CircularProgressIndicator();
-                  },
+                // TODO: Delete soon
+                return PrintConfirmation(
+                  args: args,
                 );
+                // if (_kDisablePrinterDetection) {
+                //   return PrintConfirmation(
+                //     args: args,
+                //   );
+                // }
+
+                // return state.isPrinterConnected.maybeWhen(
+                //   success: (isPrinterConnected) {
+                //     if (isPrinterConnected) {
+                //       return PrintConfirmation(
+                //         args: args,
+                //       );
+                //     }
+                //     return SingleChildScrollView(
+                //       padding: EdgeInsets.symmetric(
+                //         vertical: Sizes.height16,
+                //       ),
+                //       child: PrintContent(
+                //         args: args,
+                //       ),
+                //     );
+                //   },
+                //   orElse: () {
+                //     return const CircularProgressIndicator();
+                //   },
+                // );
               },
             ),
           ),

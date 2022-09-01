@@ -94,13 +94,50 @@ class OrderInfo extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: ColorPalettes.grey75,
                   ),
+                  // MyText(
+                  //   text: '${order.orderCustoms?.map((e) => e.product).join(', ')}',
+                  //   fontSize: Sizes.sp24,
+                  //   fontWeight: FontWeight.w500,
+                  //   color: ColorPalettes.grey75,
+                  //   textAlign: TextAlign.end,
+                  // ),
+                  Column(
+                    children: order.orderCustoms!.map((e) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: MyText(
+                              text: "${e.product}",
+                              fontSize: Sizes.sp24,
+                              fontWeight: FontWeight.w500,
+                              color: ColorPalettes.grey75,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
                   MyText(
-                    text: '${order.orderCustoms?.map((e) => e.product).join(', ')}',
-                    fontSize: Sizes.sp24,
+                    text: Strings.note,
+                    fontSize: Sizes.sp18,
                     fontWeight: FontWeight.w500,
                     color: ColorPalettes.grey75,
-                    textAlign: TextAlign.end,
                   ),
+                  Column(
+                    children: order.orderCustoms!
+                        .map(
+                          (order) => MyText(
+                            text: order.description ?? '-',
+                            fontSize: Sizes.sp20,
+                            fontWeight: FontWeight.w500,
+                            color: ColorPalettes.grey75,
+                          ),
+                        )
+                        .toList(),
+                  )
                 ],
               ),
             ),

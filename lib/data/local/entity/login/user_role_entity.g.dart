@@ -1,56 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_entity.dart';
+part of 'user_role_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserEntityAdapter extends TypeAdapter<UserEntity> {
+class UserRoleEntityAdapter extends TypeAdapter<UserRoleEntity> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  UserEntity read(BinaryReader reader) {
+  UserRoleEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserEntity(
+    return UserRoleEntity(
       id: fields[0] as int?,
-      userRoleId: fields[1] as int?,
+      merchantId: fields[1] as int?,
       name: fields[2] as String?,
-      email: fields[3] as String?,
-      phoneNumber: fields[4] as String?,
-      avatar: fields[5] as String?,
-      createdAt: fields[6] as DateTime?,
-      updatedAt: fields[7] as DateTime?,
-      userRole: fields[8] as UserRoleEntity?,
+      createdAt: fields[3] as DateTime?,
+      updatedAt: fields[4] as DateTime?,
+      merchant: fields[5] as MerchantEntity?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserEntity obj) {
+  void write(BinaryWriter writer, UserRoleEntity obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.userRoleId)
+      ..write(obj.merchantId)
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.email)
-      ..writeByte(4)
-      ..write(obj.phoneNumber)
-      ..writeByte(5)
-      ..write(obj.avatar)
-      ..writeByte(6)
       ..write(obj.createdAt)
-      ..writeByte(7)
+      ..writeByte(4)
       ..write(obj.updatedAt)
-      ..writeByte(8)
-      ..write(obj.userRole);
+      ..writeByte(5)
+      ..write(obj.merchant);
   }
 
   @override
@@ -59,7 +50,7 @@ class UserEntityAdapter extends TypeAdapter<UserEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserEntityAdapter &&
+      other is UserRoleEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

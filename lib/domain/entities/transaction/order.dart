@@ -115,6 +115,7 @@ class Order with _$Order {
                     costPerItem: e.price.toInt(),
                     total: e.price.toInt() * e.quantity,
                     name: e.package.name ?? '-',
+                    note: e.note,
                   ),
                 )
                 .toList() ??
@@ -126,11 +127,12 @@ class Order with _$Order {
                     costPerItem: int.parse(e.price ?? '0'),
                     total: int.parse(e.price ?? '0') * int.parse(e.quantity ?? '0'),
                     name: e.product ?? '-',
+                    note: e.description ?? '',
                   ),
                 )
                 .toList() ??
             List.empty(),
-        subtotal: int.parse(productCost ?? '0'),
+        subtotal: int.parse(productCost ?? '0') + int.parse(discount ?? '0'),
         discount: int.parse(discount ?? '0'),
         total: totalPayment,
         paymentMethod: paymentMethod ?? '-',

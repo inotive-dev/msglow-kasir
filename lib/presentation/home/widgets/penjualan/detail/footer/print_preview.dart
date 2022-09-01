@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -47,8 +45,8 @@ class PrintPreview extends StatelessWidget {
           "assets/images/logo_beautyy_glow.png",
           height: Sizes.height180,
         ),
-        const MyText(
-          text: 'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+        MyText(
+          text: 'Ruko MS GLOW BY BEAUTYYGLOW\n${args.printData?.cashierData?.userRole?.merchant?.address ?? ''}',
           textAlign: TextAlign.center,
         ),
         SizedBox(height: verticalSpace),
@@ -121,7 +119,7 @@ class PrintPreview extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: "${orderData.quantity}x"),
                     MyText(text: orderData.costPerItemInIdr),
                   ],
                 ),
@@ -140,7 +138,7 @@ class PrintPreview extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: "${orderData.quantity}x"),
                     MyText(text: orderData.costPerItemInIdr),
                   ],
                 ),
@@ -159,7 +157,7 @@ class PrintPreview extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: "${orderData.quantity}X"),
+                    MyText(text: "${orderData.quantity}x"),
                     MyText(text: orderData.costPerItemInIdr),
                   ],
                 ),
@@ -281,8 +279,8 @@ class PrintPreview extends StatelessWidget {
           "assets/images/logo_beautyy_glow.png",
           height: Sizes.height180,
         ),
-        const MyText(
-          text: 'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+        MyText(
+          text: 'Ruko MS GLOW BY BEAUTYYGLOW\n${_shiftPrint?.address ?? ''}',
           textAlign: TextAlign.center,
         ),
         SizedBox(height: verticalSpace),
@@ -363,7 +361,7 @@ class PrintPreview extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MyText(text: "${transactionDetail.qty}X"),
+                      MyText(text: "${transactionDetail.qty}x"),
                       MyText(text: formatToIdr(transactionDetail.total)),
                     ],
                   ),
@@ -704,7 +702,7 @@ class PrintPreview extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(text: "INCOME"),
+              const MyText(text: "INCOME"),
               _cashManagementDetail!.incomeCashManagementDetail!.isEmpty ? MyText(text: formatToIdr(0)) : Container()
             ],
           ),

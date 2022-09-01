@@ -30,7 +30,8 @@ class _$UserResponseTearOff {
       @JsonKey(name: 'phone_number') required String? phoneNumber,
       required String? avatar,
       @JsonKey(name: 'created_at') required DateTime? createdAt,
-      @JsonKey(name: 'updated_at') required DateTime? updatedAt}) {
+      @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+      @JsonKey(name: "user_role") required UserRoleResponse? userRole}) {
     return _UserResponse(
       id: id,
       userRoleId: userRoleId,
@@ -40,6 +41,7 @@ class _$UserResponseTearOff {
       avatar: avatar,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      userRole: userRole,
     );
   }
 
@@ -65,6 +67,8 @@ mixin _$UserResponse {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_role")
+  UserRoleResponse? get userRole => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -85,7 +89,10 @@ abstract class $UserResponseCopyWith<$Res> {
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
       @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRoleResponse? userRole});
+
+  $UserRoleResponseCopyWith<$Res>? get userRole;
 }
 
 /// @nodoc
@@ -106,6 +113,7 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
     Object? avatar = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? userRole = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -140,7 +148,22 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      userRole: userRole == freezed
+          ? _value.userRole
+          : userRole // ignore: cast_nullable_to_non_nullable
+              as UserRoleResponse?,
     ));
+  }
+
+  @override
+  $UserRoleResponseCopyWith<$Res>? get userRole {
+    if (_value.userRole == null) {
+      return null;
+    }
+
+    return $UserRoleResponseCopyWith<$Res>(_value.userRole!, (value) {
+      return _then(_value.copyWith(userRole: value));
+    });
   }
 }
 
@@ -159,7 +182,11 @@ abstract class _$UserResponseCopyWith<$Res>
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
       @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRoleResponse? userRole});
+
+  @override
+  $UserRoleResponseCopyWith<$Res>? get userRole;
 }
 
 /// @nodoc
@@ -182,6 +209,7 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? userRole = freezed,
   }) {
     return _then(_UserResponse(
       id: id == freezed
@@ -216,6 +244,10 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      userRole: userRole == freezed
+          ? _value.userRole
+          : userRole // ignore: cast_nullable_to_non_nullable
+              as UserRoleResponse?,
     ));
   }
 }
@@ -231,7 +263,8 @@ class _$_UserResponse extends _UserResponse {
       @JsonKey(name: 'phone_number') required this.phoneNumber,
       required this.avatar,
       @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt})
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      @JsonKey(name: "user_role") required this.userRole})
       : super._();
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
@@ -257,10 +290,13 @@ class _$_UserResponse extends _UserResponse {
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
+  @override
+  @JsonKey(name: "user_role")
+  final UserRoleResponse? userRole;
 
   @override
   String toString() {
-    return 'UserResponse(id: $id, userRoleId: $userRoleId, name: $name, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserResponse(id: $id, userRoleId: $userRoleId, name: $name, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt, userRole: $userRole)';
   }
 
   @override
@@ -277,7 +313,8 @@ class _$_UserResponse extends _UserResponse {
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality().equals(other.avatar, avatar) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.userRole, userRole));
   }
 
   @override
@@ -290,7 +327,8 @@ class _$_UserResponse extends _UserResponse {
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(avatar),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(updatedAt));
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(userRole));
 
   @JsonKey(ignore: true)
   @override
@@ -312,7 +350,8 @@ abstract class _UserResponse extends UserResponse {
           @JsonKey(name: 'phone_number') required String? phoneNumber,
           required String? avatar,
           @JsonKey(name: 'created_at') required DateTime? createdAt,
-          @JsonKey(name: 'updated_at') required DateTime? updatedAt}) =
+          @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+          @JsonKey(name: "user_role") required UserRoleResponse? userRole}) =
       _$_UserResponse;
   const _UserResponse._() : super._();
 
@@ -339,6 +378,9 @@ abstract class _UserResponse extends UserResponse {
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
+  @override
+  @JsonKey(name: "user_role")
+  UserRoleResponse? get userRole;
   @override
   @JsonKey(ignore: true)
   _$UserResponseCopyWith<_UserResponse> get copyWith =>

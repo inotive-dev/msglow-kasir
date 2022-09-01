@@ -11,19 +11,16 @@ class ClosingResponse with _$ClosingResponse {
     required Struk? struk,
   }) = _ClosingResponse;
 
-  factory ClosingResponse.fromJson(Map<String, dynamic> json) =>
-      _$ClosingResponseFromJson(json);
+  factory ClosingResponse.fromJson(Map<String, dynamic> json) => _$ClosingResponseFromJson(json);
 }
 
 @freezed
 class Struk with _$Struk {
   const factory Struk({
     @JsonKey(name: 'shift_print') required ShiftPrint? shiftPrint,
-    @JsonKey(name: 'transaction_detail')
-        required List<TransactionDetail>? transactionDetail,
+    @JsonKey(name: 'transaction_detail') required List<TransactionDetail>? transactionDetail,
     @JsonKey(name: 'payment_detail') required PaymentDetail? paymentDetail,
-    @JsonKey(name: 'outcome_detail')
-        required List<OutcomeDetail>? outcomeDetail,
+    @JsonKey(name: 'outcome_detail') required List<OutcomeDetail>? outcomeDetail,
     @JsonKey(name: 'kas_detail') required KasDetail? kasDetail,
     @JsonKey(name: 'cash_management_detail') required CashManagementDetail? cashManagementDetail,
     @JsonKey(name: 'refunded_items') required List<RefundedItem>? refundedItems,
@@ -39,8 +36,7 @@ class KasDetail with _$KasDetail {
     required int income,
   }) = _KasDetail;
 
-  factory KasDetail.fromJson(Map<String, dynamic> json) =>
-      _$KasDetailFromJson(json);
+  factory KasDetail.fromJson(Map<String, dynamic> json) => _$KasDetailFromJson(json);
 }
 
 @freezed
@@ -50,12 +46,11 @@ class CashManagementDetail with _$CashManagementDetail {
     @JsonKey(name: 'expected_ending_cash') required int? expectedEndingCash,
     @JsonKey(name: 'actual_ending_cash') required int? actualEndingCash,
     @JsonKey(name: 'cash_difference') required int? cashDifference,
-    @JsonKey(name: 'income')required List<OutcomeDetail>? incomeCashManagementDetail,
-    @JsonKey(name: 'expense')required List<OutcomeDetail>? expense,
+    @JsonKey(name: 'income') required List<OutcomeDetail>? incomeCashManagementDetail,
+    @JsonKey(name: 'expense') required List<OutcomeDetail>? expense,
   }) = _CashManagementDetail;
 
-  factory CashManagementDetail.fromJson(Map<String, dynamic> json) =>
-      _$CashManagementDetailFromJson(json);
+  factory CashManagementDetail.fromJson(Map<String, dynamic> json) => _$CashManagementDetailFromJson(json);
 }
 
 @freezed
@@ -68,8 +63,7 @@ class PaymentDetail with _$PaymentDetail {
     required Overview? overview,
   }) = _PaymentDetail;
 
-  factory PaymentDetail.fromJson(Map<String, dynamic> json) =>
-      _$PaymentDetailFromJson(json);
+  factory PaymentDetail.fromJson(Map<String, dynamic> json) => _$PaymentDetailFromJson(json);
 }
 
 @freezed
@@ -80,8 +74,7 @@ class CashPayment with _$CashPayment {
     required int? total,
   }) = _CashPayment;
 
-  factory CashPayment.fromJson(Map<String, dynamic> json) =>
-      _$CashPaymentFromJson(json);
+  factory CashPayment.fromJson(Map<String, dynamic> json) => _$CashPaymentFromJson(json);
 }
 
 @freezed
@@ -95,8 +88,7 @@ class EWallet with _$EWallet {
     required int? total,
   }) = _EWallet;
 
-  factory EWallet.fromJson(Map<String, dynamic> json) =>
-      _$EWalletFromJson(json);
+  factory EWallet.fromJson(Map<String, dynamic> json) => _$EWalletFromJson(json);
 }
 
 @freezed
@@ -110,8 +102,7 @@ class EdcPayment with _$EdcPayment {
     required int? total,
   }) = _EdcPayment;
 
-  factory EdcPayment.fromJson(Map<String, dynamic> json) =>
-      _$EdcPaymentFromJson(json);
+  factory EdcPayment.fromJson(Map<String, dynamic> json) => _$EdcPaymentFromJson(json);
 }
 
 @freezed
@@ -122,8 +113,7 @@ class Overview with _$Overview {
     required int? total,
   }) = _Overview;
 
-  factory Overview.fromJson(Map<String, dynamic> json) =>
-      _$OverviewFromJson(json);
+  factory Overview.fromJson(Map<String, dynamic> json) => _$OverviewFromJson(json);
 }
 
 @freezed
@@ -133,11 +123,11 @@ class ShiftPrint with _$ShiftPrint {
     @JsonKey(name: 'end_date') required DateTime? endDate,
     @JsonKey(name: 'sold_items') required String? soldItems,
     @JsonKey(name: 'refund_items') required String? refundItems,
+    String? address,
     required String? kasir,
   }) = _ShiftPrint;
 
-  factory ShiftPrint.fromJson(Map<String, dynamic> json) =>
-      _$ShiftPrintFromJson(json);
+  factory ShiftPrint.fromJson(Map<String, dynamic> json) => _$ShiftPrintFromJson(json);
 }
 
 @freezed
@@ -149,8 +139,7 @@ class TransactionDetail with _$TransactionDetail {
     required int? total,
   }) = _TransactionDetail;
 
-  factory TransactionDetail.fromJson(Map<String, dynamic> json) =>
-      _$TransactionDetailFromJson(json);
+  factory TransactionDetail.fromJson(Map<String, dynamic> json) => _$TransactionDetailFromJson(json);
 }
 
 @freezed
@@ -163,8 +152,7 @@ class RefundedItem with _$RefundedItem {
     required int? total,
   }) = _RefundedItem;
 
-  factory RefundedItem.fromJson(Map<String, dynamic> json) =>
-      _$RefundedItemFromJson(json);
+  factory RefundedItem.fromJson(Map<String, dynamic> json) => _$RefundedItemFromJson(json);
 }
 
 @freezed
@@ -174,6 +162,5 @@ class OutcomeDetail with _$OutcomeDetail {
     required int? amount,
   }) = _OutcomeDetail;
 
-  factory OutcomeDetail.fromJson(Map<String, dynamic> json) =>
-      _$OutcomeDetailFromJson(json);
+  factory OutcomeDetail.fromJson(Map<String, dynamic> json) => _$OutcomeDetailFromJson(json);
 }
