@@ -115,7 +115,7 @@ class Order with _$Order {
                 ?.map(
                   (e) => PrintOrderData(
                     quantity: e.quantity,
-                    costPerItem: e.price.toInt(),
+                    costPerItem: e.package.price != null ? e.package.price!.toInt() : 0,
                     total: e.price.toInt() * e.quantity,
                     name: e.package.name ?? '-',
                     note: e.note,

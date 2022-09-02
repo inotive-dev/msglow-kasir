@@ -63,8 +63,6 @@ class PrintDialog extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: min(Sizes.widthFull, 350)),
           child: Container(
             padding: EdgeInsets.all(Sizes.height16),
-            // height: Sizes.heightHalf,
-            // width: Sizes.heightHalf,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(Sizes.radius10),
@@ -72,36 +70,32 @@ class PrintDialog extends StatelessWidget {
             child: BlocBuilder<PrinterCubit, PrinterState>(
               buildWhen: (previous, current) => previous.isPrinterConnected != current.isPrinterConnected,
               builder: (context, state) {
-                // TODO: Delete soon
-                return PrintConfirmation(
-                  args: args,
-                );
-                // if (_kDisablePrinterDetection) {
-                //   return PrintConfirmation(
-                //     args: args,
-                //   );
-                // }
+                if (_kDisablePrinterDetection) {
+                  return PrintConfirmation(
+                    args: args,
+                  );
+                }
 
-                // return state.isPrinterConnected.maybeWhen(
-                //   success: (isPrinterConnected) {
-                //     if (isPrinterConnected) {
-                //       return PrintConfirmation(
-                //         args: args,
-                //       );
-                //     }
-                //     return SingleChildScrollView(
-                //       padding: EdgeInsets.symmetric(
-                //         vertical: Sizes.height16,
-                //       ),
-                //       child: PrintContent(
-                //         args: args,
-                //       ),
-                //     );
-                //   },
-                //   orElse: () {
-                //     return const CircularProgressIndicator();
-                //   },
-                // );
+                return state.isPrinterConnected.maybeWhen(
+                  success: (isPrinterConnected) {
+                    if (isPrinterConnected) {
+                      return PrintConfirmation(
+                        args: args,
+                      );
+                    }
+                    return SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Sizes.height16,
+                      ),
+                      child: PrintContent(
+                        args: args,
+                      ),
+                    );
+                  },
+                  orElse: () {
+                    return const CircularProgressIndicator();
+                  },
+                );
               },
             ),
           ),
