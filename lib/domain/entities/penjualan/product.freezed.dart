@@ -30,6 +30,7 @@ class _$ProductTearOff {
       DateTime? updatedAt,
       List<ProductPrice>? productPrices,
       required List<ProductPrice>? productPriceQuantities,
+      required ProductPrice? productPriceQuantity,
       PromoResponse? promo,
       required bool isProductPackage}) {
     return _Product(
@@ -44,6 +45,7 @@ class _$ProductTearOff {
       updatedAt: updatedAt,
       productPrices: productPrices,
       productPriceQuantities: productPriceQuantities,
+      productPriceQuantity: productPriceQuantity,
       promo: promo,
       isProductPackage: isProductPackage,
     );
@@ -67,6 +69,7 @@ mixin _$Product {
   List<ProductPrice>? get productPrices => throw _privateConstructorUsedError;
   List<ProductPrice>? get productPriceQuantities =>
       throw _privateConstructorUsedError;
+  ProductPrice? get productPriceQuantity => throw _privateConstructorUsedError;
   PromoResponse? get promo => throw _privateConstructorUsedError;
   bool get isProductPackage => throw _privateConstructorUsedError;
 
@@ -90,9 +93,11 @@ abstract class $ProductCopyWith<$Res> {
       DateTime? updatedAt,
       List<ProductPrice>? productPrices,
       List<ProductPrice>? productPriceQuantities,
+      ProductPrice? productPriceQuantity,
       PromoResponse? promo,
       bool isProductPackage});
 
+  $ProductPriceCopyWith<$Res>? get productPriceQuantity;
   $PromoResponseCopyWith<$Res>? get promo;
 }
 
@@ -117,6 +122,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? productPrices = freezed,
     Object? productPriceQuantities = freezed,
+    Object? productPriceQuantity = freezed,
     Object? promo = freezed,
     Object? isProductPackage = freezed,
   }) {
@@ -165,6 +171,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.productPriceQuantities
           : productPriceQuantities // ignore: cast_nullable_to_non_nullable
               as List<ProductPrice>?,
+      productPriceQuantity: productPriceQuantity == freezed
+          ? _value.productPriceQuantity
+          : productPriceQuantity // ignore: cast_nullable_to_non_nullable
+              as ProductPrice?,
       promo: promo == freezed
           ? _value.promo
           : promo // ignore: cast_nullable_to_non_nullable
@@ -174,6 +184,17 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           : isProductPackage // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
+  }
+
+  @override
+  $ProductPriceCopyWith<$Res>? get productPriceQuantity {
+    if (_value.productPriceQuantity == null) {
+      return null;
+    }
+
+    return $ProductPriceCopyWith<$Res>(_value.productPriceQuantity!, (value) {
+      return _then(_value.copyWith(productPriceQuantity: value));
+    });
   }
 
   @override
@@ -205,9 +226,12 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       DateTime? updatedAt,
       List<ProductPrice>? productPrices,
       List<ProductPrice>? productPriceQuantities,
+      ProductPrice? productPriceQuantity,
       PromoResponse? promo,
       bool isProductPackage});
 
+  @override
+  $ProductPriceCopyWith<$Res>? get productPriceQuantity;
   @override
   $PromoResponseCopyWith<$Res>? get promo;
 }
@@ -234,6 +258,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? productPrices = freezed,
     Object? productPriceQuantities = freezed,
+    Object? productPriceQuantity = freezed,
     Object? promo = freezed,
     Object? isProductPackage = freezed,
   }) {
@@ -282,6 +307,10 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.productPriceQuantities
           : productPriceQuantities // ignore: cast_nullable_to_non_nullable
               as List<ProductPrice>?,
+      productPriceQuantity: productPriceQuantity == freezed
+          ? _value.productPriceQuantity
+          : productPriceQuantity // ignore: cast_nullable_to_non_nullable
+              as ProductPrice?,
       promo: promo == freezed
           ? _value.promo
           : promo // ignore: cast_nullable_to_non_nullable
@@ -309,6 +338,7 @@ class _$_Product extends _Product {
       this.updatedAt,
       this.productPrices,
       required this.productPriceQuantities,
+      required this.productPriceQuantity,
       this.promo,
       required this.isProductPackage})
       : super._();
@@ -336,13 +366,15 @@ class _$_Product extends _Product {
   @override
   final List<ProductPrice>? productPriceQuantities;
   @override
+  final ProductPrice? productPriceQuantity;
+  @override
   final PromoResponse? promo;
   @override
   final bool isProductPackage;
 
   @override
   String toString() {
-    return 'Product(id: $id, merchantId: $merchantId, name: $name, category: $category, stock: $stock, thumbnail: $thumbnail, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, productPrices: $productPrices, productPriceQuantities: $productPriceQuantities, promo: $promo, isProductPackage: $isProductPackage)';
+    return 'Product(id: $id, merchantId: $merchantId, name: $name, category: $category, stock: $stock, thumbnail: $thumbnail, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, productPrices: $productPrices, productPriceQuantities: $productPriceQuantities, productPriceQuantity: $productPriceQuantity, promo: $promo, isProductPackage: $isProductPackage)';
   }
 
   @override
@@ -365,6 +397,8 @@ class _$_Product extends _Product {
                 .equals(other.productPrices, productPrices) &&
             const DeepCollectionEquality()
                 .equals(other.productPriceQuantities, productPriceQuantities) &&
+            const DeepCollectionEquality()
+                .equals(other.productPriceQuantity, productPriceQuantity) &&
             const DeepCollectionEquality().equals(other.promo, promo) &&
             const DeepCollectionEquality()
                 .equals(other.isProductPackage, isProductPackage));
@@ -384,6 +418,7 @@ class _$_Product extends _Product {
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(productPrices),
       const DeepCollectionEquality().hash(productPriceQuantities),
+      const DeepCollectionEquality().hash(productPriceQuantity),
       const DeepCollectionEquality().hash(promo),
       const DeepCollectionEquality().hash(isProductPackage));
 
@@ -406,6 +441,7 @@ abstract class _Product extends Product {
       DateTime? updatedAt,
       List<ProductPrice>? productPrices,
       required List<ProductPrice>? productPriceQuantities,
+      required ProductPrice? productPriceQuantity,
       PromoResponse? promo,
       required bool isProductPackage}) = _$_Product;
   const _Product._() : super._();
@@ -432,6 +468,8 @@ abstract class _Product extends Product {
   List<ProductPrice>? get productPrices;
   @override
   List<ProductPrice>? get productPriceQuantities;
+  @override
+  ProductPrice? get productPriceQuantity;
   @override
   PromoResponse? get promo;
   @override

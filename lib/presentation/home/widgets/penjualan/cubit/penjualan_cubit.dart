@@ -483,6 +483,7 @@ class PenjualanCubit extends Cubit<PenjualanState> {
             price: price,
           ),
         ],
+        productPriceQuantity: null,
         isProductPackage: false);
     if (state.orderItems.firstWhereOrNull((element) => element.product.name == _product.name) != null) return;
 

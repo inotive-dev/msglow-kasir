@@ -24,15 +24,13 @@ class ProductResponse with _$ProductResponse {
     required String? description,
     @JsonKey(name: 'created_at') required DateTime? createdAt,
     @JsonKey(name: 'updateAt') required DateTime? updatedAt,
-    @JsonKey(name: 'product_prices')
-        required List<ProductPriceResponse>? productPrices,
-    @JsonKey(name: 'product_price_quantities')
-        required List<ProductPriceResponse>? productPriceQuantities,
+    @JsonKey(name: 'product_prices') required List<ProductPriceResponse>? productPrices,
+    @JsonKey(name: 'product_price_quantities') required List<ProductPriceResponse>? productPriceQuantities,
+    @JsonKey(name: 'product_price_quantity') required ProductPriceResponse? productPriceQuantity,
     required PromoResponse? promo,
   }) = _ProductResponse;
 
-  factory ProductResponse.fromJson(Map<String, dynamic> json) =>
-      _$ProductResponseFromJson(json);
+  factory ProductResponse.fromJson(Map<String, dynamic> json) => _$ProductResponseFromJson(json);
 
   Product toDomain() => Product(
       id: id,
@@ -45,8 +43,8 @@ class ProductResponse with _$ProductResponse {
       createdAt: createdAt,
       updatedAt: updatedAt,
       productPrices: productPrices?.map((e) => e.toDomain()).toList(),
-      productPriceQuantities:
-          productPriceQuantities?.map((e) => e.toDomain()).toList(),
+      productPriceQuantities: productPriceQuantities?.map((e) => e.toDomain()).toList(),
+      productPriceQuantity: productPriceQuantity?.toDomain(),
       promo: promo,
       isProductPackage: false);
 }

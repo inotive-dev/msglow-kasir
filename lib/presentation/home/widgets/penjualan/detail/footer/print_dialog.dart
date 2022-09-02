@@ -72,32 +72,36 @@ class PrintDialog extends StatelessWidget {
             child: BlocBuilder<PrinterCubit, PrinterState>(
               buildWhen: (previous, current) => previous.isPrinterConnected != current.isPrinterConnected,
               builder: (context, state) {
-                if (_kDisablePrinterDetection) {
-                  return PrintConfirmation(
-                    args: args,
-                  );
-                }
-
-                return state.isPrinterConnected.maybeWhen(
-                  success: (isPrinterConnected) {
-                    if (isPrinterConnected) {
-                      return PrintConfirmation(
-                        args: args,
-                      );
-                    }
-                    return SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Sizes.height16,
-                      ),
-                      child: PrintContent(
-                        args: args,
-                      ),
-                    );
-                  },
-                  orElse: () {
-                    return const CircularProgressIndicator();
-                  },
+                // TODO: Delete soon
+                return PrintConfirmation(
+                  args: args,
                 );
+                // if (_kDisablePrinterDetection) {
+                //   return PrintConfirmation(
+                //     args: args,
+                //   );
+                // }
+
+                // return state.isPrinterConnected.maybeWhen(
+                //   success: (isPrinterConnected) {
+                //     if (isPrinterConnected) {
+                //       return PrintConfirmation(
+                //         args: args,
+                //       );
+                //     }
+                //     return SingleChildScrollView(
+                //       padding: EdgeInsets.symmetric(
+                //         vertical: Sizes.height16,
+                //       ),
+                //       child: PrintContent(
+                //         args: args,
+                //       ),
+                //     );
+                //   },
+                //   orElse: () {
+                //     return const CircularProgressIndicator();
+                //   },
+                // );
               },
             ),
           ),

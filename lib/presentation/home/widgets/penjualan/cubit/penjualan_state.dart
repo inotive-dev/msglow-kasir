@@ -39,11 +39,8 @@ class PenjualanState with _$PenjualanState {
         orderData: orderItems
             .map((e) => PrintOrderData(
                   quantity: e.quantity,
-                  // costPerItem: e.product.getStandardPriceInInt(),
                   // costPerItem: int.parse(e.costCategory?.amount ?? '0'),
-                  costPerItem: e.costCategory != null
-                      ? int.parse(e.costCategory?.amount ?? '0')
-                      : e.product.getStandardPriceInInt(),
+                  costPerItem: e.product.getStandardPriceInInt(),
                   total: e.product.getStandardPriceInInt() * e.quantity,
                   name: e.product.name ?? '-',
                   note: e.isCustomProduct ? e.product.description : e.note,

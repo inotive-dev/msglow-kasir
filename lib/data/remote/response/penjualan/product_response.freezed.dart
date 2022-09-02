@@ -39,6 +39,8 @@ class _$ProductResponseTearOff {
           required List<ProductPriceResponse>? productPrices,
       @JsonKey(name: 'product_price_quantities')
           required List<ProductPriceResponse>? productPriceQuantities,
+      @JsonKey(name: 'product_price_quantity')
+          required ProductPriceResponse? productPriceQuantity,
       required PromoResponse? promo}) {
     return _ProductResponse(
       id: id,
@@ -52,6 +54,7 @@ class _$ProductResponseTearOff {
       updatedAt: updatedAt,
       productPrices: productPrices,
       productPriceQuantities: productPriceQuantities,
+      productPriceQuantity: productPriceQuantity,
       promo: promo,
     );
   }
@@ -84,6 +87,9 @@ mixin _$ProductResponse {
   @JsonKey(name: 'product_price_quantities')
   List<ProductPriceResponse>? get productPriceQuantities =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_price_quantity')
+  ProductPriceResponse? get productPriceQuantity =>
+      throw _privateConstructorUsedError;
   PromoResponse? get promo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -114,8 +120,11 @@ abstract class $ProductResponseCopyWith<$Res> {
           List<ProductPriceResponse>? productPrices,
       @JsonKey(name: 'product_price_quantities')
           List<ProductPriceResponse>? productPriceQuantities,
+      @JsonKey(name: 'product_price_quantity')
+          ProductPriceResponse? productPriceQuantity,
       PromoResponse? promo});
 
+  $ProductPriceResponseCopyWith<$Res>? get productPriceQuantity;
   $PromoResponseCopyWith<$Res>? get promo;
 }
 
@@ -141,6 +150,7 @@ class _$ProductResponseCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? productPrices = freezed,
     Object? productPriceQuantities = freezed,
+    Object? productPriceQuantity = freezed,
     Object? promo = freezed,
   }) {
     return _then(_value.copyWith(
@@ -188,11 +198,27 @@ class _$ProductResponseCopyWithImpl<$Res>
           ? _value.productPriceQuantities
           : productPriceQuantities // ignore: cast_nullable_to_non_nullable
               as List<ProductPriceResponse>?,
+      productPriceQuantity: productPriceQuantity == freezed
+          ? _value.productPriceQuantity
+          : productPriceQuantity // ignore: cast_nullable_to_non_nullable
+              as ProductPriceResponse?,
       promo: promo == freezed
           ? _value.promo
           : promo // ignore: cast_nullable_to_non_nullable
               as PromoResponse?,
     ));
+  }
+
+  @override
+  $ProductPriceResponseCopyWith<$Res>? get productPriceQuantity {
+    if (_value.productPriceQuantity == null) {
+      return null;
+    }
+
+    return $ProductPriceResponseCopyWith<$Res>(_value.productPriceQuantity!,
+        (value) {
+      return _then(_value.copyWith(productPriceQuantity: value));
+    });
   }
 
   @override
@@ -231,8 +257,12 @@ abstract class _$ProductResponseCopyWith<$Res>
           List<ProductPriceResponse>? productPrices,
       @JsonKey(name: 'product_price_quantities')
           List<ProductPriceResponse>? productPriceQuantities,
+      @JsonKey(name: 'product_price_quantity')
+          ProductPriceResponse? productPriceQuantity,
       PromoResponse? promo});
 
+  @override
+  $ProductPriceResponseCopyWith<$Res>? get productPriceQuantity;
   @override
   $PromoResponseCopyWith<$Res>? get promo;
 }
@@ -261,6 +291,7 @@ class __$ProductResponseCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? productPrices = freezed,
     Object? productPriceQuantities = freezed,
+    Object? productPriceQuantity = freezed,
     Object? promo = freezed,
   }) {
     return _then(_ProductResponse(
@@ -308,6 +339,10 @@ class __$ProductResponseCopyWithImpl<$Res>
           ? _value.productPriceQuantities
           : productPriceQuantities // ignore: cast_nullable_to_non_nullable
               as List<ProductPriceResponse>?,
+      productPriceQuantity: productPriceQuantity == freezed
+          ? _value.productPriceQuantity
+          : productPriceQuantity // ignore: cast_nullable_to_non_nullable
+              as ProductPriceResponse?,
       promo: promo == freezed
           ? _value.promo
           : promo // ignore: cast_nullable_to_non_nullable
@@ -336,6 +371,8 @@ class _$_ProductResponse extends _ProductResponse {
           required this.productPrices,
       @JsonKey(name: 'product_price_quantities')
           required this.productPriceQuantities,
+      @JsonKey(name: 'product_price_quantity')
+          required this.productPriceQuantity,
       required this.promo})
       : super._();
 
@@ -370,11 +407,14 @@ class _$_ProductResponse extends _ProductResponse {
   @JsonKey(name: 'product_price_quantities')
   final List<ProductPriceResponse>? productPriceQuantities;
   @override
+  @JsonKey(name: 'product_price_quantity')
+  final ProductPriceResponse? productPriceQuantity;
+  @override
   final PromoResponse? promo;
 
   @override
   String toString() {
-    return 'ProductResponse(id: $id, merchantId: $merchantId, name: $name, category: $category, stock: $stock, thumbnail: $thumbnail, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, productPrices: $productPrices, productPriceQuantities: $productPriceQuantities, promo: $promo)';
+    return 'ProductResponse(id: $id, merchantId: $merchantId, name: $name, category: $category, stock: $stock, thumbnail: $thumbnail, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, productPrices: $productPrices, productPriceQuantities: $productPriceQuantities, productPriceQuantity: $productPriceQuantity, promo: $promo)';
   }
 
   @override
@@ -397,6 +437,8 @@ class _$_ProductResponse extends _ProductResponse {
                 .equals(other.productPrices, productPrices) &&
             const DeepCollectionEquality()
                 .equals(other.productPriceQuantities, productPriceQuantities) &&
+            const DeepCollectionEquality()
+                .equals(other.productPriceQuantity, productPriceQuantity) &&
             const DeepCollectionEquality().equals(other.promo, promo));
   }
 
@@ -414,6 +456,7 @@ class _$_ProductResponse extends _ProductResponse {
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(productPrices),
       const DeepCollectionEquality().hash(productPriceQuantities),
+      const DeepCollectionEquality().hash(productPriceQuantity),
       const DeepCollectionEquality().hash(promo));
 
   @JsonKey(ignore: true)
@@ -445,6 +488,8 @@ abstract class _ProductResponse extends ProductResponse {
           required List<ProductPriceResponse>? productPrices,
       @JsonKey(name: 'product_price_quantities')
           required List<ProductPriceResponse>? productPriceQuantities,
+      @JsonKey(name: 'product_price_quantity')
+          required ProductPriceResponse? productPriceQuantity,
       required PromoResponse? promo}) = _$_ProductResponse;
   const _ProductResponse._() : super._();
 
@@ -478,6 +523,9 @@ abstract class _ProductResponse extends ProductResponse {
   @override
   @JsonKey(name: 'product_price_quantities')
   List<ProductPriceResponse>? get productPriceQuantities;
+  @override
+  @JsonKey(name: 'product_price_quantity')
+  ProductPriceResponse? get productPriceQuantity;
   @override
   PromoResponse? get promo;
   @override

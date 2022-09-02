@@ -207,7 +207,7 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-            text: orderData.quantity.toString(),
+            text: '${orderData.quantity.toString()}x',
             width: 3,
           ),
           PosColumn(
@@ -230,7 +230,7 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-            text: orderData.quantity.toString(),
+            text: '${orderData.quantity.toString()}x',
             width: 3,
           ),
           PosColumn(
@@ -651,11 +651,12 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-              text: '${refundedItem.qty}X',
-              width: 3,
-              styles: PosStyles(
-                fontType: PosFontType.fontA,
-              )),
+            text: '${refundedItem.qty}X',
+            width: 3,
+            styles: const PosStyles(
+              fontType: PosFontType.fontA,
+            ),
+          ),
           PosColumn(
             text: formatToIdr(refundedItem.total),
             width: 9,
@@ -1293,7 +1294,6 @@ class ThermalPrinterManager {
 
     if (cashManagementDetail.expense!.isNotEmpty) {
       cashManagementDetail.expense?.forEach((e) {
-        print('expense data : ${e.text}');
         _bytes += ticket.row(
           [
             PosColumn(

@@ -220,7 +220,7 @@ class MyRepositoryImpl implements MyRepository {
 
     final _data = await _remoteDataSource.closing(
       ClosingRequest(
-        startDate: '2022-08-01', // TODO: change with _date
+        startDate: _date,
         endDate: _date,
         userId: _userId,
         actualEndingCash: params.actualEndingCash ?? 0,

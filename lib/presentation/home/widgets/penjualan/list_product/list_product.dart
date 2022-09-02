@@ -29,8 +29,7 @@ class ListProduct extends GetView<ListProductSectionController> {
                   const Icon(Icons.arrow_back_outlined, color: Colors.white),
                   SizedBox(width: Sizes.height20),
                   MyText(
-                      text:
-                          "${controller.selectedProductCategoryOs.value?.name}",
+                      text: "${controller.selectedProductCategoryOs.value?.name}",
                       fontSize: Sizes.sp32,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
@@ -54,6 +53,7 @@ class ListProduct extends GetView<ListProductSectionController> {
                           //   ProductPrice(quantity: "1", price: product.hpp.toStringAsFixed(0))
                           // ],
                           productPriceQuantities: product.productPriceQuatities,
+                          productPriceQuantity: null,
                           merchantId: product.merchantId,
                           category: product.category,
                           stock: product.stock.toStringAsFixed(0),

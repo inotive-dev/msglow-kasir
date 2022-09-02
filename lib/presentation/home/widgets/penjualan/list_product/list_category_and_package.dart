@@ -56,8 +56,7 @@ class ListCategoryAndPackage extends GetView<ListProductSectionController> {
   }
 
   Future<void> _refreshData() async {
-    await Future.delayed(const Duration(milliseconds: 200),
-        controller.loadProductCategoryAndPackages);
+    await Future.delayed(const Duration(milliseconds: 200), controller.loadProductCategoryAndPackages);
   }
 
   Widget _buildCategory() {
@@ -69,8 +68,7 @@ class ListCategoryAndPackage extends GetView<ListProductSectionController> {
         crossAxisCount: 3,
         itemCount: controller.productCategoryListObs.length,
         itemBuilder: (BuildContext context, int index) {
-          final ProductCategory category =
-              controller.productCategoryListObs.value[index];
+          final ProductCategory category = controller.productCategoryListObs.value[index];
           return CategoryItem(
             category: category,
             callback: () => controller.setSelectedCategory(category),
@@ -118,6 +116,7 @@ class ListCategoryAndPackage extends GetView<ListProductSectionController> {
                           price: e.price,
                         ))
                     .toList(),
+                productPriceQuantity: null,
                 id: package.id,
                 isProductPackage: true,
               );

@@ -15,11 +15,8 @@ class BankAccountListResponse {
     this.message = "",
   });
 
-  factory BankAccountListResponse.fromJson(Map<String, dynamic>? json) =>
-      BankAccountListResponse(
-        bankAccounts: asList(json, 'bank_accounts')
-            .map((e) => BankAccount.fromJson(e))
-            .toList(),
+  factory BankAccountListResponse.fromJson(Map<String, dynamic>? json) => BankAccountListResponse(
+        bankAccounts: asList(json, 'bank_accounts').map((e) => BankAccount.fromJson(e)).toList(),
         status: asString(json, 'status'),
         statusCode: asInt(json, 'status_code'),
         message: asString(json, 'message'),
@@ -71,6 +68,5 @@ class BankAccount extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, accountName, bankName, accountNumber];
 }

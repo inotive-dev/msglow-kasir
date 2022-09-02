@@ -91,6 +91,9 @@ class Order with _$Order {
     orderPackages?.forEach((element) {
       _totalPayment += element.price.toInt();
     });
+    orderCustoms?.forEach((element) {
+      _totalPayment += int.parse(element.price ?? '0');
+    });
     return _totalPayment;
   }
 
@@ -100,7 +103,7 @@ class Order with _$Order {
                 ?.map(
                   (e) => PrintOrderData(
                     quantity: e.amount ?? 0,
-                    costPerItem: e.costPerItem ?? 0,
+                    costPerItem: int.parse(e.product?.productPriceQuantity?.price ?? '0'),
                     total: e.total ?? 0,
                     name: e.product?.name ?? '-',
                     note: e.note,
