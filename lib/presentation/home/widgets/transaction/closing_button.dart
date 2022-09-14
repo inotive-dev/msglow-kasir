@@ -21,8 +21,7 @@ class ClosingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TransactionCubit, TransactionState>(
-      listenWhen: (previous, current) =>
-          previous.closingResult != current.closingResult,
+      listenWhen: (previous, current) => previous.closingResult != current.closingResult,
       listener: (context, state) {
         state.closingResult.when(
           initial: () => GetUtil.showDialog(
@@ -72,13 +71,9 @@ class ClosingButton extends StatelessWidget {
   }
 
   _onPressClose() async {
-    final _result = await GetUtil.showDialog(
-       ActualEndingCashDialog(),
-        barrierDismissible: false
-    );
-      print('actual ending cash : $_result');
+    final _result = await GetUtil.showDialog(ActualEndingCashDialog(), barrierDismissible: false);
     if (_result != null) {
-      await  GetUtil.context.read<TransactionCubit>().closing(int.parse(_result));
+      await GetUtil.context.read<TransactionCubit>().closing(int.parse(_result));
     }
   }
 }

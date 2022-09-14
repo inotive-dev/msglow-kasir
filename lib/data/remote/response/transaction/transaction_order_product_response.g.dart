@@ -25,6 +25,7 @@ _$_TransactionOrderProductResponse _$$_TransactionOrderProductResponseFromJson(
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
+      isPreOrder: json['is_pre_order'] as int?,
       product: json['product'] == null
           ? null
           : ProductResponse.fromJson(json['product'] as Map<String, dynamic>),
@@ -45,5 +46,6 @@ Map<String, dynamic> _$$_TransactionOrderProductResponseToJson(
       'note': instance.note,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
+      'is_pre_order': instance.isPreOrder,
       'product': instance.product,
     };

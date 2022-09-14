@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:flutter_kasir/domain/entities/login/user_role.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
@@ -17,6 +18,7 @@ class User with _$User {
     String? avatar,
     @JsonKey(name: "created_at") DateTime? createdAt,
     @JsonKey(name: "updated_at") DateTime? updatedAt,
+    @JsonKey(name: "user_role") UserRole? userRole,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);

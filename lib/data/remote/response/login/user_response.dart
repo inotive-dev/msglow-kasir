@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/entities/login/user.dart';
 import '../../../local/entity/login/user_entity.dart';
+import 'user_role_response.dart';
 
 part 'user_response.freezed.dart';
 
@@ -22,10 +23,10 @@ class UserResponse with _$UserResponse {
     required String? avatar,
     @JsonKey(name: 'created_at') required DateTime? createdAt,
     @JsonKey(name: 'updated_at') required DateTime? updatedAt,
+    @JsonKey(name: "user_role") required UserRoleResponse? userRole,
   }) = _UserResponse;
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserResponseFromJson(json);
+  factory UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
 
   UserEntity toEntity() => UserEntity(
         id: id,
@@ -36,6 +37,7 @@ class UserResponse with _$UserResponse {
         avatar: avatar,
         createdAt: createdAt,
         updatedAt: updatedAt,
+        userRole: userRole?.toEntity(),
       );
 
   User toDomain() => User(
@@ -47,5 +49,6 @@ class UserResponse with _$UserResponse {
         avatar: avatar,
         createdAt: createdAt,
         updatedAt: updatedAt,
+        userRole: userRole?.toDomain(),
       );
 }

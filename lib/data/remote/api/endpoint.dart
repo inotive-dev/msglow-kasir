@@ -23,4 +23,5 @@ class Endpoint {
   static const getListBankAccount = "/list-akun-bank";
   static const getIncomeList = "/list-transaksi-pemasukan";
   static const updateOrderPrintStatus = "/print-order";
+  static const changePreOrderStatus = "/pre-order";
 }

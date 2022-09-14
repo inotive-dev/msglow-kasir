@@ -15,12 +15,13 @@ class TransactionState with _$TransactionState {
     required ResultState<BaseResponse> updateOrderPrintSatusResult,
     required ResultState<IncomeResponse> fetchIncomeListResult,
     required List<Order> orders,
-    required List<String> cashierNames,
+    required List<User> cashierNames,
+    required String selectedCashierName,
     required int tabIndex,
   }) = _TransactionState;
 
   factory TransactionState.initial() => TransactionState(
-    fetchTransactionResult: const ResultState.initial(),
+        fetchTransactionResult: const ResultState.initial(),
         refundOrderResult: const ResultState.initial(),
         sendClosingMailResult: const ResultState.initial(),
         getClosingMailResult: const ResultState.initial(),
@@ -32,6 +33,7 @@ class TransactionState with _$TransactionState {
         addInOutcomeResult: const ResultState.initial(),
         orders: List.empty(growable: true),
         cashierNames: List.empty(growable: true),
+        selectedCashierName: '',
         tabIndex: 0,
         updateOrderPrintSatusResult: const ResultState.loading(),
       );

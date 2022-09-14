@@ -91,34 +91,58 @@ class Order with _$Order {
     orderPackages?.forEach((element) {
       _totalPayment += element.price.toInt();
     });
+    orderCustoms?.forEach((element) {
+      _totalPayment += int.parse(element.price ?? '0');
+    });
     return _totalPayment;
   }
 
   PrintData toPrintData() => PrintData(
         customer: customer,
         orderData: orderProducts
-                ?.map((e) => PrintOrderData(
-                      quantity: e.amount ?? 0,
-                      costPerItem: e.costPerItem ?? 0,
-                      total: e.total ?? 0,
-                      name: e.product?.name ?? '-',
-                      note: e.note
-                    ))
+                ?.map(
+                  (e) => PrintOrderData(
+                    quantity: e.amount ?? 0,
+                    costPerItem: int.parse(e.product?.productPriceQuantity?.price ?? '0'),
+                    total: e.total ?? 0,
+                    name: e.product?.name ?? '-',
+                    note: e.note,
+                  ),
+                )
                 .toList() ??
             List.empty(),
-        orderPackages: orderPackages?.map((e) => PrintOrderData(
-            quantity: e.quantity,
-            costPerItem: e.price.toInt(),
-            total: e.price.toInt() * e.quantity,
-            name: e.package.name ?? '-'))
-      .toList() ?? List.empty(),
-        subtotal: int.parse(productCost ?? '0'),
+        orderPackages: orderPackages
+                ?.map(
+                  (e) => PrintOrderData(
+                    quantity: e.quantity,
+                    costPerItem: e.package.price != null ? e.package.price!.toInt() : 0,
+                    total: e.price.toInt() * e.quantity,
+                    name: e.package.name ?? '-',
+                    note: e.note,
+                  ),
+                )
+                .toList() ??
+            List.empty(),
+        orderCustom: orderCustoms
+                ?.map(
+                  (e) => PrintOrderData(
+                    quantity: int.parse(e.quantity ?? '0'),
+                    costPerItem: int.parse(e.price ?? '0'),
+                    total: int.parse(e.price ?? '0') * int.parse(e.quantity ?? '0'),
+                    name: e.product ?? '-',
+                    note: e.description ?? '',
+                  ),
+                )
+                .toList() ??
+            List.empty(),
+        subtotal: int.parse(productCost ?? '0') + int.parse(discount ?? '0'),
         discount: int.parse(discount ?? '0'),
         total: totalPayment,
         paymentMethod: paymentMethod ?? '-',
         cashAmount: int.parse(cashAmount ?? '0'),
         orderDate: date ?? DateTime.now(),
         isPrinted: isPrinted ?? false,
+        cashierData: user,
       );
 
   bool get isOrderCustomExist {

@@ -1,6 +1,7 @@
 part of 'penjualan_cubit.dart';
 
 enum OrderState { initial, loading, finish }
+
 enum FunctionState { save, print }
 
 @freezed
@@ -16,12 +17,9 @@ class PenjualanState with _$PenjualanState {
     @Default(0) int total,
     @Default(false) bool isPrinted,
     @Default(PaymentMethod()) PaymentMethod paymentMethod,
-    @Default(ResultState.initial())
-        ResultState<SubmitOrderResponse> submitOrderResult,
-    @Default(ResultState.initial())
-        ResultState<ProductList> fetchProductsResult,
-    @Default(ResultState.initial())
-        ResultState<List<BankAccount>> fetchBankAccountsResult,
+    @Default(ResultState.initial()) ResultState<SubmitOrderResponse> submitOrderResult,
+    @Default(ResultState.initial()) ResultState<ProductList> fetchProductsResult,
+    @Default(ResultState.initial()) ResultState<List<BankAccount>> fetchBankAccountsResult,
     @Default(ResultState.initial()) ResultState<Customer> fetchCustomersResult,
     CustomerElement? selectedCustomer,
     List<CustomerElement>? searchedCustomers,
@@ -36,25 +34,20 @@ class PenjualanState with _$PenjualanState {
         products: List.empty(growable: true),
       );
 
-  PrintData toPrintData({required DateTime orderDate, User? cashierData}) =>
-      PrintData(
+  PrintData toPrintData({required DateTime orderDate, User? cashierData}) => PrintData(
         customer: selectedCustomer,
         orderData: orderItems
             .map((e) => PrintOrderData(
                   quantity: e.quantity,
+                  // costPerItem: int.parse(e.costCategory?.amount ?? '0'),
                   costPerItem: e.product.getStandardPriceInInt(),
                   total: e.product.getStandardPriceInInt() * e.quantity,
                   name: e.product.name ?? '-',
+                  note: e.isCustomProduct ? e.product.description : e.note,
                 ))
             .toList(),
-        orderPackages: orderItems
-            .map((e) => PrintOrderData(
-          quantity: e.quantity,
-          costPerItem: e.product.getStandardPriceInInt(),
-          total: e.product.getStandardPriceInInt() * e.quantity,
-          name: e.product.name ?? '-',
-        ))
-            .toList(),
+        orderPackages: [],
+        orderCustom: [],
         subtotal: subTotal,
         discount: discount,
         total: total,

@@ -32,7 +32,5 @@ class TransferBankItemData extends Equatable {
   ];
 
   @override
-  // TODO: implement props
-  List<Object?> get props =>
-      [id, imageAsset, name, namaPengirim, namaBank, noRekening];
+  List<Object?> get props => [id, imageAsset, name, namaPengirim, namaBank, noRekening];
 }

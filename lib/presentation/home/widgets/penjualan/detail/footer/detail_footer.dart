@@ -23,8 +23,7 @@ class DetailFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PenjualanCubit, PenjualanState>(
-      listenWhen: (previous, current) =>
-          previous.validateOrderResult != current.validateOrderResult,
+      listenWhen: (previous, current) => previous.validateOrderResult != current.validateOrderResult,
       listener: (context, state) {
         state.validateOrderResult.maybeWhen(
           success: (data) {
@@ -37,10 +36,7 @@ class DetailFooter extends StatelessWidget {
               onPressSave: () {
                 Get.back();
                 Future.microtask(() {
-                  _showPrintDialog(state,
-                      user: Get.find<ListProductSectionController>()
-                          .selectedKasirObs
-                          .value);
+                  _showPrintDialog(state, user: Get.find<ListProductSectionController>().selectedKasirObs.value);
                 });
               },
             ));
@@ -52,8 +48,7 @@ class DetailFooter extends StatelessWidget {
         );
       },
       child: BlocListener<PenjualanCubit, PenjualanState>(
-        listenWhen: (previous, current) =>
-            previous.submitOrderResult != current.submitOrderResult,
+        listenWhen: (previous, current) => previous.submitOrderResult != current.submitOrderResult,
         listener: (context, state) {
           state.submitOrderResult.maybeWhen(
             loading: () => GetUtil.showDialog(
@@ -120,10 +115,7 @@ class DetailFooter extends StatelessWidget {
       okText: Strings.simpan,
       onPressSave: () {
         GetUtil.context.read<PenjualanCubit>().submitOrder(
-            orderDate: DateTime.now().toLocal(),
-            user: Get.find<ListProductSectionController>()
-                .selectedKasirObs
-                .value);
+            orderDate: DateTime.now().toLocal(), user: Get.find<ListProductSectionController>().selectedKasirObs.value);
         Get.back();
       },
     ));
@@ -145,8 +137,7 @@ class DetailFooter extends StatelessWidget {
             orderDate: _orderDate,
             cashierData: user,
           ),
-          onSuccessPrint: () =>
-              _onSuccessPrint(orderDate: _orderDate, user: user),
+          onSuccessPrint: () => _onSuccessPrint(orderDate: _orderDate, user: user),
           closingResponse: null,
         ),
       ),
@@ -158,8 +149,6 @@ class DetailFooter extends StatelessWidget {
   }
 
   _onSuccessPrint({required DateTime orderDate, User? user}) {
-    GetUtil.context
-        .read<PenjualanCubit>()
-        .submitOrder(orderDate: orderDate, user: user);
+    GetUtil.context.read<PenjualanCubit>().submitOrder(orderDate: orderDate, user: user);
   }
 }

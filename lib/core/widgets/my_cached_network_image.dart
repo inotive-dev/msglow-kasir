@@ -24,8 +24,10 @@ class MyCachedNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _validURL = Uri.tryParse(imageUrl ?? '')?.hasAbsolutePath ?? false;
+
     return CachedNetworkImage(
-      imageUrl: imageUrl ?? '',
+      imageUrl: _validURL ? imageUrl! : 'https://via.placeholder.com/150',
       fit: fit,
       width: width,
       height: height,

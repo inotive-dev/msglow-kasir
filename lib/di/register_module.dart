@@ -16,8 +16,7 @@ abstract class RegisterModule {
 
   // url here will be injected
   @lazySingleton
-  Dio dio(@Named('BaseUrl') String url, LocalDataSource localDataSource) =>
-      Dio(BaseOptions(
+  Dio dio(@Named('BaseUrl') String url, LocalDataSource localDataSource) => Dio(BaseOptions(
         baseUrl: url,
         connectTimeout: Constants.timeoutInMillisecond,
         receiveTimeout: Constants.timeoutInMillisecond,

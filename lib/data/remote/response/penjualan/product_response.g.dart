@@ -28,6 +28,10 @@ _$_ProductResponse _$$_ProductResponseFromJson(Map<String, dynamic> json) =>
               as List<dynamic>?)
           ?.map((e) => ProductPriceResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      productPriceQuantity: json['product_price_quantity'] == null
+          ? null
+          : ProductPriceResponse.fromJson(
+              json['product_price_quantity'] as Map<String, dynamic>),
       promo: json['promo'] == null
           ? null
           : PromoResponse.fromJson(json['promo'] as Map<String, dynamic>),
@@ -46,5 +50,6 @@ Map<String, dynamic> _$$_ProductResponseToJson(_$_ProductResponse instance) =>
       'updateAt': instance.updatedAt?.toIso8601String(),
       'product_prices': instance.productPrices,
       'product_price_quantities': instance.productPriceQuantities,
+      'product_price_quantity': instance.productPriceQuantity,
       'promo': instance.promo,
     };

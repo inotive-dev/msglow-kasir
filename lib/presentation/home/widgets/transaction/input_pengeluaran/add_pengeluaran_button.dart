@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/widgets/my_text.dart';
-import 'package:get/get.dart';
 
 import '../../../../../core/constants/strings.dart';
 import '../../../../../core/style/color_palettes.dart';
@@ -16,11 +14,9 @@ class AddPemasukanPengeluaranButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final index =
-        context.select((TransactionCubit element) => element.state.tabIndex);
-    final cashierNames = context
-        .select((TransactionCubit element) => element.state.cashierNames);
-    final rxCashierName = ''.obs;
+    final index = context.select((TransactionCubit element) => element.state.tabIndex);
+    final cashierNames = context.select((TransactionCubit element) => element.state.cashierNames);
+    final rxCashierName = context.select((TransactionCubit element) => element.state.selectedCashierName);
 
     return Builder(
       builder: (context) {
@@ -41,57 +37,46 @@ class AddPemasukanPengeluaranButton extends StatelessWidget {
         }
 
         return BlocBuilder<TransactionCubit, TransactionState>(
-          buildWhen: (previous, current) =>
-              previous.fetchTransactionResult != current.fetchTransactionResult,
+          buildWhen: (previous, current) => previous.fetchTransactionResult != current.fetchTransactionResult,
           builder: (context, state) {
             return state.fetchTransactionResult.when(
               initial: () => const SizedBox.shrink(),
               loading: () => const SizedBox.shrink(),
               success: (data) {
                 if (data.orders == null || data.orders!.isEmpty) {
-                  return MyText(
-                    text: Strings.msgEmptyTransaction,
-                    fontSize: Sizes.sp20,
-                    fontWeight: FontWeight.w500,
-                    alignment: Alignment.center,
-                  );
+                  return const SizedBox.shrink();
                 }
 
                 final items = <DropdownMenuItem<String>>[
                   const DropdownMenuItem(child: Text('Semua'), value: ''),
                 ];
 
-                for (var name in cashierNames) {
+                for (var user in cashierNames) {
                   items.add(DropdownMenuItem(
-                    child: Text(name),
-                    value: name,
+                    child: Text(user.name ?? '-'),
+                    value: user.name,
                   ));
                 }
 
-                return ObxValue<RxString>((rx) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    margin: EdgeInsets.only(
-                      right: Sizes.height50,
-                      bottom: Sizes.height33,
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: DropdownButton<String>(
-                      value: rx.value,
-                      items: items,
-                      underline: const SizedBox.shrink(),
-                      onChanged: (value) {
-                        rx.value = value ?? '';
-                        GetUtil.context
-                            .read<TransactionCubit>()
-                            .searchTransactions(rx.value);
-                      },
-                    ),
-                  );
-                }, rxCashierName);
+                return Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  margin: EdgeInsets.only(
+                    right: Sizes.height50,
+                    bottom: Sizes.height33,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: DropdownButton<String>(
+                    value: rxCashierName,
+                    items: items,
+                    underline: const SizedBox.shrink(),
+                    onChanged: (value) {
+                      GetUtil.context.read<TransactionCubit>().searchTransactions(value ?? '');
+                    },
+                  ),
+                );
               },
               error: (failure) => const SizedBox.shrink(),
             );

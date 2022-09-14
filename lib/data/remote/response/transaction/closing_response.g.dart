@@ -193,6 +193,7 @@ _$_ShiftPrint _$$_ShiftPrintFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['end_date'] as String),
       soldItems: json['sold_items'] as String?,
       refundItems: json['refund_items'] as String?,
+      address: json['address'] as String?,
       kasir: json['kasir'] as String?,
     );
 
@@ -202,6 +203,7 @@ Map<String, dynamic> _$$_ShiftPrintToJson(_$_ShiftPrint instance) =>
       'end_date': instance.endDate?.toIso8601String(),
       'sold_items': instance.soldItems,
       'refund_items': instance.refundItems,
+      'address': instance.address,
       'kasir': instance.kasir,
     };
 

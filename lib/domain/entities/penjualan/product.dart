@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../core/utils/utils.dart';
 import '../../../data/remote/response/penjualan/promo_response.dart';
 import 'customer/customer_element.dart';
 import 'product_price.dart';
@@ -23,6 +22,7 @@ class Product with _$Product {
     DateTime? updatedAt,
     List<ProductPrice>? productPrices,
     required List<ProductPrice>? productPriceQuantities,
+    required ProductPrice? productPriceQuantity,
     PromoResponse? promo,
     required bool isProductPackage,
   }) = _Product;
@@ -46,8 +46,8 @@ class Product with _$Product {
       ),
     );
 
-    final _secondCategory = productPrices?.firstWhereOrNull(
-        (element) => element.statusCustomerId == customer?.statusCustomerId);
+    final _secondCategory =
+        productPrices?.firstWhereOrNull((element) => element.statusCustomerId == customer?.statusCustomerId);
     _costCategories.add(
       CostCategory(
         id: 1,
@@ -58,7 +58,6 @@ class Product with _$Product {
     );
 
     productPriceQuantities?.forEach((element) {
-      print('paket qty : ${element.price}');
       final _index = productPriceQuantities?.indexOf(element);
       if ((_index ?? 0) > 0) {
         _costCategories.add(
@@ -78,13 +77,9 @@ class Product with _$Product {
       var _amount = '0';
       num _standardPrice = int.parse(standardPrice);
       if (promo!.categoryDiscount == 'persen') {
-        _amount = (_standardPrice -
-                ((num.parse(promo!.discount!) * _standardPrice) / 100))
-            .toInt()
-            .toString();
+        _amount = (_standardPrice - ((num.parse(promo!.discount!) * _standardPrice) / 100)).toInt().toString();
       } else {
-        _amount =
-            (_standardPrice - num.parse(promo!.discount ?? '0')).toString();
+        _amount = (_standardPrice - num.parse(promo!.discount ?? '0')).toString();
       }
       _costCategories.add(
         CostCategory(

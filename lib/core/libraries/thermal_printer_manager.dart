@@ -27,11 +27,9 @@ class ThermalPrinterManager {
 
   Stream<bool> get isScanning => _bluetoothManager.isScanning;
 
-  Stream<List<PrinterBluetooth>> get scanResults =>
-      _printerBluetoothManager.scanResults;
+  Stream<List<PrinterBluetooth>> get scanResults => _printerBluetoothManager.scanResults;
 
-  Stream<bool> get isScanningStream =>
-      _printerBluetoothManager.isScanningStream;
+  Stream<bool> get isScanningStream => _printerBluetoothManager.isScanningStream;
 
   void startScanPrinter({Duration timeout = const Duration(seconds: 4)}) {
     _printerBluetoothManager.startScan(timeout);
@@ -68,12 +66,8 @@ class ThermalPrinterManager {
           ? await _orderTicket(printData: printData)
           : await _closingTicket(closingResponse: closingResponse!);
 
-      final _posPrintResult = await _printerBluetoothManager.printTicket(
-        _ticket,
-        timeoutInSeconds: 120,
-        queueSleepTimeMs: 10,
-        chunkSizeBytes: 200
-      );
+      final _posPrintResult = await _printerBluetoothManager.printTicket(_ticket,
+          timeoutInSeconds: 120, queueSleepTimeMs: 10, chunkSizeBytes: 200);
 
       return _posPrintResult;
     } on Exception catch (_) {
@@ -94,11 +88,7 @@ class ThermalPrinterManager {
     if (printData.isPrinted) {
       _bytes += ticket.text(
         'Copied',
-        styles: const PosStyles(
-          align: PosAlign.right,
-          bold: true,
-            fontType: PosFontType.fontA
-        ),
+        styles: const PosStyles(align: PosAlign.right, bold: true, fontType: PosFontType.fontA),
         linesAfter: 1,
       );
     }
@@ -133,7 +123,7 @@ class ThermalPrinterManager {
     _bytes += ticket.feed(1);
 
     _bytes += ticket.text(
-      'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+      'Ruko MS GLOW BY BEAUTYYGLOW\n${printData.cashierData?.userRole?.merchant?.address ?? ''}',
       styles: const PosStyles(
         align: PosAlign.center,
       ),
@@ -211,13 +201,13 @@ class ThermalPrinterManager {
     // product info list item section
     for (PrintOrderData orderData in printData.orderData) {
       _bytes += ticket.text(orderData.name);
-      if(orderData.note != null){
+      if (orderData.note != null) {
         _bytes += ticket.text(orderData.note ?? '');
       }
       _bytes += ticket.row(
         [
           PosColumn(
-            text: orderData.quantity.toString(),
+            text: '${orderData.quantity.toString()}x',
             width: 3,
           ),
           PosColumn(
@@ -234,10 +224,36 @@ class ThermalPrinterManager {
     // for packages item
     for (PrintOrderData orderData in printData.orderPackages) {
       _bytes += ticket.text(orderData.name);
+      if (orderData.note != null) {
+        _bytes += ticket.text(orderData.note ?? '');
+      }
       _bytes += ticket.row(
         [
           PosColumn(
-            text: orderData.quantity.toString(),
+            text: '${orderData.quantity.toString()}x',
+            width: 3,
+          ),
+          PosColumn(
+            text: orderData.totalIdr,
+            width: 9,
+            styles: const PosStyles(
+              align: PosAlign.right,
+            ),
+          ),
+        ],
+      );
+    }
+
+    // for custom product items
+    for (PrintOrderData orderData in printData.orderCustom) {
+      _bytes += ticket.text(orderData.name);
+      if (orderData.note != null) {
+        _bytes += ticket.text(orderData.note ?? '');
+      }
+      _bytes += ticket.row(
+        [
+          PosColumn(
+            text: '${orderData.quantity.toString()}x',
             width: 3,
           ),
           PosColumn(
@@ -419,10 +435,11 @@ class ThermalPrinterManager {
   }
 
   // Closing ticker
-  Future<List<int>> _closingTicket(
-      {PaperSize paper = PaperSize.mm58,
-      CapabilityProfile? profile,
-      required ClosingResponse closingResponse}) async {
+  Future<List<int>> _closingTicket({
+    PaperSize paper = PaperSize.mm58,
+    CapabilityProfile? profile,
+    required ClosingResponse closingResponse,
+  }) async {
     profile ??= await CapabilityProfile.load();
 
     final ticket = Generator(paper, profile);
@@ -447,16 +464,17 @@ class ThermalPrinterManager {
       // linesAfter: 1,
     );
 
-    final ByteData _subtitleLogoData =
-        await rootBundle.load(ImageAsset.imgSubtitleLogoReceipt);
+    final ByteData _subtitleLogoData = await rootBundle.load(ImageAsset.imgSubtitleLogoReceipt);
     final Uint8List _subtitleLogoBytes = _subtitleLogoData.buffer.asUint8List();
     final Image? _subtitleLogoImage = decodeImage(_subtitleLogoBytes);
     if (_subtitleLogoImage != null) _bytes += ticket.imageRaster(_subtitleLogoImage);
 
     _bytes += ticket.feed(1);
 
+    final _shiftPrint = closingResponse.struk?.shiftPrint;
+
     _bytes += ticket.text(
-      'Ruko MS GLOW BY BEAUTYYGLOW\nJl. MT Haryono No 18B RT 01\nBalikpapan',
+      'Ruko MS GLOW BY BEAUTYYGLOW\n${_shiftPrint?.address ?? ''}',
       styles: const PosStyles(
         fontType: PosFontType.fontA,
         align: PosAlign.center,
@@ -478,38 +496,30 @@ class ThermalPrinterManager {
       linesAfter: 1,
     );
 
-    final _shiftPrint = closingResponse.struk?.shiftPrint;
-
     _bytes += ticket.text(
-      'Start Date : ${DateUtil.dateTimeToFormattedDate(
-        _shiftPrint?.startDate,
-        datePattern: 'yyyy/MM/dd',
-      )}',
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      )
-    );
+        'Start Date : ${DateUtil.dateTimeToFormattedDate(
+          _shiftPrint?.startDate,
+          datePattern: 'yyyy/MM/dd',
+        )}',
+        styles: const PosStyles(
+          fontType: PosFontType.fontA,
+        ));
     _bytes += ticket.text(
-      'End Date : ${DateUtil.dateTimeToFormattedDate(
-        _shiftPrint?.endDate,
-        datePattern: 'yyyy/MM/dd',
-      )}',
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      )
-    );
-    _bytes += ticket.text(
-      'Sold Items : ${_shiftPrint?.soldItems ?? '-'}',
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      )
-    );
-    _bytes += ticket.text(
-      'Refunded Items : ${_shiftPrint?.refundItems ?? '-'}',
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      )
-    );
+        'End Date : ${DateUtil.dateTimeToFormattedDate(
+          _shiftPrint?.endDate,
+          datePattern: 'yyyy/MM/dd',
+        )}',
+        styles: const PosStyles(
+          fontType: PosFontType.fontA,
+        ));
+    _bytes += ticket.text('Sold Items : ${_shiftPrint?.soldItems ?? '-'}',
+        styles: const PosStyles(
+          fontType: PosFontType.fontA,
+        ));
+    _bytes += ticket.text('Refunded Items : ${_shiftPrint?.refundItems ?? '-'}',
+        styles: const PosStyles(
+          fontType: PosFontType.fontA,
+        ));
 
     _bytes += ticket.hr();
 
@@ -551,18 +561,17 @@ class ThermalPrinterManager {
       _total += transactionDetail.total ?? 0;
 
       _bytes += ticket.text(transactionDetail.namaBarang ?? '',
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      ));
+          styles: const PosStyles(
+            fontType: PosFontType.fontA,
+          ));
       _bytes += ticket.row(
         [
           PosColumn(
-            text: '${transactionDetail.qty}X',
-            width: 3,
-            styles: PosStyles(
-              fontType: PosFontType.fontA,
-            )
-          ),
+              text: '${transactionDetail.qty}x',
+              width: 3,
+              styles: const PosStyles(
+                fontType: PosFontType.fontA,
+              )),
           PosColumn(
             text: formatToIdr(transactionDetail.total),
             width: 9,
@@ -642,11 +651,11 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-              text: '${refundedItem.qty}X',
-              width: 3,
-              styles: PosStyles(
-                fontType: PosFontType.fontA,
-              )
+            text: '${refundedItem.qty}X',
+            width: 3,
+            styles: const PosStyles(
+              fontType: PosFontType.fontA,
+            ),
           ),
           PosColumn(
             text: formatToIdr(refundedItem.total),
@@ -723,12 +732,11 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-            text: _outcomeDetail.text ?? '',
-            width: 6,
-            styles: PosStyles(
-              fontType: PosFontType.fontA,
-            )
-          ),
+              text: _outcomeDetail.text ?? '',
+              width: 6,
+              styles: const PosStyles(
+                fontType: PosFontType.fontA,
+              )),
           PosColumn(
             text: formatToIdr(_outcomeDetail.amount),
             width: 6,
@@ -1217,18 +1225,12 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'CASH PAYMENT',
           width: 6,
-          styles: const PosStyles(
-            bold: true,
-            fontType: PosFontType.fontB
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: formatToIdr(cashManagementDetail?.cashPayment),
           width: 6,
-          styles: const PosStyles(
-            align: PosAlign.right,
-            fontType: PosFontType.fontB
-          ),
+          styles: const PosStyles(align: PosAlign.right, fontType: PosFontType.fontB),
         ),
       ],
     );
@@ -1238,10 +1240,7 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'INCOME',
           width: 4,
-          styles: const PosStyles(
-            bold: true,
-              fontType: PosFontType.fontB
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: cashManagementDetail!.incomeCashManagementDetail!.isEmpty ? formatToIdr(0) : '',
@@ -1253,26 +1252,26 @@ class ThermalPrinterManager {
       ],
     );
 
-    if(cashManagementDetail.incomeCashManagementDetail!.isNotEmpty){
+    if (cashManagementDetail.incomeCashManagementDetail!.isNotEmpty) {
       cashManagementDetail.incomeCashManagementDetail?.forEach((element) {
         _bytes += ticket.row(
-                [
-                  PosColumn(
-                    text: element.text ?? '',
-                    width: 4,
-                    styles: const PosStyles(
-                      bold: true,
-                    ),
-                  ),
-                  PosColumn(
-                    text: formatToIdr(element.amount),
-                    width: 8,
-                    styles: const PosStyles(
-                      align: PosAlign.right,
-                    ),
-                  ),
-                ],
-              );
+          [
+            PosColumn(
+              text: element.text ?? '',
+              width: 4,
+              styles: const PosStyles(
+                bold: true,
+              ),
+            ),
+            PosColumn(
+              text: formatToIdr(element.amount),
+              width: 8,
+              styles: const PosStyles(
+                align: PosAlign.right,
+              ),
+            ),
+          ],
+        );
       });
     }
 
@@ -1281,11 +1280,7 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'EXPENSE',
           width: 4,
-          styles: const PosStyles(
-            bold: true,
-              fontType: PosFontType.fontB
-
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: cashManagementDetail.expense!.isEmpty ? formatToIdr(0) : '',
@@ -1297,28 +1292,19 @@ class ThermalPrinterManager {
       ],
     );
 
-    if(cashManagementDetail.expense!.isNotEmpty){
+    if (cashManagementDetail.expense!.isNotEmpty) {
       cashManagementDetail.expense?.forEach((e) {
-        print('expense data : ${e.text}');
         _bytes += ticket.row(
           [
             PosColumn(
               text: e.text!,
               width: 4,
-              styles: const PosStyles(
-                bold: true,
-                  fontType: PosFontType.fontB
-
-              ),
+              styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
             ),
             PosColumn(
               text: formatToIdr(e.amount),
               width: 8,
-              styles: const PosStyles(
-                align: PosAlign.right,
-                  fontType: PosFontType.fontB
-
-              ),
+              styles: const PosStyles(align: PosAlign.right, fontType: PosFontType.fontB),
             ),
           ],
         );
@@ -1330,11 +1316,7 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'EXPECTED ENDING CASH',
           width: 6,
-          styles: const PosStyles(
-            bold: true,
-              fontType: PosFontType.fontB
-
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: formatToIdr(cashManagementDetail.expectedEndingCash),
@@ -1351,11 +1333,7 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'ACTUAL ENDING CASH',
           width: 6,
-          styles: const PosStyles(
-            bold: true,
-              fontType: PosFontType.fontB
-
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: formatToIdr(cashManagementDetail.actualEndingCash),
@@ -1372,11 +1350,7 @@ class ThermalPrinterManager {
         PosColumn(
           text: 'CASH DIFFERENCE',
           width: 6,
-          styles: const PosStyles(
-            bold: true,
-              fontType: PosFontType.fontB
-
-          ),
+          styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
           text: formatToIdr(cashManagementDetail.cashDifference),
@@ -1387,7 +1361,6 @@ class ThermalPrinterManager {
         ),
       ],
     );
-
 
     _bytes += ticket.feed(2);
 
@@ -1407,9 +1380,8 @@ class ThermalPrinterManager {
     return _bytes;
   }
 
-  Future<Image?> getImage(String path)async{
-    final ByteData contactData =
-        await rootBundle.load(path);
+  Future<Image?> getImage(String path) async {
+    final ByteData contactData = await rootBundle.load(path);
     final Uint8List contactBytes = contactData.buffer.asUint8List();
     final Image? contactImage = decodeImage(contactBytes);
     return Future.value(contactImage);

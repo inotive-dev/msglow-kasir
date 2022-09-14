@@ -2301,12 +2301,14 @@ class _$ShiftPrintTearOff {
       @JsonKey(name: 'end_date') required DateTime? endDate,
       @JsonKey(name: 'sold_items') required String? soldItems,
       @JsonKey(name: 'refund_items') required String? refundItems,
+      String? address,
       required String? kasir}) {
     return _ShiftPrint(
       startDate: startDate,
       endDate: endDate,
       soldItems: soldItems,
       refundItems: refundItems,
+      address: address,
       kasir: kasir,
     );
   }
@@ -2329,6 +2331,7 @@ mixin _$ShiftPrint {
   String? get soldItems => throw _privateConstructorUsedError;
   @JsonKey(name: 'refund_items')
   String? get refundItems => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
   String? get kasir => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2347,6 +2350,7 @@ abstract class $ShiftPrintCopyWith<$Res> {
       @JsonKey(name: 'end_date') DateTime? endDate,
       @JsonKey(name: 'sold_items') String? soldItems,
       @JsonKey(name: 'refund_items') String? refundItems,
+      String? address,
       String? kasir});
 }
 
@@ -2364,6 +2368,7 @@ class _$ShiftPrintCopyWithImpl<$Res> implements $ShiftPrintCopyWith<$Res> {
     Object? endDate = freezed,
     Object? soldItems = freezed,
     Object? refundItems = freezed,
+    Object? address = freezed,
     Object? kasir = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2382,6 +2387,10 @@ class _$ShiftPrintCopyWithImpl<$Res> implements $ShiftPrintCopyWith<$Res> {
       refundItems: refundItems == freezed
           ? _value.refundItems
           : refundItems // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String?,
       kasir: kasir == freezed
           ? _value.kasir
@@ -2402,6 +2411,7 @@ abstract class _$ShiftPrintCopyWith<$Res> implements $ShiftPrintCopyWith<$Res> {
       @JsonKey(name: 'end_date') DateTime? endDate,
       @JsonKey(name: 'sold_items') String? soldItems,
       @JsonKey(name: 'refund_items') String? refundItems,
+      String? address,
       String? kasir});
 }
 
@@ -2421,6 +2431,7 @@ class __$ShiftPrintCopyWithImpl<$Res> extends _$ShiftPrintCopyWithImpl<$Res>
     Object? endDate = freezed,
     Object? soldItems = freezed,
     Object? refundItems = freezed,
+    Object? address = freezed,
     Object? kasir = freezed,
   }) {
     return _then(_ShiftPrint(
@@ -2440,6 +2451,10 @@ class __$ShiftPrintCopyWithImpl<$Res> extends _$ShiftPrintCopyWithImpl<$Res>
           ? _value.refundItems
           : refundItems // ignore: cast_nullable_to_non_nullable
               as String?,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       kasir: kasir == freezed
           ? _value.kasir
           : kasir // ignore: cast_nullable_to_non_nullable
@@ -2456,6 +2471,7 @@ class _$_ShiftPrint implements _ShiftPrint {
       @JsonKey(name: 'end_date') required this.endDate,
       @JsonKey(name: 'sold_items') required this.soldItems,
       @JsonKey(name: 'refund_items') required this.refundItems,
+      this.address,
       required this.kasir});
 
   factory _$_ShiftPrint.fromJson(Map<String, dynamic> json) =>
@@ -2474,11 +2490,13 @@ class _$_ShiftPrint implements _ShiftPrint {
   @JsonKey(name: 'refund_items')
   final String? refundItems;
   @override
+  final String? address;
+  @override
   final String? kasir;
 
   @override
   String toString() {
-    return 'ShiftPrint(startDate: $startDate, endDate: $endDate, soldItems: $soldItems, refundItems: $refundItems, kasir: $kasir)';
+    return 'ShiftPrint(startDate: $startDate, endDate: $endDate, soldItems: $soldItems, refundItems: $refundItems, address: $address, kasir: $kasir)';
   }
 
   @override
@@ -2491,6 +2509,7 @@ class _$_ShiftPrint implements _ShiftPrint {
             const DeepCollectionEquality().equals(other.soldItems, soldItems) &&
             const DeepCollectionEquality()
                 .equals(other.refundItems, refundItems) &&
+            const DeepCollectionEquality().equals(other.address, address) &&
             const DeepCollectionEquality().equals(other.kasir, kasir));
   }
 
@@ -2501,6 +2520,7 @@ class _$_ShiftPrint implements _ShiftPrint {
       const DeepCollectionEquality().hash(endDate),
       const DeepCollectionEquality().hash(soldItems),
       const DeepCollectionEquality().hash(refundItems),
+      const DeepCollectionEquality().hash(address),
       const DeepCollectionEquality().hash(kasir));
 
   @JsonKey(ignore: true)
@@ -2520,6 +2540,7 @@ abstract class _ShiftPrint implements ShiftPrint {
       @JsonKey(name: 'end_date') required DateTime? endDate,
       @JsonKey(name: 'sold_items') required String? soldItems,
       @JsonKey(name: 'refund_items') required String? refundItems,
+      String? address,
       required String? kasir}) = _$_ShiftPrint;
 
   factory _ShiftPrint.fromJson(Map<String, dynamic> json) =
@@ -2537,6 +2558,8 @@ abstract class _ShiftPrint implements ShiftPrint {
   @override
   @JsonKey(name: 'refund_items')
   String? get refundItems;
+  @override
+  String? get address;
   @override
   String? get kasir;
   @override

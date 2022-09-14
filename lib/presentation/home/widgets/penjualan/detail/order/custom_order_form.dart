@@ -32,8 +32,7 @@ class _CustomOrderFormState extends State<CustomOrderForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PenjualanCubit, PenjualanState>(
-      listenWhen: (previous, current) =>
-          previous.orderState != current.orderState,
+      listenWhen: (previous, current) => previous.orderState != current.orderState,
       listener: (context, state) {
         if (state.orderState == OrderState.finish) {
           GetUtil.dismissDialog();

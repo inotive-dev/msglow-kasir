@@ -19,6 +19,7 @@ import '../../../domain/usecases/fetch_transactions_usecase.dart';
 import '../../../domain/usecases/send_closing_mail_usecase.dart';
 import '../../../domain/usecases/submit_order_usecase.dart';
 import '../../../domain/usecases/update_order_print_status_usecase.dart';
+import '../../../domain/usecases/update_pre_order_status_usecase.dart';
 import '../../../domain/usecases/update_profile_usecase.dart';
 import '../request/input_pengeluaran/add_pengeluaran_baru_request.dart';
 import '../request/penjualan/add_customer_request.dart';
@@ -51,8 +52,7 @@ class ApiService {
       'phone_number': params.phoneNumber,
     };
 
-    if (params.password != Constants.placeholderPassword &&
-        params.password.isNotEmpty) {
+    if (params.password != Constants.placeholderPassword && params.password.isNotEmpty) {
       _dataMap['password'] = params.password;
     }
 
@@ -66,8 +66,7 @@ class ApiService {
     );
   }
 
-  Future<Response> fetchProductList(
-      FetchProductListUseCaseParams params) async {
+  Future<Response> fetchProductList(FetchProductListUseCaseParams params) async {
     return await _dio.get(Endpoint.productList);
   }
 
@@ -75,8 +74,7 @@ class ApiService {
     return await _dio.get(Endpoint.customers);
   }
 
-  Future<Response> fetchTransactions(
-      FetchTransactionsUseCaseParams params) async {
+  Future<Response> fetchTransactions(FetchTransactionsUseCaseParams params) async {
     return await _dio.get(
       Endpoint.transactions,
       queryParameters: {
@@ -90,13 +88,10 @@ class ApiService {
   }
 
   Future<Response> submitOrder(SubmitOrderUseCaseParams params) async {
-    final _orderProducts =
-        params.orderItems.where((element) => !element.isCustomProduct);
-    final _orderCustoms =
-        params.orderItems.where((element) => element.isCustomProduct);
+    final _orderProducts = params.orderItems.where((element) => !element.isCustomProduct);
+    final _orderCustoms = params.orderItems.where((element) => element.isCustomProduct);
 
-    final paymentMethod =
-        params.paymentMethod.selectedPaymentMethod().toLowerCase();
+    final paymentMethod = params.paymentMethod.selectedPaymentMethod().toLowerCase();
 
     Map<String, dynamic> _dataMap = {
       'user_id': params.userId,
@@ -111,8 +106,7 @@ class ApiService {
         params.orderDate,
         datePattern: 'yyyy-MM-dd',
       ),
-      'cash_amount':
-          int.parse(removeIdrFormat(params.paymentMethod.cashAmount)),
+      'cash_amount': int.parse(removeIdrFormat(params.paymentMethod.cashAmount)),
       'discount': params.discount,
       'order_products': _orderProducts
           .where((element) => !element.isProductPakage)
@@ -122,6 +116,7 @@ class ApiService {
                 'cost_category': e.costCategory?.code ?? '1',
                 'promo_id': e.costCategory?.promoId,
                 'note': e.note,
+                'is_pre_order': e.isPreOrder ? 1 : 0,
               })
           .toList(),
       'order_customs': _orderCustoms
@@ -136,24 +131,21 @@ class ApiService {
           .where((element) => element.isProductPakage)
           .map((e) => {
                 "package_id": e.product.id,
-                "price":
-                    e.costCategory?.amount ?? e.product.getStandardPriceInInt(),
+                "price": e.costCategory?.amount ?? e.product.getStandardPriceInInt(),
                 "quantity": e.quantity,
                 "note": e.note,
+                "is_pre_order": e.isPreOrder ? 1 : 0,
               })
           .toList(),
     };
 
     if (paymentMethod.toLowerCase() == "transfer") {
-      _dataMap['transfer_nama_pengirim'] =
-          params.paymentMethod.selectedTransferBank?.namaPengirim;
-      _dataMap['transfer_nama_bank'] =
-          params.paymentMethod.selectedTransferBank?.namaBank;
-      _dataMap['transfer_nomor_rekening'] =
-          params.paymentMethod.selectedTransferBank?.noRekening;
-      _dataMap['bank_account_id'] =
-          params.paymentMethod.selectedTransferBank?.bankAccount?.id;
+      _dataMap['transfer_nama_pengirim'] = params.paymentMethod.selectedTransferBank?.namaPengirim;
+      _dataMap['transfer_nama_bank'] = params.paymentMethod.selectedTransferBank?.namaBank;
+      _dataMap['transfer_nomor_rekening'] = params.paymentMethod.selectedTransferBank?.noRekening;
+      _dataMap['bank_account_id'] = params.paymentMethod.selectedTransferBank?.bankAccount?.id;
     }
+
     debugPrint("dataMap: ${jsonEncode(_dataMap)}");
     return await _dio.post(
       Endpoint.submitOrder,
@@ -168,8 +160,7 @@ class ApiService {
     );
   }
 
-  Future<Response> calculateCashAmountSuggestion(
-      CalculateCashAmountSuggestionUseCaseParams params) async {
+  Future<Response> calculateCashAmountSuggestion(CalculateCashAmountSuggestionUseCaseParams params) async {
     return await _dio.get(
       Endpoint.cashAmountSuggestion,
       queryParameters: {
@@ -198,8 +189,7 @@ class ApiService {
     );
   }
 
-  Future<Response> fetchListPengeluaran(
-      FetchListPengeluaranUseCaseParams params) async {
+  Future<Response> fetchListPengeluaran(FetchListPengeluaranUseCaseParams params) async {
     return await _dio.get(
       Endpoint.listPengeluaran,
       queryParameters: {
@@ -219,8 +209,7 @@ class ApiService {
     );
   }
 
-  Future<Response> sendClosingMail(SendClosingMailRequest request,
-      SendClosingMailUseCaseParams params) async {
+  Future<Response> sendClosingMail(SendClosingMailRequest request, SendClosingMailUseCaseParams params) async {
     return await _dio.post(
       Endpoint.sendClosingMail,
       data: request.toJson(),
@@ -260,15 +249,16 @@ class ApiService {
     return _dio.get(Endpoint.listKasir);
   }
 
-  Future<Response> getListBankAccount() =>
-      _dio.get(Endpoint.getListBankAccount);
+  Future<Response> getListBankAccount() => _dio.get(Endpoint.getListBankAccount);
 
   Future<Response> getIncomeList(FetchIncomeListUseCaseParams params) =>
       _dio.get(Endpoint.getIncomeList, queryParameters: {"date": params.date});
 
-  Future<Response> updateOrderPrintStatus(
-      UpdateOrderPrintStatusUsecaseParams params) {
-    return _dio.post(Endpoint.updateOrderPrintStatus,
-        data: {"order_id": params.orderId});
+  Future<Response> updateOrderPrintStatus(UpdateOrderPrintStatusUsecaseParams params) {
+    return _dio.post(Endpoint.updateOrderPrintStatus, data: {"order_id": params.orderId});
+  }
+
+  Future<Response> updatePreOrderStatus(UpdatePreOrderStatusUseCaseParams params) async {
+    return await _dio.post("${Endpoint.changePreOrderStatus}/${params.productId}");
   }
 }

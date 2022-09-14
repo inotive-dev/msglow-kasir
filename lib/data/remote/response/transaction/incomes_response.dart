@@ -20,8 +20,7 @@ class IncomeResponse extends Equatable {
   bool get isSuccess => status.toLowerCase() == "ok";
 
   factory IncomeResponse.fromJson(Map<String, dynamic>? json) => IncomeResponse(
-        incomes:
-            asList(json, 'incomes').map((e) => Income.fromJson(e)).toList(),
+        incomes: asList(json, 'incomes').map((e) => Income.fromJson(e)).toList(),
         total: asDouble(json, 'total'),
         status: asString(json, 'status'),
         statusCode: asString(json, 'status_code'),
@@ -37,7 +36,6 @@ class IncomeResponse extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [incomes, total, status];
 }
 

@@ -10,6 +10,7 @@ class OrderPackage {
   final String createdAt;
   final String updatedAt;
   final OrderPackageProduct package;
+  final String? note;
 
   OrderPackage({
     this.id = 0,
@@ -19,6 +20,7 @@ class OrderPackage {
     this.quantity = 0,
     this.createdAt = "",
     this.updatedAt = "",
+    this.note,
     required this.package,
   });
 
@@ -30,6 +32,7 @@ class OrderPackage {
         quantity: asInt(json, 'quantity'),
         createdAt: asString(json, 'created_at'),
         updatedAt: asString(json, 'updated_at'),
+        note: asString(json, 'note', defaultValue: ""),
         package: OrderPackageProduct.fromJson(asMap(json, 'package')),
       );
 
@@ -41,6 +44,7 @@ class OrderPackage {
         'quantity': quantity,
         'created_at': createdAt,
         'updated_at': updatedAt,
+        'note': note,
         'package': package.toJson(),
       };
 }

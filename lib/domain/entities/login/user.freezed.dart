@@ -30,7 +30,8 @@ class _$UserTearOff {
       @JsonKey(name: "phone_number") String? phoneNumber,
       String? avatar,
       @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "updated_at") DateTime? updatedAt}) {
+      @JsonKey(name: "updated_at") DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRole? userRole}) {
     return _User(
       id: id,
       userRoleId: userRoleId,
@@ -40,6 +41,7 @@ class _$UserTearOff {
       avatar: avatar,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      userRole: userRole,
     );
   }
 
@@ -65,6 +67,8 @@ mixin _$User {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "updated_at")
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_role")
+  UserRole? get userRole => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,7 +87,10 @@ abstract class $UserCopyWith<$Res> {
       @JsonKey(name: "phone_number") String? phoneNumber,
       String? avatar,
       @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "updated_at") DateTime? updatedAt});
+      @JsonKey(name: "updated_at") DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRole? userRole});
+
+  $UserRoleCopyWith<$Res>? get userRole;
 }
 
 /// @nodoc
@@ -104,6 +111,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? avatar = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? userRole = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -138,7 +146,22 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      userRole: userRole == freezed
+          ? _value.userRole
+          : userRole // ignore: cast_nullable_to_non_nullable
+              as UserRole?,
     ));
+  }
+
+  @override
+  $UserRoleCopyWith<$Res>? get userRole {
+    if (_value.userRole == null) {
+      return null;
+    }
+
+    return $UserRoleCopyWith<$Res>(_value.userRole!, (value) {
+      return _then(_value.copyWith(userRole: value));
+    });
   }
 }
 
@@ -155,7 +178,11 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       @JsonKey(name: "phone_number") String? phoneNumber,
       String? avatar,
       @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "updated_at") DateTime? updatedAt});
+      @JsonKey(name: "updated_at") DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRole? userRole});
+
+  @override
+  $UserRoleCopyWith<$Res>? get userRole;
 }
 
 /// @nodoc
@@ -177,6 +204,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? userRole = freezed,
   }) {
     return _then(_User(
       id: id == freezed
@@ -211,6 +239,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      userRole: userRole == freezed
+          ? _value.userRole
+          : userRole // ignore: cast_nullable_to_non_nullable
+              as UserRole?,
     ));
   }
 }
@@ -226,7 +258,8 @@ class _$_User implements _User {
       @JsonKey(name: "phone_number") this.phoneNumber,
       this.avatar,
       @JsonKey(name: "created_at") this.createdAt,
-      @JsonKey(name: "updated_at") this.updatedAt});
+      @JsonKey(name: "updated_at") this.updatedAt,
+      @JsonKey(name: "user_role") this.userRole});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -250,10 +283,13 @@ class _$_User implements _User {
   @override
   @JsonKey(name: "updated_at")
   final DateTime? updatedAt;
+  @override
+  @JsonKey(name: "user_role")
+  final UserRole? userRole;
 
   @override
   String toString() {
-    return 'User(id: $id, userRoleId: $userRoleId, name: $name, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(id: $id, userRoleId: $userRoleId, name: $name, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt, userRole: $userRole)';
   }
 
   @override
@@ -270,7 +306,8 @@ class _$_User implements _User {
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality().equals(other.avatar, avatar) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.userRole, userRole));
   }
 
   @override
@@ -283,7 +320,8 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(avatar),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(updatedAt));
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(userRole));
 
   @JsonKey(ignore: true)
   @override
@@ -305,7 +343,8 @@ abstract class _User implements User {
       @JsonKey(name: "phone_number") String? phoneNumber,
       String? avatar,
       @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "updated_at") DateTime? updatedAt}) = _$_User;
+      @JsonKey(name: "updated_at") DateTime? updatedAt,
+      @JsonKey(name: "user_role") UserRole? userRole}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -329,6 +368,9 @@ abstract class _User implements User {
   @override
   @JsonKey(name: "updated_at")
   DateTime? get updatedAt;
+  @override
+  @JsonKey(name: "user_role")
+  UserRole? get userRole;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
