@@ -20,7 +20,7 @@ class _$TransactionTearOff {
 
   _Transaction call(
       {required List<Order>? orders,
-      required List<String> cashierNames,
+      required List<User> cashierNames,
       required String? status,
       required String? statusCode,
       required String? message}) {
@@ -40,7 +40,7 @@ const $Transaction = _$TransactionTearOff();
 /// @nodoc
 mixin _$Transaction {
   List<Order>? get orders => throw _privateConstructorUsedError;
-  List<String> get cashierNames => throw _privateConstructorUsedError;
+  List<User> get cashierNames => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   String? get statusCode => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -57,7 +57,7 @@ abstract class $TransactionCopyWith<$Res> {
       _$TransactionCopyWithImpl<$Res>;
   $Res call(
       {List<Order>? orders,
-      List<String> cashierNames,
+      List<User> cashierNames,
       String? status,
       String? statusCode,
       String? message});
@@ -87,7 +87,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       cashierNames: cashierNames == freezed
           ? _value.cashierNames
           : cashierNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<User>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ abstract class _$TransactionCopyWith<$Res>
   @override
   $Res call(
       {List<Order>? orders,
-      List<String> cashierNames,
+      List<User> cashierNames,
       String? status,
       String? statusCode,
       String? message});
@@ -145,7 +145,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       cashierNames: cashierNames == freezed
           ? _value.cashierNames
           : cashierNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<User>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -175,7 +175,7 @@ class _$_Transaction implements _Transaction {
   @override
   final List<Order>? orders;
   @override
-  final List<String> cashierNames;
+  final List<User> cashierNames;
   @override
   final String? status;
   @override
@@ -220,7 +220,7 @@ class _$_Transaction implements _Transaction {
 abstract class _Transaction implements Transaction {
   const factory _Transaction(
       {required List<Order>? orders,
-      required List<String> cashierNames,
+      required List<User> cashierNames,
       required String? status,
       required String? statusCode,
       required String? message}) = _$_Transaction;
@@ -228,7 +228,7 @@ abstract class _Transaction implements Transaction {
   @override
   List<Order>? get orders;
   @override
-  List<String> get cashierNames;
+  List<User> get cashierNames;
   @override
   String? get status;
   @override

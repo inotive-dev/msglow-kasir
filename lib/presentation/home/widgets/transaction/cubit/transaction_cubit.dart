@@ -10,6 +10,7 @@ import '../../../../../data/remote/response/transaction/closing_response.dart';
 import '../../../../../data/remote/response/transaction/incomes_response.dart';
 import '../../../../../data/remote/response/transaction/outcome/outcomes_response.dart';
 import '../../../../../domain/entities/base_domain.dart';
+import '../../../../../domain/entities/login/user.dart';
 import '../../../../../domain/entities/transaction/order.dart';
 import '../../../../../domain/entities/transaction/transaction.dart';
 import '../../../../../domain/usecases/add_inoutcome_usecase.dart';
@@ -78,18 +79,26 @@ class TransactionCubit extends Cubit<TransactionState> {
           orders: r.orders ?? List.empty(),
           cashierNames: () {
             final names = <String>[];
+            final users = <User>[];
 
             for (var order in r.orders ?? []) {
               if (order.user != null && order.user!.name != null && !names.contains(order.user!.name)) {
                 names.add(order.user!.name!);
+                users.add(order.user);
               }
             }
 
-            return names;
+            return users;
           }(),
         ),
       ),
     );
+  }
+
+  resetCashierName() async {
+    emit(state.copyWith(
+      selectedCashierName: '',
+    ));
   }
 
   refundOrder({required int orderId, required refundNote}) async {
@@ -109,8 +118,15 @@ class TransactionCubit extends Cubit<TransactionState> {
   closing(int actualEndingCash) async {
     emit(state.copyWith(closingResult: const ResultState.loading()));
 
-    final _result =
-        await _closingUseCase(ClosingUseCaseParams(filterDate: state.filterDate, actualEndingCash: actualEndingCash));
+    final cashier = state.cashierNames.firstWhereOrNull(
+      (element) => element.name?.toLowerCase() == state.selectedCashierName.toLowerCase(),
+    );
+
+    final _result = await _closingUseCase(ClosingUseCaseParams(
+      filterDate: state.filterDate,
+      actualEndingCash: actualEndingCash,
+      cashier: cashier,
+    ));
 
     _result.fold(
       (l) => emit(state.copyWith(closingResult: ResultState.error(failure: l))),
@@ -123,7 +139,10 @@ class TransactionCubit extends Cubit<TransactionState> {
   }
 
   searchTransactions(String keyword) {
-    emit(state.copyWith(fetchTransactionResult: const ResultState.loading()));
+    emit(state.copyWith(
+      fetchTransactionResult: const ResultState.loading(),
+      selectedCashierName: keyword,
+    ));
 
     final _orders = state.orders.where((element) {
       if (keyword.isEmpty) {
@@ -150,14 +169,16 @@ class TransactionCubit extends Cubit<TransactionState> {
       orders: _orders,
       cashierNames: () {
         final names = <String>[];
+        final users = <User>[];
 
         for (var order in _orders) {
           if (order.user != null && order.user!.name != null && !names.contains(order.user!.name)) {
             names.add(order.user!.name!);
+            users.add(order.user!);
           }
         }
 
-        return names;
+        return users;
       }(),
       status: '',
       statusCode: '',

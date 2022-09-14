@@ -5,7 +5,6 @@ import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/base/usecase/no_param.dart';
 import '../../../../core/libraries/thermal_printer_manager.dart';
 import '../../../../core/unions/failure.dart';
 import '../../../../core/unions/result_state.dart';
@@ -79,11 +78,7 @@ class PrinterCubit extends Cubit<PrinterState> {
     try {
       final _result = await _thermalPrinterManager.startPrint(
         printer: state.selectedPrinter!,
-        printData: printData?.copyWith(
-          cashierData: _getUserUseCase(
-            const NoParam(),
-          ),
-        ),
+        printData: printData,
         closingResponse: closingResponse,
       );
 

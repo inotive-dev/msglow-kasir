@@ -31,7 +31,8 @@ class _$TransactionStateTearOff {
       required ResultState<BaseResponse> updateOrderPrintSatusResult,
       required ResultState<IncomeResponse> fetchIncomeListResult,
       required List<Order> orders,
-      required List<String> cashierNames,
+      required List<User> cashierNames,
+      required String selectedCashierName,
       required int tabIndex}) {
     return _TransactionState(
       fetchTransactionResult: fetchTransactionResult,
@@ -47,6 +48,7 @@ class _$TransactionStateTearOff {
       fetchIncomeListResult: fetchIncomeListResult,
       orders: orders,
       cashierNames: cashierNames,
+      selectedCashierName: selectedCashierName,
       tabIndex: tabIndex,
     );
   }
@@ -78,7 +80,8 @@ mixin _$TransactionState {
   ResultState<IncomeResponse> get fetchIncomeListResult =>
       throw _privateConstructorUsedError;
   List<Order> get orders => throw _privateConstructorUsedError;
-  List<String> get cashierNames => throw _privateConstructorUsedError;
+  List<User> get cashierNames => throw _privateConstructorUsedError;
+  String get selectedCashierName => throw _privateConstructorUsedError;
   int get tabIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -104,7 +107,8 @@ abstract class $TransactionStateCopyWith<$Res> {
       ResultState<BaseResponse> updateOrderPrintSatusResult,
       ResultState<IncomeResponse> fetchIncomeListResult,
       List<Order> orders,
-      List<String> cashierNames,
+      List<User> cashierNames,
+      String selectedCashierName,
       int tabIndex});
 
   $ResultStateCopyWith<Transaction, $Res> get fetchTransactionResult;
@@ -142,6 +146,7 @@ class _$TransactionStateCopyWithImpl<$Res>
     Object? fetchIncomeListResult = freezed,
     Object? orders = freezed,
     Object? cashierNames = freezed,
+    Object? selectedCashierName = freezed,
     Object? tabIndex = freezed,
   }) {
     return _then(_value.copyWith(
@@ -196,7 +201,11 @@ class _$TransactionStateCopyWithImpl<$Res>
       cashierNames: cashierNames == freezed
           ? _value.cashierNames
           : cashierNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<User>,
+      selectedCashierName: selectedCashierName == freezed
+          ? _value.selectedCashierName
+          : selectedCashierName // ignore: cast_nullable_to_non_nullable
+              as String,
       tabIndex: tabIndex == freezed
           ? _value.tabIndex
           : tabIndex // ignore: cast_nullable_to_non_nullable
@@ -297,7 +306,8 @@ abstract class _$TransactionStateCopyWith<$Res>
       ResultState<BaseResponse> updateOrderPrintSatusResult,
       ResultState<IncomeResponse> fetchIncomeListResult,
       List<Order> orders,
-      List<String> cashierNames,
+      List<User> cashierNames,
+      String selectedCashierName,
       int tabIndex});
 
   @override
@@ -346,6 +356,7 @@ class __$TransactionStateCopyWithImpl<$Res>
     Object? fetchIncomeListResult = freezed,
     Object? orders = freezed,
     Object? cashierNames = freezed,
+    Object? selectedCashierName = freezed,
     Object? tabIndex = freezed,
   }) {
     return _then(_TransactionState(
@@ -400,7 +411,11 @@ class __$TransactionStateCopyWithImpl<$Res>
       cashierNames: cashierNames == freezed
           ? _value.cashierNames
           : cashierNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<User>,
+      selectedCashierName: selectedCashierName == freezed
+          ? _value.selectedCashierName
+          : selectedCashierName // ignore: cast_nullable_to_non_nullable
+              as String,
       tabIndex: tabIndex == freezed
           ? _value.tabIndex
           : tabIndex // ignore: cast_nullable_to_non_nullable
@@ -426,6 +441,7 @@ class _$_TransactionState implements _TransactionState {
       required this.fetchIncomeListResult,
       required this.orders,
       required this.cashierNames,
+      required this.selectedCashierName,
       required this.tabIndex});
 
   @override
@@ -453,13 +469,15 @@ class _$_TransactionState implements _TransactionState {
   @override
   final List<Order> orders;
   @override
-  final List<String> cashierNames;
+  final List<User> cashierNames;
+  @override
+  final String selectedCashierName;
   @override
   final int tabIndex;
 
   @override
   String toString() {
-    return 'TransactionState(fetchTransactionResult: $fetchTransactionResult, refundOrderResult: $refundOrderResult, sendClosingMailResult: $sendClosingMailResult, getClosingMailResult: $getClosingMailResult, filterDate: $filterDate, actualEndingCash: $actualEndingCash, closingResult: $closingResult, fetchOutcomesResult: $fetchOutcomesResult, addInOutcomeResult: $addInOutcomeResult, updateOrderPrintSatusResult: $updateOrderPrintSatusResult, fetchIncomeListResult: $fetchIncomeListResult, orders: $orders, cashierNames: $cashierNames, tabIndex: $tabIndex)';
+    return 'TransactionState(fetchTransactionResult: $fetchTransactionResult, refundOrderResult: $refundOrderResult, sendClosingMailResult: $sendClosingMailResult, getClosingMailResult: $getClosingMailResult, filterDate: $filterDate, actualEndingCash: $actualEndingCash, closingResult: $closingResult, fetchOutcomesResult: $fetchOutcomesResult, addInOutcomeResult: $addInOutcomeResult, updateOrderPrintSatusResult: $updateOrderPrintSatusResult, fetchIncomeListResult: $fetchIncomeListResult, orders: $orders, cashierNames: $cashierNames, selectedCashierName: $selectedCashierName, tabIndex: $tabIndex)';
   }
 
   @override
@@ -493,6 +511,8 @@ class _$_TransactionState implements _TransactionState {
             const DeepCollectionEquality().equals(other.orders, orders) &&
             const DeepCollectionEquality()
                 .equals(other.cashierNames, cashierNames) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedCashierName, selectedCashierName) &&
             const DeepCollectionEquality().equals(other.tabIndex, tabIndex));
   }
 
@@ -512,6 +532,7 @@ class _$_TransactionState implements _TransactionState {
       const DeepCollectionEquality().hash(fetchIncomeListResult),
       const DeepCollectionEquality().hash(orders),
       const DeepCollectionEquality().hash(cashierNames),
+      const DeepCollectionEquality().hash(selectedCashierName),
       const DeepCollectionEquality().hash(tabIndex));
 
   @JsonKey(ignore: true)
@@ -534,7 +555,8 @@ abstract class _TransactionState implements TransactionState {
       required ResultState<BaseResponse> updateOrderPrintSatusResult,
       required ResultState<IncomeResponse> fetchIncomeListResult,
       required List<Order> orders,
-      required List<String> cashierNames,
+      required List<User> cashierNames,
+      required String selectedCashierName,
       required int tabIndex}) = _$_TransactionState;
 
   @override
@@ -562,7 +584,9 @@ abstract class _TransactionState implements TransactionState {
   @override
   List<Order> get orders;
   @override
-  List<String> get cashierNames;
+  List<User> get cashierNames;
+  @override
+  String get selectedCashierName;
   @override
   int get tabIndex;
   @override

@@ -24,6 +24,7 @@ class TransactionList extends StatelessWidget {
           searchController.clear();
           context.read<TransactionCubit>().changeTabIndex(0);
           _fetchTransactions();
+          _resetSelectedCashier();
           context.read<TransactionCubit>().fetchOutcomes();
         }
       },
@@ -50,6 +51,7 @@ class TransactionList extends StatelessWidget {
               return RefreshIndicator(
                 onRefresh: () async {
                   searchController.clear();
+                  _resetSelectedCashier();
                   _fetchTransactions();
                 },
                 child: ListView.separated(
@@ -82,5 +84,9 @@ class TransactionList extends StatelessWidget {
 
   _fetchTransactions() {
     GetUtil.context.read<TransactionCubit>().fetchTransactions();
+  }
+
+  _resetSelectedCashier() {
+    GetUtil.context.read<TransactionCubit>().resetCashierName();
   }
 }

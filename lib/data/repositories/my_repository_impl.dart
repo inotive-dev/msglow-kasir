@@ -211,7 +211,7 @@ class MyRepositoryImpl implements MyRepository {
 
   @override
   Future<Either<Failure, ClosingResponse>> closing(ClosingUseCaseParams params) async {
-    final _userId = _localDataSource.getUser()?.id;
+    // final _userId = _localDataSource.getUser()?.id;
 
     final _date = DateUtil.dateTimeToFormattedDate(
       params.filterDate ?? DateTime.now(),
@@ -222,7 +222,7 @@ class MyRepositoryImpl implements MyRepository {
       ClosingRequest(
         startDate: _date,
         endDate: _date,
-        userId: _userId,
+        userId: params.cashier?.id,
         actualEndingCash: params.actualEndingCash ?? 0,
       ),
     );
