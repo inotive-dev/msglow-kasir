@@ -97,7 +97,7 @@ class _OrderItemState extends State<OrderItem> {
                 }),
               ),
             ),
-            !widget.orderProduct.isProductPakage
+            !widget.orderProduct.isProductPakage && !widget.orderProduct.isCustomProduct
                 ? PreOrderCheckbox(
                     value: widget.orderProduct.isPreOrder,
                     onChanged: (value) {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -91,7 +92,6 @@ class PrinterCubit extends Cubit<PrinterState> {
       emit(state.copyWith(
           printResult: ResultState.error(failure: Failure.defaultError(_result.msg)), isScanning: false));
     } catch (e) {
-      log(e.toString());
       emit(state.copyWith(printResult: const ResultState.error(failure: Failure.unexpectedError()), isScanning: false));
     }
   }

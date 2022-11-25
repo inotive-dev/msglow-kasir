@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
@@ -200,6 +199,7 @@ class ThermalPrinterManager {
 
     // product info list item section
     for (PrintOrderData orderData in printData.orderData) {
+      // final name = orderData.isPreOrder == true ? "(Pre-Order)${orderData.name}" : orderData.name;
       _bytes += ticket.text(orderData.name);
       if (orderData.note != null) {
         _bytes += ticket.text(orderData.note ?? '');
@@ -651,7 +651,7 @@ class ThermalPrinterManager {
       _bytes += ticket.row(
         [
           PosColumn(
-            text: '${refundedItem.qty}X',
+            text: '${refundedItem.qty}x',
             width: 3,
             styles: const PosStyles(
               fontType: PosFontType.fontA,
@@ -1319,7 +1319,8 @@ class ThermalPrinterManager {
           styles: const PosStyles(bold: true, fontType: PosFontType.fontB),
         ),
         PosColumn(
-          text: formatToIdr(cashManagementDetail.expectedEndingCash),
+          // text: formatToIdr(cashManagementDetail.expectedEndingCash), // TODO: Sementara dikurangi manual
+          text: formatToIdr(cashManagementDetail.expectedEndingCash != null ? 0 - _totalRefund : 0),
           width: 6,
           styles: const PosStyles(
             align: PosAlign.right,

@@ -14,6 +14,7 @@ class PrintOrderData with _$PrintOrderData {
     required int total,
     required String name,
     String? note,
+    bool? isPreOrder,
   }) = _PrintOrderData;
 
   String get totalIdr => formatToIdr(total);

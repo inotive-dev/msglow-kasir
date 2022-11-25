@@ -9,8 +9,7 @@ import '../../../../../../core/widgets/secondary_button.dart';
 import '../../../../../../domain/entities/login/user.dart';
 import '../../list_product/list_product_section_controller.dart';
 
-class SubmitOrderConfirmationDialog
-    extends GetView<ListProductSectionController> {
+class SubmitOrderConfirmationDialog extends GetView<ListProductSectionController> {
   const SubmitOrderConfirmationDialog({
     Key? key,
     required this.onPressSave,
@@ -60,8 +59,7 @@ class SubmitOrderConfirmationDialog
                               value: e,
                             ))
                         .toList(),
-                    onChanged: (val) =>
-                        controller.selectedKasirObs.value = val);
+                    onChanged: (val) => controller.selectedKasirObs.value = val);
               })
             ]),
             SizedBox(height: Sizes.height40),

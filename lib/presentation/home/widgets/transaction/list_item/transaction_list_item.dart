@@ -125,13 +125,8 @@ class TransactionListItem extends StatelessWidget {
   }
 
   _showPrintDialog() async {
-    final _permissions = await [
-      Permission.location,
-      Permission.locationWhenInUse,
-      Permission.locationAlways
-    ].request();
+    final _permissions = await [Permission.location, Permission.locationWhenInUse, Permission.locationAlways].request();
 
-    // if (_permissions[Permission.location] == PermissionStatus.granted) {
     await GetUtil.showDialog(
       PrintDialog(
         args: PrintArgs(
@@ -141,10 +136,6 @@ class TransactionListItem extends StatelessWidget {
         ),
       ),
     );
-    //   return;
-    // }
-
-    // GetUtil.context.showErrorSnackbar(Strings.msgShouldGrantLocationAccess);
   }
 
   _onSuccessPrint() {

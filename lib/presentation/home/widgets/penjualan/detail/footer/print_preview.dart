@@ -27,6 +27,11 @@ class PrintPreview extends StatelessWidget {
         child: args.printData != null ? _buildPrintDataPreview() : _buildClosingResponsePreview(args.closingResponse));
   }
 
+  _buildProductName(PrintOrderData data) {
+    // final name = data.isPreOrder == true ? "(Pre-Order)${data.name}" : data.name;
+    return MyText(text: data.name, alignment: Alignment.centerLeft);
+  }
+
   Widget _buildPrintDataPreview() {
     final verticalSpace = Sizes.height15;
     return Column(
@@ -112,7 +117,7 @@ class PrintPreview extends StatelessWidget {
           ArgsContainer(
             child: Column(
               children: [
-                MyText(text: orderData.name, alignment: Alignment.centerLeft),
+                _buildProductName(orderData),
                 orderData.note != null && orderData.note != ''
                     ? MyText(text: orderData.note ?? '', alignment: Alignment.centerLeft)
                     : const SizedBox.shrink(),
@@ -120,7 +125,7 @@ class PrintPreview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(text: "${orderData.quantity}x"),
-                    MyText(text: orderData.costPerItemInIdr),
+                    MyText(text: orderData.totalIdr),
                   ],
                 ),
                 SizedBox(height: verticalSpace),
@@ -139,7 +144,7 @@ class PrintPreview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(text: "${orderData.quantity}x"),
-                    MyText(text: orderData.costPerItemInIdr),
+                    MyText(text: orderData.totalIdr),
                   ],
                 ),
                 SizedBox(height: verticalSpace),
@@ -158,7 +163,7 @@ class PrintPreview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(text: "${orderData.quantity}x"),
-                    MyText(text: orderData.costPerItemInIdr),
+                    MyText(text: orderData.totalIdr),
                   ],
                 ),
                 SizedBox(height: verticalSpace),
@@ -301,8 +306,9 @@ class PrintPreview extends StatelessWidget {
                         child: MyText(text: "Start Date"),
                       ),
                       MyText(
-                          text:
-                              ": ${DateUtil.dateTimeToFormattedDate(_shiftPrint?.startDate, datePattern: "yyyy/MM/dd")}")
+                        text:
+                            ": ${DateUtil.dateTimeToFormattedDate(_shiftPrint?.startDate, datePattern: "yyyy/MM/dd")}",
+                      )
                     ],
                   ),
                   TableRow(
@@ -312,8 +318,8 @@ class PrintPreview extends StatelessWidget {
                         child: MyText(text: "End Date"),
                       ),
                       MyText(
-                          text:
-                              ": ${DateUtil.dateTimeToFormattedDate(_shiftPrint?.endDate, datePattern: "yyyy/MM/dd")}")
+                        text: ": ${DateUtil.dateTimeToFormattedDate(_shiftPrint?.endDate, datePattern: "yyyy/MM/dd")}",
+                      )
                     ],
                   ),
                   TableRow(
@@ -344,13 +350,14 @@ class PrintPreview extends StatelessWidget {
         SizedBox(height: verticalSpace),
         const MyText(text: "INCOME", textAlign: TextAlign.center),
         ArgsContainer(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            MyText(text: "Pesanan", fontWeight: FontWeight.bold),
-            MyText(text: "Total", fontWeight: FontWeight.bold),
-          ],
-        )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              MyText(text: "Pesanan", fontWeight: FontWeight.bold),
+              MyText(text: "Total", fontWeight: FontWeight.bold),
+            ],
+          ),
+        ),
         SizedBox(height: verticalSpace),
         if (_transactionDetails != null)
           for (TransactionDetail transactionDetail in _transactionDetails)

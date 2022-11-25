@@ -28,8 +28,10 @@ class ProfileAvatar extends StatelessWidget {
           child: context.select(
             (ProfileCubit value) {
               if (value.state.pickedImageFile == null) {
+                bool _validURL = Uri.tryParse(value.state.user.avatar ?? '')?.hasAbsolutePath ?? false;
+
                 return MyCachedNetworkImage(
-                  imageUrl: value.state.user.avatar ?? Constants.placeholderAvatarUrl,
+                  imageUrl: _validURL ? value.state.user.avatar : Constants.placeholderAvatarUrl,
                   width: Sizes.height203,
                   height: Sizes.height203,
                   fit: BoxFit.cover,

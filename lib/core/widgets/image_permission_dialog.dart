@@ -98,7 +98,7 @@ class ImagePermissionDialog extends StatelessWidget {
 
   void handleImageResult(Either<Failure, File> result) {
     result.fold(
-      (l) => log('$l'),
+      (l) => log('handleImageResult $l'),
       (r) => pickedImageFile(r),
     );
   }

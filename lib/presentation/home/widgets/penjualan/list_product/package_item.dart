@@ -8,8 +8,7 @@ import '../../../../../core/widgets/my_text.dart';
 import '../../../../../data/remote/response/penjualan/product_categories_and_packages_response.dart';
 
 class PackageItem extends StatelessWidget {
-  const PackageItem({Key? key, required this.package, required this.callback})
-      : super(key: key);
+  const PackageItem({Key? key, required this.package, required this.callback}) : super(key: key);
   final ProductPackage package;
   final VoidCallback callback;
 
@@ -91,9 +90,7 @@ class PackageItem extends StatelessWidget {
         title: "Detail Paket",
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: package.rPackageProduct
-              .map((e) => Text("${e.quantity} ${e.rProduct.name}"))
-              .toList(),
+          children: package.rPackageProduct.map((e) => Text("${e.quantity} ${e.rProduct.name}")).toList(),
         ));
   }
 }

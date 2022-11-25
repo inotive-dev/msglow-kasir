@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+// import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/style/color_palettes.dart';
@@ -33,17 +33,14 @@ class FilterDateField extends StatelessWidget {
                 horizontal: Sizes.width27,
                 vertical: Sizes.height21,
               ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Sizes.radius13),
-                  color: Colors.white),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(Sizes.radius13), color: Colors.white),
               child: Row(
                 children: [
                   Expanded(
                     child: MyText(
                       text: state == null
                           ? Strings.hintFilterDate
-                          : DateUtil.dateTimeToFormattedDate(state,
-                              datePattern: 'MMMM yyyy'),
+                          : DateUtil.dateTimeToFormattedDate(state, datePattern: 'MMMM yyyy'),
                       color: ColorPalettes.greyText3,
                       fontSize: Sizes.sp20,
                     ),
@@ -62,19 +59,20 @@ class FilterDateField extends StatelessWidget {
   }
 
   _onTapFilterDate(BuildContext context, DateTime? previousDate) async {
-    final _pickedDate = await showMonthPicker(
+    // final _pickedDate = await showMonthPicker(
+    //   context: context,
+    //   firstDate: DateTime(DateTime.now().year - 1, 5),
+    //   lastDate: DateTime(DateTime.now().year + 1, 9),
+    //   initialDate: previousDate ?? DateTime.now(),
+    // );
+
+    final _pickedDate = await showDatePicker(
       context: context,
+      initialDate: previousDate ?? DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 1, 5),
       lastDate: DateTime(DateTime.now().year + 1, 9),
-      initialDate: previousDate ?? DateTime.now(),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
     );
-    // await showDatePicker(
-    //   context: context,
-    //   initialDate: previousDate ?? DateTime.now(),
-    //   firstDate: DateTime(1945),
-    //   lastDate: DateTime(2101),
-    //   initialEntryMode: DatePickerEntryMode.calendarOnly,
-    // );
 
     if (_pickedDate == null || _pickedDate.month == previousDate?.month) return;
 

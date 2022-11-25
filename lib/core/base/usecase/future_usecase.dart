@@ -9,16 +9,16 @@ abstract class FutureUseCase<Type, Params> {
     try {
       return await execute(params);
     } catch (e) {
-      if (e is TypeError) {
-        log(
-          e.toString(),
-          stackTrace: e.stackTrace,
-        );
-      } else if (e is NoSuchMethodError) {
-        log(e.toString(), stackTrace: e.stackTrace);
-      } else {
-        log(e.toString());
-      }
+      // if (e is TypeError) {
+      //   log(
+      //     e.toString(),
+      //     stackTrace: e.stackTrace,
+      //   );
+      // } else if (e is NoSuchMethodError) {
+      //   log(e.toString(), stackTrace: e.stackTrace);
+      // } else {
+      //   log(e.toString());
+      // }
       return Left(Failure.getException(e));
     }
   }

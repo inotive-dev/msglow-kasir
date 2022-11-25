@@ -33,7 +33,7 @@ class FilterDateField extends StatelessWidget {
               height: Sizes.height70,
               padding: EdgeInsets.symmetric(
                 horizontal: Sizes.width27,
-                vertical: Sizes.height21,
+                vertical: Sizes.height18,
               ),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(Sizes.radius13), color: Colors.white),
               child: Row(
@@ -47,9 +47,10 @@ class FilterDateField extends StatelessWidget {
                       fontSize: Sizes.sp20,
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.date_range_outlined,
                     color: ColorPalettes.grey,
+                    size: Sizes.height32,
                   ),
                 ],
               ),

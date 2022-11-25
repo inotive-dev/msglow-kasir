@@ -86,15 +86,29 @@ class Order with _$Order {
   int get totalPayment {
     int _totalPayment = 0;
     orderProducts?.forEach((element) {
-      _totalPayment += element.total ?? 0;
+      final total = element.costPerItem ?? 0;
+      final qty = element.amount ?? 0;
+      _totalPayment += total * qty;
     });
     orderPackages?.forEach((element) {
-      _totalPayment += element.price.toInt();
+      final total = element.price.toInt();
+      final qty = element.quantity;
+      _totalPayment += total * qty;
     });
     orderCustoms?.forEach((element) {
-      _totalPayment += int.parse(element.price ?? '0');
+      final total = int.parse(element.price ?? '0');
+      final qty = int.parse(element.quantity ?? '0');
+      _totalPayment += total * qty;
     });
     return _totalPayment;
+  }
+
+  String productName(TransactionOrderProduct item) {
+    if (item.isPreOrder == true) {
+      return "(Pre-Order)${item.product?.name ?? '-'}";
+    } else {
+      return item.product?.name ?? '-';
+    }
   }
 
   PrintData toPrintData() => PrintData(
@@ -103,10 +117,11 @@ class Order with _$Order {
                 ?.map(
                   (e) => PrintOrderData(
                     quantity: e.amount ?? 0,
-                    costPerItem: int.parse(e.product?.productPriceQuantity?.price ?? '0'),
-                    total: e.total ?? 0,
-                    name: e.product?.name ?? '-',
+                    costPerItem: e.costPerItem ?? 0,
+                    total: int.parse(e.product?.productPriceQuantity?.price ?? '0') * (e.amount ?? 0),
+                    name: productName(e),
                     note: e.note,
+                    isPreOrder: e.isPreOrder,
                   ),
                 )
                 .toList() ??
@@ -115,8 +130,8 @@ class Order with _$Order {
                 ?.map(
                   (e) => PrintOrderData(
                     quantity: e.quantity,
-                    costPerItem: e.package.price != null ? e.package.price!.toInt() : 0,
-                    total: e.price.toInt() * e.quantity,
+                    costPerItem: e.price.toInt(),
+                    total: (e.package.price != null ? e.package.price!.toInt() : 0) * e.quantity,
                     name: e.package.name ?? '-',
                     note: e.note,
                   ),

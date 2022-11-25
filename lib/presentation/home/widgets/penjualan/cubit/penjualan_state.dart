@@ -34,16 +34,24 @@ class PenjualanState with _$PenjualanState {
         products: List.empty(growable: true),
       );
 
+  String productName(OrderProduct item) {
+    if (item.isPreOrder == true) {
+      return "(Pre-Order)${item.product.name ?? '-'}";
+    } else {
+      return item.product.name ?? '-';
+    }
+  }
+
   PrintData toPrintData({required DateTime orderDate, User? cashierData}) => PrintData(
         customer: selectedCustomer,
         orderData: orderItems
             .map((e) => PrintOrderData(
                   quantity: e.quantity,
-                  // costPerItem: int.parse(e.costCategory?.amount ?? '0'),
                   costPerItem: e.product.getStandardPriceInInt(),
                   total: e.product.getStandardPriceInInt() * e.quantity,
-                  name: e.product.name ?? '-',
+                  name: productName(e),
                   note: e.isCustomProduct ? e.product.description : e.note,
+                  isPreOrder: e.isPreOrder,
                 ))
             .toList(),
         orderPackages: [],

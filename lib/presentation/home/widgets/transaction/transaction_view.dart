@@ -30,8 +30,7 @@ class TransactionView extends HookWidget {
     final _searchController = useTextEditingController();
 
     return BlocListener<TransactionCubit, TransactionState>(
-      listenWhen: (previous, current) =>
-          previous.refundOrderResult != current.refundOrderResult,
+      listenWhen: (previous, current) => previous.refundOrderResult != current.refundOrderResult,
       listener: (context, state) {
         state.refundOrderResult.maybeWhen(
           loading: () => GetUtil.showDialog(
@@ -40,8 +39,7 @@ class TransactionView extends HookWidget {
           ),
           success: (data) {
             GetUtil.dismissDialog();
-            context.showSuccessSnackbar(
-                data.message ?? Strings.msgSuccessReffundOrder);
+            context.showSuccessSnackbar(data.message ?? Strings.msgSuccessReffundOrder);
             context.read<TransactionCubit>().fetchTransactions();
             _searchController.clear();
           },
@@ -83,14 +81,14 @@ class TransactionView extends HookWidget {
                             fillColor: Colors.white,
                             filled: true,
                             hintText: 'Cari nama customer atau produk',
+                            hintStyle: TextStyle(fontSize: Sizes.sp18),
                             constraints: BoxConstraints(
                               maxWidth: Sizes.width382,
-                              maxHeight: Sizes.height42,
+                              maxHeight: Sizes.height50,
                             ),
                             border: UnderlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.circular(Sizes.radius6),
+                              borderRadius: BorderRadius.circular(Sizes.radius6),
                             ),
                             prefixIcon: const Icon(Icons.search),
                             isDense: true,
@@ -106,16 +104,12 @@ class TransactionView extends HookWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      TransactionTab(),
-                      AddPemasukanPengeluaranButton()
-                    ],
+                    children: const [TransactionTab(), AddPemasukanPengeluaranButton()],
                   ),
                   Expanded(
                     child: FadeIndexedStack(
                       duration: ThemeUtil.shortAnimationDuration,
-                      index: context.select(
-                          (TransactionCubit element) => element.state.tabIndex),
+                      index: context.select((TransactionCubit element) => element.state.tabIndex),
                       children: [
                         Stack(
                           children: [

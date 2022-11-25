@@ -36,7 +36,7 @@ class PrintConfirmation extends StatelessWidget {
             ),
           ),
           PrintPreview(args: args),
-          if (args.printData != null) SizedBox(height: Sizes.height50),
+          if (args.printData != null || args.closingResponse != null) SizedBox(height: Sizes.height50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

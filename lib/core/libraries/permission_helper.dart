@@ -17,7 +17,7 @@ class PermissionHelper {
         onDenied();
       }
     } catch (e) {
-      log('$e');
+      log('requestPermissionStorage $e');
     }
   }
 
@@ -33,7 +33,7 @@ class PermissionHelper {
         onDenied();
       }
     } catch (e) {
-      log('$e');
+      log('requestPermissionCamera $e');
     }
   }
 }

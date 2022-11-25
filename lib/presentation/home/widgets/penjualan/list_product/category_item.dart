@@ -6,8 +6,7 @@ import '../../../../../core/widgets/my_text.dart';
 import '../../../../../data/remote/response/penjualan/product_categories_and_packages_response.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({Key? key, required this.category, required this.callback})
-      : super(key: key);
+  const CategoryItem({Key? key, required this.category, required this.callback}) : super(key: key);
   final ProductCategory category;
   final VoidCallback callback;
 

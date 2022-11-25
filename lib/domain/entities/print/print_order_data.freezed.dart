@@ -23,13 +23,15 @@ class _$PrintOrderDataTearOff {
       required int costPerItem,
       required int total,
       required String name,
-      String? note}) {
+      String? note,
+      bool? isPreOrder}) {
     return _PrintOrderData(
       quantity: quantity,
       costPerItem: costPerItem,
       total: total,
       name: name,
       note: note,
+      isPreOrder: isPreOrder,
     );
   }
 }
@@ -44,6 +46,7 @@ mixin _$PrintOrderData {
   int get total => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  bool? get isPreOrder => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PrintOrderDataCopyWith<PrintOrderData> get copyWith =>
@@ -56,7 +59,12 @@ abstract class $PrintOrderDataCopyWith<$Res> {
           PrintOrderData value, $Res Function(PrintOrderData) then) =
       _$PrintOrderDataCopyWithImpl<$Res>;
   $Res call(
-      {int quantity, int costPerItem, int total, String name, String? note});
+      {int quantity,
+      int costPerItem,
+      int total,
+      String name,
+      String? note,
+      bool? isPreOrder});
 }
 
 /// @nodoc
@@ -75,6 +83,7 @@ class _$PrintOrderDataCopyWithImpl<$Res>
     Object? total = freezed,
     Object? name = freezed,
     Object? note = freezed,
+    Object? isPreOrder = freezed,
   }) {
     return _then(_value.copyWith(
       quantity: quantity == freezed
@@ -97,6 +106,10 @@ class _$PrintOrderDataCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -109,7 +122,12 @@ abstract class _$PrintOrderDataCopyWith<$Res>
       __$PrintOrderDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int quantity, int costPerItem, int total, String name, String? note});
+      {int quantity,
+      int costPerItem,
+      int total,
+      String name,
+      String? note,
+      bool? isPreOrder});
 }
 
 /// @nodoc
@@ -130,6 +148,7 @@ class __$PrintOrderDataCopyWithImpl<$Res>
     Object? total = freezed,
     Object? name = freezed,
     Object? note = freezed,
+    Object? isPreOrder = freezed,
   }) {
     return _then(_PrintOrderData(
       quantity: quantity == freezed
@@ -152,6 +171,10 @@ class __$PrintOrderDataCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      isPreOrder: isPreOrder == freezed
+          ? _value.isPreOrder
+          : isPreOrder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -164,7 +187,8 @@ class _$_PrintOrderData extends _PrintOrderData {
       required this.costPerItem,
       required this.total,
       required this.name,
-      this.note})
+      this.note,
+      this.isPreOrder})
       : super._();
 
   @override
@@ -177,10 +201,12 @@ class _$_PrintOrderData extends _PrintOrderData {
   final String name;
   @override
   final String? note;
+  @override
+  final bool? isPreOrder;
 
   @override
   String toString() {
-    return 'PrintOrderData(quantity: $quantity, costPerItem: $costPerItem, total: $total, name: $name, note: $note)';
+    return 'PrintOrderData(quantity: $quantity, costPerItem: $costPerItem, total: $total, name: $name, note: $note, isPreOrder: $isPreOrder)';
   }
 
   @override
@@ -193,7 +219,9 @@ class _$_PrintOrderData extends _PrintOrderData {
                 .equals(other.costPerItem, costPerItem) &&
             const DeepCollectionEquality().equals(other.total, total) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.note, note));
+            const DeepCollectionEquality().equals(other.note, note) &&
+            const DeepCollectionEquality()
+                .equals(other.isPreOrder, isPreOrder));
   }
 
   @override
@@ -203,7 +231,8 @@ class _$_PrintOrderData extends _PrintOrderData {
       const DeepCollectionEquality().hash(costPerItem),
       const DeepCollectionEquality().hash(total),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(note));
+      const DeepCollectionEquality().hash(note),
+      const DeepCollectionEquality().hash(isPreOrder));
 
   @JsonKey(ignore: true)
   @override
@@ -217,7 +246,8 @@ abstract class _PrintOrderData extends PrintOrderData {
       required int costPerItem,
       required int total,
       required String name,
-      String? note}) = _$_PrintOrderData;
+      String? note,
+      bool? isPreOrder}) = _$_PrintOrderData;
   const _PrintOrderData._() : super._();
 
   @override
@@ -230,6 +260,8 @@ abstract class _PrintOrderData extends PrintOrderData {
   String get name;
   @override
   String? get note;
+  @override
+  bool? get isPreOrder;
   @override
   @JsonKey(ignore: true)
   _$PrintOrderDataCopyWith<_PrintOrderData> get copyWith =>

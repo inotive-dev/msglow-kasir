@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i11;
 import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart' as _i9;
 import 'package:flutter_bluetooth_basic/flutter_bluetooth_basic.dart' as _i3;
@@ -61,9 +62,16 @@ import 'register_module.dart' as _i48; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
-_i1.GetIt $initGetIt(_i1.GetIt get,
-    {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
-  final gh = _i2.GetItHelper(get, environment, environmentFilter);
+_i1.GetIt $initGetIt(
+  _i1.GetIt get, {
+  String? environment,
+  _i2.EnvironmentFilter? environmentFilter,
+}) {
+  final gh = _i2.GetItHelper(
+    get,
+    environment,
+    environmentFilter,
+  );
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i3.BluetoothManager>(
       () => registerModule.bluetoothManager());
@@ -75,16 +83,25 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i8.LocalDataSource(get<_i5.HiveManager>()));
   gh.lazySingleton<_i9.PrinterBluetoothManager>(
       () => registerModule.printerManager());
-  gh.factory<String>(() => registerModule.baseUrl, instanceName: 'BaseUrl');
+  gh.factory<String>(
+    () => registerModule.baseUrl,
+    instanceName: 'BaseUrl',
+  );
   gh.factory<_i10.ThermalPrinterManager>(() => _i10.ThermalPrinterManager(
-      get<_i9.PrinterBluetoothManager>(), get<_i3.BluetoothManager>()));
+        get<_i9.PrinterBluetoothManager>(),
+        get<_i3.BluetoothManager>(),
+      ));
   gh.lazySingleton<_i11.Dio>(() => registerModule.dio(
-      get<String>(instanceName: 'BaseUrl'), get<_i8.LocalDataSource>()));
+        get<String>(instanceName: 'BaseUrl'),
+        get<_i8.LocalDataSource>(),
+      ));
   gh.lazySingleton<_i12.ApiService>(() => _i12.ApiService(get<_i11.Dio>()));
   gh.lazySingleton<_i13.RemoteDataSource>(
       () => _i13.RemoteDataSource(get<_i12.ApiService>()));
   gh.lazySingleton<_i14.MyRepository>(() => _i15.MyRepositoryImpl(
-      get<_i13.RemoteDataSource>(), get<_i8.LocalDataSource>()));
+        get<_i13.RemoteDataSource>(),
+        get<_i8.LocalDataSource>(),
+      ));
   gh.lazySingleton<_i16.RefundOrderUseCase>(
       () => _i16.RefundOrderUseCase(myRepository: get<_i14.MyRepository>()));
   gh.lazySingleton<_i17.SendClosingMailUseCase>(() =>
@@ -137,41 +154,47 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i39.GetUserUseCase>(
       () => _i39.GetUserUseCase(myRepository: get<_i14.MyRepository>()));
   gh.factory<_i40.InputPenjualanCubit>(() => _i40.InputPenjualanCubit(
-      get<_i33.FetchListPengeluaranUseCase>(),
-      get<_i24.AddPengeluaranBaruUseCase>()));
+        get<_i33.FetchListPengeluaranUseCase>(),
+        get<_i24.AddPengeluaranBaruUseCase>(),
+      ));
   gh.factory<_i41.LoginCubit>(
       () => _i41.LoginCubit(get<_i28.DoLoginUseCase>()));
   gh.factory<_i42.MainCubit>(
       () => _i42.MainCubit(get<_i26.CheckLoginStatusUseCase>()));
   gh.factory<_i43.PenjualanCubit>(() => _i43.PenjualanCubit(
-      get<_i35.FetchProductListUseCase>(),
-      get<_i18.SubmitOrderUseCase>(),
-      get<_i31.FetchCustomersUseCase>(),
-      get<_i10.ThermalPrinterManager>(),
-      get<_i30.FetchBankAccountListUse>(),
-      get<_i19.UpdateOrderPrintStatusUsecase>()));
+        get<_i35.FetchProductListUseCase>(),
+        get<_i18.SubmitOrderUseCase>(),
+        get<_i31.FetchCustomersUseCase>(),
+        get<_i10.ThermalPrinterManager>(),
+        get<_i30.FetchBankAccountListUse>(),
+        get<_i19.UpdateOrderPrintStatusUsecase>(),
+      ));
   gh.factory<_i44.PrinterCubit>(() => _i44.PrinterCubit(
-      get<_i10.ThermalPrinterManager>(),
-      get<_i39.GetUserUseCase>(),
-      get<_i19.UpdateOrderPrintStatusUsecase>()));
+        get<_i10.ThermalPrinterManager>(),
+        get<_i39.GetUserUseCase>(),
+        get<_i19.UpdateOrderPrintStatusUsecase>(),
+      ));
   gh.factory<_i45.ProfileCubit>(() => _i45.ProfileCubit(
-      get<_i29.DoLogoutUseCase>(),
-      get<_i39.GetUserUseCase>(),
-      get<_i21.UpdateProfileUseCase>()));
+        get<_i29.DoLogoutUseCase>(),
+        get<_i39.GetUserUseCase>(),
+        get<_i21.UpdateProfileUseCase>(),
+      ));
   gh.factory<_i46.TransactionCubit>(() => _i46.TransactionCubit(
-      get<_i37.FetchTransactionsUseCase>(),
-      get<_i16.RefundOrderUseCase>(),
-      get<_i27.ClosingUseCase>(),
-      get<_i17.SendClosingMailUseCase>(),
-      get<_i38.GetClosingMailUseCase>(),
-      get<_i34.FetchOutcomesUseCase>(),
-      get<_i23.AddInOutcomeUseCase>(),
-      get<_i32.FetchIncomeListUseCase>(),
-      get<_i19.UpdateOrderPrintStatusUsecase>(),
-      get<_i20.UpdatePreOrderStatusUsecase>()));
+        get<_i37.FetchTransactionsUseCase>(),
+        get<_i16.RefundOrderUseCase>(),
+        get<_i27.ClosingUseCase>(),
+        get<_i17.SendClosingMailUseCase>(),
+        get<_i38.GetClosingMailUseCase>(),
+        get<_i34.FetchOutcomesUseCase>(),
+        get<_i23.AddInOutcomeUseCase>(),
+        get<_i32.FetchIncomeListUseCase>(),
+        get<_i19.UpdateOrderPrintStatusUsecase>(),
+        get<_i20.UpdatePreOrderStatusUsecase>(),
+      ));
   gh.factory<_i47.AddCustomerCubit>(() => _i47.AddCustomerCubit(
-      get<_i36.FetchStatusCustomerListUseCase>(),
-      get<_i22.AddCustomerUseCase>()));
+        get<_i36.FetchStatusCustomerListUseCase>(),
+        get<_i22.AddCustomerUseCase>(),
+      ));
   return get;
 }
 

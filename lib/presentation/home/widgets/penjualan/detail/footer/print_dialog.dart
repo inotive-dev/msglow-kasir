@@ -70,6 +70,11 @@ class PrintDialog extends StatelessWidget {
             child: BlocBuilder<PrinterCubit, PrinterState>(
               buildWhen: (previous, current) => previous.isPrinterConnected != current.isPrinterConnected,
               builder: (context, state) {
+                // TODO: Uncomment for test
+                // return PrintConfirmation(
+                //   args: args,
+                // );
+
                 if (_kDisablePrinterDetection) {
                   return PrintConfirmation(
                     args: args,

@@ -16,8 +16,7 @@ class ListProductSectionController extends GetxController {
   final productPackageListObs = <ProductPackage>[].obs;
   final _selectedProductCategoryObs = Rxn<ProductCategory>();
 
-  Rxn<ProductCategory> get selectedProductCategoryOs =>
-      _selectedProductCategoryObs;
+  Rxn<ProductCategory> get selectedProductCategoryOs => _selectedProductCategoryObs;
   final productListObs = <Product>[].obs;
   final resultStateObs = Rx<RxStatus>(RxStatus.empty());
   final listKasirObs = <User>[].obs;
@@ -57,9 +56,7 @@ class ListProductSectionController extends GetxController {
 
   void loadProductCategoryAndPackages() {
     resultStateObs.value = RxStatus.loading();
-    _repository
-        .getProductCategoriesAndPackages()
-        .then((ProductCategoriesAndPackagesResponse result) {
+    _repository.getProductCategoriesAndPackages().then((ProductCategoriesAndPackagesResponse result) {
       fullCategory.clear();
       fullPackages.clear();
       if (result.status.toLowerCase() == "ok") {
@@ -78,16 +75,13 @@ class ListProductSectionController extends GetxController {
     if (_selectedProductCategoryObs.value == null) {
       final categories = <ProductCategory>[];
       final packages = <ProductPackage>[];
-      categories.addAll(fullCategory
-          .where((k) => k.name.toLowerCase().contains(_filter.toLowerCase())));
-      packages.addAll(fullPackages
-          .where((k) => k.name.toLowerCase().contains(_filter.toLowerCase())));
+      categories.addAll(fullCategory.where((k) => k.name.toLowerCase().contains(_filter.toLowerCase())));
+      packages.addAll(fullPackages.where((k) => k.name.toLowerCase().contains(_filter.toLowerCase())));
       productCategoryListObs.value = categories;
       productPackageListObs.value = packages;
     } else {
       final temp = <Product>[];
-      for (Product element
-          in _selectedProductCategoryObs.value?.products ?? []) {
+      for (Product element in _selectedProductCategoryObs.value?.products ?? []) {
         if (element.name.toLowerCase().contains(_filter.toLowerCase())) {
           temp.add(element);
         }
@@ -101,7 +95,8 @@ class ListProductSectionController extends GetxController {
     _repository.getListKasir().then((value) {
       if (value.status.toLowerCase() == "ok") {
         listKasirObs.value = value.users;
-        selectedKasirObs.value = _repository.getUser();
+        final currentUser = _repository.getUser();
+        selectedKasirObs.value = value.users.firstWhere((element) => element.id == currentUser?.id);
       }
     });
   }

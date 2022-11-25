@@ -89,8 +89,7 @@ class ProductItem extends StatelessWidget {
           ),
           // Product price
           MyText(
-            text: formatToIdr(
-                int.parse(product.productPriceQuantities?.first.price ?? '0')),
+            text: formatToIdr(int.parse(product.productPriceQuantities?.first.price ?? '0')),
             color: Colors.white,
             fontSize: Sizes.sp20,
             textType: TextType.bodyText1,
